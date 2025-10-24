@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acervo - Casa da Memória de Piraquara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'roxo': '#8B5CF6',
+                        'verde': '#10B981',
+                        'azul': '#3B82F6',
+                        'amarelo': '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .section-divider {
+            background: linear-gradient(90deg, #8B5CF6, #3B82F6, #10B981, #F59E0B);
+            height: 4px;
+        }
+        .filter-btn.active {
+            background-color: #8B5CF6;
+            color: white;
+        }
+        /* Lazy loading - placeholder enquanto carrega */
+        .lazy-image {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-roxo rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">🏛️</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">Casa da Memória</h1>
+                        <p class="text-sm text-roxo">Piraquara</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden lg:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Início</a>
+                    <a href="acervo.html" class="text-roxo font-bold">Acervo</a>
+                    <a href="index.html#contato" class="text-gray-700 hover:text-roxo font-medium transition-colors">Contato</a>
+                </nav>
+
+                <button id="menuBtn" class="lg:hidden p-2">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden lg:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="index.html" class="text-left py-2 text-gray-700 hover:text-roxo">Início</a>
+                    <a href="acervo.html" class="text-left py-2 text-roxo font-bold">Acervo</a>
+                    <a href="index.html#contato" class="text-left py-2 text-gray-700 hover:text-roxo">Contato</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-roxo via-azul to-verde text-white py-16">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-5xl font-bold mb-4">Acervo Digital</h2>
+                    <p class="text-xl opacity-90">Preservando a memória de Piraquara para as futuras gerações</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Navegação entre seções -->
+        <section class="bg-white py-8 sticky top-[72px] z-40 shadow-md">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="scrollToSection('fotografias')" class="px-6 py-3 rounded-lg bg-gray-100 hover:bg-roxo hover:text-white transition-colors font-medium">
+                        📸 Arquivo Fotográfico
+                    </button>
+                    <button onclick="scrollToSection('documentos')" class="px-6 py-3 rounded-lg bg-gray-100 hover:bg-verde hover:text-white transition-colors font-medium">
+                        📚 Documentos Históricos
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Arquivo Fotográfico -->
+        <section id="fotografias" class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center mb-12">
+                        <div class="text-6xl mb-4">📸</div>
+                        <h3 class="text-4xl font-bold text-gray-800 mb-4">Arquivo Fotográfico</h3>
+                        <p class="text-xl text-gray-600">Imagens históricas que contam a história de Piraquara</p>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="flex flex-wrap justify-center gap-3 mb-12">
+                        <button onclick="filterPhotos('todas')" class="filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            Todas
+                        </button>
+                        <button onclick="filterPhotos('arquitetura')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            Arquitetura
+                        </button>
+                        <button onclick="filterPhotos('eventos')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            Eventos
+                        </button>
+                        <button onclick="filterPhotos('pessoas')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            Pessoas
+                        </button>
+                        <button onclick="filterPhotos('paisagens')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            Paisagens
+                        </button>
+                    </div>
+
+                    <!-- Grid de Fotografias -->
+                    <div id="photosGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <!-- As fotos serão carregadas aqui via JavaScript -->
+                    </div>
+
+                    <!-- Mensagem quando não há fotos -->
+                    <div id="noPhotosMessage" class="text-center py-12 hidden">
+                        <p class="text-gray-500 text-lg">Nenhuma fotografia encontrada para este filtro.</p>
+                    </div>
+
+                    <!-- Botão Carregar Mais -->
+                    <div class="text-center mt-12">
+                        <button id="loadMorePhotos" onclick="loadMorePhotos()" class="px-8 py-3 bg-roxo text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                            Carregar Mais Fotografias
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Documentos Históricos -->
+        <section id="documentos" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center mb-12">
+                        <div class="text-6xl mb-4">📚</div>
+                        <h3 class="text-4xl font-bold text-gray-800 mb-4">Documentos Históricos</h3>
+                        <p class="text-xl text-gray-600">Documentos, mapas e registros que preservam nossa história</p>
+                    </div>
+
+                    <!-- Filtros de Documentos -->
+                    <div class="flex flex-wrap justify-center gap-3 mb-12">
+                        <button onclick="filterDocuments('todos')" class="doc-filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            Todos
+                        </button>
+                        <button onclick="filterDocuments('mapas')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            Mapas
+                        </button>
+                        <button onclick="filterDocuments('registros')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            Registros
+                        </button>
+                        <button onclick="filterDocuments('jornais')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            Jornais
+                        </button>
+                        <button onclick="filterDocuments('certidoes')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            Certidões
+                        </button>
+                    </div>
+
+                    <!-- Grid de Documentos -->
+                    <div id="documentsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Os documentos serão carregados aqui via JavaScript -->
+                    </div>
+
+                    <!-- Mensagem quando não há documentos -->
+                    <div id="noDocumentsMessage" class="text-center py-12 hidden">
+                        <p class="text-gray-500 text-lg">Nenhum documento encontrado para este filtro.</p>
+                    </div>
+
+                    <!-- Botão Carregar Mais -->
+                    <div class="text-center mt-12">
+                        <button id="loadMoreDocuments" onclick="loadMoreDocuments()" class="px-8 py-3 bg-verde text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+                            Carregar Mais Documentos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Informação sobre Contribuições -->
+        <section class="py-16 bg-gradient-to-r from-roxo to-azul text-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h3 class="text-3xl font-bold mb-4">Contribua com o Acervo</h3>
+                    <p class="text-lg mb-6">
+                        Você possui fotografias ou documentos históricos de Piraquara? 
+                        Ajude-nos a preservar a memória da nossa cidade!
+                    </p>
+                    <a href="index.html#contato" class="inline-block px-8 py-3 bg-white text-roxo rounded-lg hover:bg-gray-100 transition-colors font-medium">
+                        Entre em Contato
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-roxo rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold">🏛️</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold">Casa da Memória</h4>
+                            <p class="text-gray-400 text-sm">Piraquara</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-md">
+                        Preservando a história e cultura de Piraquara para as futuras gerações.
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="text-lg font-bold mb-4">Links Rápidos</h5>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-300 hover:text-roxo transition-colors">Início</a>
+                        <a href="acervo.html" class="block text-gray-300 hover:text-roxo transition-colors">Acervo</a>
+                        <a href="index.html#contato" class="block text-gray-300 hover:text-roxo transition-colors">Contato</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="text-lg font-bold mb-4">Contato</h5>
+                    <div class="space-y-2 text-gray-300 text-sm">
+                        <p>📧 casadamemoriapiraquara@gmail.com</p>
+                        <p>📱 (41) 3552-0000</p>
+                        <p>📍 Rua da Memória, 123</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 Casa da Memória de Piraquara. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Lightbox -->
+    <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 hidden p-4" onclick="closeLightbox()">
+        <div class="relative max-w-7xl max-h-[95vh]" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-gray-300 text-4xl font-bold">&times;</button>
+            <img id="lightboxImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
+            <div class="bg-white bg-opacity-90 rounded-lg p-4 mt-4">
+                <h4 id="lightboxTitle" class="text-xl font-bold text-gray-800 mb-2"></h4>
+                <p id="lightboxDescription" class="text-gray-600"></p>
+                <p id="lightboxDate" class="text-sm text-gray-500 mt-2"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DADOS DO ACERVO
+        // Em produção, estes dados devem vir de um banco de dados via API
+        // Esta é uma demonstração
+
+        const photosData = [
+            {
+                id: 1,
+                url: 'https://piraquara.pr.gov.br/storage/content/noticias/1515/galeria/mg162399768img-18042023125212.jpg',
+                title: 'Fachada da Casa da Memória',
+                description: 'Vista frontal do prédio histórico',
+                category: 'arquitetura',
+                date: '2023'
+            },
+            {
+                id: 2,
+                url: 'http://portal.iphan.gov.br/uploads/ckfinder/images/IMG_7686.JPG',
+                title: 'Sala de Exposições',
+                description: 'Interior do museu com exposições permanentes',
+                category: 'arquitetura',
+                date: '2023'
+            },
+            {
+                id: 3,
+                url: 'https://www.piraquara.pr.gov.br/storage/content/noticias/geral/1132/destaque/img_202304131219OyLE.jpg',
+                title: 'Vista Aérea de Piraquara',
+                description: 'Cercada de Verdes Serras',
+                category: 'paisagens',
+                date: '2023'
+            }
+            // Adicionar mais fotos aqui conforme necessário
+        ];
+
+        const documentsData = [
+            // Exemplo de estrutura para documentos
+            // {
+            //     id: 1,
+            //     url: 'caminho/para/documento.jpg',
+            //     title: 'Mapa Histórico de Piraquara',
+            //     description: 'Mapa da cidade de 1950',
+            //     category: 'mapas',
+            //     date: '1950'
+            // }
+        ];
+
+        // ==========================================
+        // VARIÁVEIS DE CONTROLE
+        // ==========================================
+        let currentPhotoFilter = 'todas';
+        let currentDocumentFilter = 'todos';
+        let photosDisplayed = 0;
+        let documentsDisplayed = 0;
+        const itemsPerLoad = 12; // Quantos itens carregar por vez
+
+        // FUNÇÕES DE INICIALIZAÇÃO
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPhotos();
+            loadDocuments();
+        });
+
+        // FUNÇÕES DE FOTOGRAFIAS
+        function loadPhotos() {
+            const filteredPhotos = currentPhotoFilter === 'todas' 
+                ? photosData 
+                : photosData.filter(photo => photo.category === currentPhotoFilter);
+
+            const photosToShow = filteredPhotos.slice(photosDisplayed, photosDisplayed + itemsPerLoad);
+            const grid = document.getElementById('photosGrid');
+
+            if (photosDisplayed === 0) {
+                grid.innerHTML = ''; // Limpa o grid ao trocar de filtro
+            }
+
+            if (filteredPhotos.length === 0) {
+                document.getElementById('noPhotosMessage').classList.remove('hidden');
+                document.getElementById('loadMorePhotos').classList.add('hidden');
+                return;
+            } else {
+                document.getElementById('noPhotosMessage').classList.add('hidden');
+            }
+
+            photosToShow.forEach(photo => {
+                const photoCard = createPhotoCard(photo);
+                grid.appendChild(photoCard);
+            });
+
+            photosDisplayed += photosToShow.length;
+
+            // Esconde botão "Carregar Mais" se não houver mais itens
+            if (photosDisplayed >= filteredPhotos.length) {
+                document.getElementById('loadMorePhotos').classList.add('hidden');
+            } else {
+                document.getElementById('loadMorePhotos').classList.remove('hidden');
+            }
+        }
+
+        function createPhotoCard(photo) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer';
+            card.onclick = () => openLightbox(photo);
+
+            card.innerHTML = `
+                <div class="relative h-64 overflow-hidden lazy-image">
+                    <img src="${photo.url}" 
+                         alt="${photo.title}" 
+                         class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                         loading="lazy"
+                         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect fill=%22%23e5e7eb%22 width=%22400%22 height=%22300%22/><text x=%2250%%22 y=%2250%%22 font-family=%22Arial%22 font-size=%2218%22 fill=%22%239ca3af%22 text-anchor=%22middle%22 dy=%22.3em%22>Imagem não disponível</text></svg>'">
+                </div>
+                <div class="p-4">
+                    <h4 class="font-bold text-gray-800 mb-1">${photo.title}</h4>
+                    <p class="text-sm text-gray-600 mb-2">${photo.description}</p>
+                    <p class="text-xs text-gray-400">${photo.date}</p>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function filterPhotos(category) {
+            currentPhotoFilter = category;
+            photosDisplayed = 0;
+            
+            // Atualiza botões ativos
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            loadPhotos();
+        }
+
+        function loadMorePhotos() {
+            loadPhotos();
+        }
+
+        // FUNÇÕES DE DOCUMENTOS
+        function loadDocuments() {
+            const filteredDocs = currentDocumentFilter === 'todos' 
+                ? documentsData 
+                : documentsData.filter(doc => doc.category === currentDocumentFilter);
+
+            const docsToShow = filteredDocs.slice(documentsDisplayed, documentsDisplayed + itemsPerLoad);
+            const grid = document.getElementById('documentsGrid');
+
+            if (documentsDisplayed === 0) {
+                grid.innerHTML = '';
+            }
+
+            if (filteredDocs.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <div class="text-6xl mb-4">📄</div>
+                        <p class="text-gray-500 text-lg">Documentos históricos em breve.</p>
+                        <p class="text-gray-400 mt-2">Estamos digitalizando nosso acervo documental.</p>
+                    </div>
+                `;
+                document.getElementById('loadMoreDocuments').classList.add('hidden');
+                return;
+            }
+
+            docsToShow.forEach(doc => {
+                const docCard = createDocumentCard(doc);
+                grid.appendChild(docCard);
+            });
+
+            documentsDisplayed += docsToShow.length;
+
+            if (documentsDisplayed >= filteredDocs.length) {
+                document.getElementById('loadMoreDocuments').classList.add('hidden');
+            } else {
+                document.getElementById('loadMoreDocuments').classList.remove('hidden');
+            }
+        }
+
+        function createDocumentCard(doc) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer';
+            card.onclick = () => openLightbox(doc);
+
+            card.innerHTML = `
+                <div class="relative h-80 overflow-hidden lazy-image">
+                    <img src="${doc.url}" 
+                         alt="${doc.title}" 
+                         class="w-full h-full object-contain bg-gray-100 p-4"
+                         loading="lazy">
+                </div>
+                <div class="p-4">
+                    <h4 class="font-bold text-gray-800 mb-1">${doc.title}</h4>
+                    <p class="text-sm text-gray-600 mb-2">${doc.description}</p>
+                    <p class="text-xs text-gray-400">${doc.date}</p>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function filterDocuments(category) {
+            currentDocumentFilter = category;
+            documentsDisplayed = 0;
+            
+            document.querySelectorAll('.doc-filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            loadDocuments();
+        }
+
+        function loadMoreDocuments() {
+            loadDocuments();
+        }
+
+        // LIGHTBOX
+        function openLightbox(item) {
+            document.getElementById('lightboxImage').src = item.url;
+            document.getElementById('lightboxTitle').textContent = item.title;
+            document.getElementById('lightboxDescription').textContent = item.description;
+            document.getElementById('lightboxDate').textContent = `Data: ${item.date}`;
+            document.getElementById('lightbox').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Previne scroll do body
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fechar lightbox com tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // NAVEGAÇÃO
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const headerOffset = 150; // Altura do header sticky
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                document.getElementById('mobileMenu').classList.add('hidden');
+            }
+        }
+
+        // Menu mobile
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
+

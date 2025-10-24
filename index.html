@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa da Memória de Piraquara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'roxo': '#8B5CF6',
+                        'verde': '#10B981',
+                        'azul': '#3B82F6',
+                        'amarelo': '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(59, 130, 246, 0.9) 50%, rgba(16, 185, 129, 0.9) 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .section-divider {
+            background: linear-gradient(90deg, #8B5CF6, #3B82F6, #10B981, #F59E0B);
+            height: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-roxo rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">🏛️</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">Casa da Memória</h1>
+                        <p class="text-sm text-roxo">Piraquara</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden lg:flex space-x-8">
+                    <button onclick="scrollToSection('inicio')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Início</button>
+                    <button onclick="scrollToSection('sobre')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Sobre</button>
+                    <button onclick="scrollToSection('missao')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Missão</button>
+                    <button onclick="scrollToSection('galeria')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Galeria</button>
+                    <button onclick="scrollToSection('horarios')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Horários</button>
+                    <button onclick="scrollToSection('contato')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Contato</button>
+                </nav>
+
+                <button id="menuBtn" class="lg:hidden p-2">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden lg:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <button onclick="scrollToSection('inicio')" class="text-left py-2 text-gray-700 hover:text-roxo">Início</button>
+                    <button onclick="scrollToSection('sobre')" class="text-left py-2 text-gray-700 hover:text-roxo">Sobre</button>
+                    <button onclick="scrollToSection('missao')" class="text-left py-2 text-gray-700 hover:text-roxo">Missão</button>
+                    <button onclick="scrollToSection('galeria')" class="text-left py-2 text-gray-700 hover:text-roxo">Galeria</button>
+                    <button onclick="scrollToSection('horarios')" class="text-left py-2 text-gray-700 hover:text-roxo">Horários</button>
+                    <button onclick="scrollToSection('contato')" class="text-left py-2 text-gray-700 hover:text-roxo">Contato</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section id="inicio" class="relative min-h-full" style="background-image: linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) 50%, rgba(16, 185, 129, 0.8) 100%), url('https://www.piraquara.pr.gov.br/storage/content/noticias/geral/1132/destaque/img_202304131219OyLE.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+            <div class="container mx-auto px-4 py-20">
+                <div class="text-center text-white">
+                    <h2 class="text-5xl lg:text-6xl font-bold mb-6">Casa da Memória</h2>
+                    <h3 class="text-2xl lg:text-3xl mb-8 font-light">Piraquara</h3>
+                    <p class="text-xl lg:text-2xl mb-12 max-w-4xl mx-auto font-light italic">
+                        "Cercada de Verdes Serras, Piraquara abriga uma história emocionante"
+                    </p>
+                    
+                    <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto mt-16">
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-8 card-hover">
+                            <div class="text-4xl mb-4">🏛️</div>
+                            <h4 class="text-xl font-semibold mb-3">Preservação</h4>
+                            <p class="text-sm opacity-90">Mantemos viva a história e cultura de nossa cidade</p>
+                        </div>
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-8 card-hover">
+                            <div class="text-4xl mb-4">📚</div>
+                            <h4 class="text-xl font-semibold mb-3">Educação</h4>
+                            <p class="text-sm opacity-90">Conectamos gerações através do conhecimento</p>
+                        </div>
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-8 card-hover">
+                            <div class="text-4xl mb-4">🤝</div>
+                            <h4 class="text-xl font-semibold mb-3">Comunidade</h4>
+                            <p class="text-sm opacity-90">Um espaço de encontro e celebração cultural</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Sobre Nós -->
+        <section id="sobre" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-4xl font-bold text-gray-800 mb-6">Sobre Nós</h3>
+                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                A Casa da Memória de Piraquara é um espaço dedicado à preservação e valorização da rica história e cultura de nossa cidade. Localizada no coração de Piraquara, nossa instituição serve como um ponto de encontro entre o passado e o presente.
+                            </p>
+                            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                                Fundada com o propósito de manter viva a identidade cultural de Piraquara, oferecemos um ambiente acolhedor onde moradores e visitantes podem descobrir as histórias fascinantes que fazem de nossa cidade um lugar único.
+                            </p>
+                            <button onclick="scrollToSection('contato')" class="bg-roxo text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                                Visite-nos
+                            </button>
+                        </div>
+                        <div class="relative rounded-lg h-96 overflow-hidden">
+                            <!-- Imagens do carrossel -->
+                            <div id="carouselImages" class="w-full h-full relative">
+                                <img src="https://piraquara.pr.gov.br/storage/content/noticias/geral/1515/destaque/img_202304181251QFHJ.jpg"
+                                     class="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000">
+                                <img src="https://piraquara.pr.gov.br/storage/content/noticias/1515/galeria/mg170499793img-18042023125242.jpg"
+                                     class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                                <img src="https://www.piraquara.pr.gov.br/storage/content/noticias/geral/1132/destaque/img_202304131219OyLE.jpg"
+                                     class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                            </div>
+                        
+                            <!-- Gradiente e texto -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-roxo/20 to-azul/20 flex items-end">
+                                <div class="text-white p-6">
+                                    <p class="text-xl font-semibold">Casa da Memória</p>
+                                    <p class="opacity-90">Centro Histórico de Piraquara</p>
+                                </div>
+                            </div>
+                        
+                            <!-- Botões de navegação -->
+                            <button onclick="prevImage()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-40 text-white rounded-full p-3 hover:bg-opacity-60 transition">
+                                &#10094;
+                            </button>
+                            <button onclick="nextImage()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-40 text-white rounded-full p-3 hover:bg-opacity-60 transition">
+                                &#10095;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nossa Missão -->
+        <section id="missao" class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h3 class="text-4xl font-bold text-gray-800 mb-4">Nossa Missão</h3>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Preservar, educar, conectar e inspirar através da história e cultura de Piraquara
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                    <div class="text-center card-hover">
+                        <div class="w-20 h-20 bg-roxo rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl text-white">🎯</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">Preservar</h4>
+                        <p class="text-gray-600">Manter viva a memória histórica através da conservação de documentos e objetos</p>
+                    </div>
+                    <div class="text-center card-hover">
+                        <div class="w-20 h-20 bg-verde rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl text-white">📚</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">Educar</h4>
+                        <p class="text-gray-600">Promover educação patrimonial conectando a comunidade com suas raízes</p>
+                    </div>
+                    <div class="text-center card-hover">
+                        <div class="w-20 h-20 bg-azul rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl text-white">🤝</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">Conectar</h4>
+                        <p class="text-gray-600">Criar pontes entre gerações facilitando diálogo e troca de experiências</p>
+                    </div>
+                    <div class="text-center card-hover">
+                        <div class="w-20 h-20 bg-amarelo rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl text-white">🌟</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">Inspirar</h4>
+                        <p class="text-gray-600">Fortalecer identidade cultural e orgulho pela nossa cidade</p>
+                    </div>
+                </div>
+
+                <!-- Por que Casa da Memória -->
+                <div class="mt-20 bg-gray-50 rounded-2xl p-12 max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h4 class="text-3xl font-bold text-gray-800 mb-4">Por que "Casa da Memória"?</h4>
+                        <div class="text-6xl mb-6">🏠</div>
+                    </div>
+                    <p class="text-lg text-gray-600 leading-relaxed text-center">
+                        O nome representa mais do que um museu - é verdadeiramente uma <strong class="text-roxo">casa</strong> acolhedora onde as memórias de Piraquara encontram seu lugar de celebração. Como uma casa abriga uma família, nossa instituição abriga as <strong class="text-verde">memórias coletivas</strong> de toda a comunidade piraquarense.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Galeria -->
+        <section id="galeria" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h3 class="text-4xl font-bold text-gray-800 mb-4">Galeria</h3>
+                    <p class="text-xl text-gray-600">Conheça nossos espaços e acervo</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="relative rounded-lg h-64 overflow-hidden card-hover cursor-pointer" onclick="openModal('Fachada Principal', 'Vista frontal da Casa da Memória de Piraquara', 'https://piraquara.pr.gov.br/storage/content/noticias/1515/galeria/mg162399768img-18042023125212.jpg')">
+                        <img src="https://piraquara.pr.gov.br/storage/content/noticias/1515/galeria/mg162399768img-18042023125212.jpg" alt="Fachada Principal da Casa da Memória" class="w-full h-full object-cover" onerror="this.src=''; this.alt='Imagem não disponível'; this.style.display='none';">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end">
+                            <p class="text-white font-semibold p-4">Fachada Principal</p>
+                        </div>
+                    </div>
+                    <a href="acervo.html#documentos" class="bg-gradient-to-br from-verde to-amarelo rounded-lg h-64 flex items-center justify-center card-hover cursor-pointer">
+                        <div class="text-center text-white">
+                            <div class="text-4xl mb-2">📚</div>
+                            <p class="font-semibold">Acervo Histórico</p>
+                        </div>
+                    </a>
+                    <div class="relative rounded-lg h-64 overflow-hidden card-hover cursor-pointer" onclick="openModal('Sala de Exposições', 'Espaço interno para exposições e eventos', 'http://portal.iphan.gov.br/uploads/ckfinder/images/IMG_7686.JPG')">
+                        <img src="http://portal.iphan.gov.br/uploads/ckfinder/images/IMG_7686.JPG" alt="Sala de Exposições da Casa da Memória" class="w-full h-full object-cover" onerror="this.src=''; this.alt='Imagem não disponível'; this.style.display='none';">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end">
+                            <p class="text-white font-semibold p-4">Sala de Exposições</p>
+                        </div>
+                    </div>
+                    <a href="acervo.html#fotografias" class="bg-gradient-to-br from-roxo to-verde rounded-lg h-64 flex items-center justify-center card-hover cursor-pointer">
+                        <div class="text-center text-white">
+                            <div class="text-4xl mb-2">📸</div>
+                            <p class="font-semibold">Arquivo Fotográfico</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Horários -->
+        <section id="horarios" class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h3 class="text-4xl font-bold text-gray-800 mb-4">Horários de Funcionamento</h3>
+                        <p class="text-xl text-gray-600">Venha nos visitar</p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <div class="bg-white rounded-2xl shadow-lg p-8">
+                            <h4 class="text-2xl font-bold text-roxo mb-8 text-center">Horários</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                                    <span class="font-semibold text-gray-700">Segunda-feira</span>
+                                    <span class="text-gray-500">Fechado</span>
+                                </div>
+                                <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                                    <span class="font-semibold text-gray-700">Terça a Sexta</span>
+                                    <span class="text-verde font-semibold">9h às 17h</span>
+                                </div>
+                                <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                                    <span class="font-semibold text-gray-700">Sábado</span>
+                                    <span class="text-verde font-semibold">9h às 15h</span>
+                                </div>
+                                <div class="flex justify-between items-center py-3">
+                                    <span class="font-semibold text-gray-700">Domingo</span>
+                                    <span class="text-azul font-semibold">10h às 14h</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="bg-roxo bg-opacity-10 rounded-xl p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="text-2xl mr-3">👥</span>
+                                    <h5 class="text-lg font-bold text-roxo">Visitas Guiadas</h5>
+                                </div>
+                                <p class="text-gray-700">Terças e quintas às 14h</p>
+                                <p class="text-sm text-gray-600">Agendamento recomendado</p>
+                            </div>
+
+                            <div class="bg-verde bg-opacity-10 rounded-xl p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="text-2xl mr-3">🎓</span>
+                                    <h5 class="text-lg font-bold text-verde">Grupos Escolares</h5>
+                                </div>
+                                <p class="text-gray-700">Mediante agendamento</p>
+                                <p class="text-sm text-gray-600">Atividades educativas especiais</p>
+                            </div>
+
+                            <div class="bg-amarelo bg-opacity-10 rounded-xl p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="text-2xl mr-3">🎫</span>
+                                    <h5 class="text-lg font-bold text-amarelo">Entrada Gratuita</h5>
+                                </div>
+                                <p class="text-gray-700">Livre para todos os visitantes</p>
+                                <p class="text-sm text-gray-600">Contribuições voluntárias bem-vindas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Localização e Contato -->
+        <section id="contato" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h3 class="text-4xl font-bold text-gray-800 mb-4">Localização e Contato</h3>
+                        <p class="text-xl text-gray-600">Venha nos conhecer</p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <div class="bg-white rounded-2xl shadow-lg p-8">
+                            <h4 class="text-2xl font-bold text-roxo mb-8">📍 Nossa Localização</h4>
+                            <div class="space-y-4 mb-8">
+                                <p class="text-lg text-gray-700">
+                                    <strong>Endereço:</strong><br>
+                                    Rua da Memória, 123<br>
+                                    Centro Histórico<br>
+                                    Piraquara - PR<br>
+                                    CEP: 83300-000
+                                </p>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-center text-gray-600">
+                                    <span class="text-verde mr-3">🚌</span>
+                                    <span>Próximo ao Terminal Central</span>
+                                </div>
+                                <div class="flex items-center text-gray-600">
+                                    <span class="text-azul mr-3">🚗</span>
+                                    <span>Estacionamento gratuito</span>
+                                </div>
+                                <div class="flex items-center text-gray-600">
+                                    <span class="text-amarelo mr-3">♿</span>
+                                    <span>Acesso para PCD</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-lg p-8">
+                            <h4 class="text-2xl font-bold text-verde mb-8">📞 Entre em Contato</h4>
+                            <div class="space-y-6">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-verde bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-verde">📧</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-gray-700">Email</p>
+                                        <p class="text-azul">casadamemoriapiraquara@gmail.com</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-amarelo bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-amarelo">📱</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-gray-700">Telefone</p>
+                                        <p class="text-azul">(41) 3552-0000</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-roxo bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-roxo">💬</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-gray-700">WhatsApp</p>
+                                        <p class="text-azul">(41) 99999-0000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-roxo rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold">🏛️</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold">Casa da Memória</h4>
+                            <p class="text-gray-400 text-sm">Piraquara</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-md">
+                        Preservando a história e cultura de Piraquara para as futuras gerações.
+                    </p>
+                    <p class="text-sm text-gray-400 italic">
+                        "Cercada de Verdes Serras, Piraquara abriga uma história emocionante"
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="text-lg font-bold mb-4">Links Rápidos</h5>
+                    <div class="space-y-2">
+                        <button onclick="scrollToSection('sobre')" class="block text-gray-300 hover:text-roxo transition-colors">Sobre Nós</button>
+                        <button onclick="scrollToSection('missao')" class="block text-gray-300 hover:text-roxo transition-colors">Nossa Missão</button>
+                        <button onclick="scrollToSection('galeria')" class="block text-gray-300 hover:text-roxo transition-colors">Galeria</button>
+                        <button onclick="scrollToSection('horarios')" class="block text-gray-300 hover:text-roxo transition-colors">Horários</button>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="text-lg font-bold mb-4">Contato</h5>
+                    <div class="space-y-2 text-gray-300 text-sm">
+                        <p>📧 casadamemoriapiraquara@gmail.com</p>
+                        <p>📱 (41) 3552-0000</p>
+                        <p>📍 Rua da Memória, 123</p>
+                        <p>Centro - Piraquara/PR</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 Casa da Memória de Piraquara. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 hidden p-4" onclick="closeModal()">
+        <!-- Modo Imagem: apenas a imagem sem card -->
+        <div id="modalImageMode" class="relative max-w-7xl max-h-[95vh] hidden" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute -top-12 right-0 text-white hover:text-gray-300 text-4xl font-bold">&times;</button>
+            <img id="modalImage" src="" alt="" class="max-w-full max-h-[95vh] object-contain rounded-lg shadow-2xl">
+        </div>
+        
+        <!-- Modo Card: para itens sem imagem -->
+        <div id="modalCardMode" class="bg-white rounded-lg p-8 max-w-2xl mx-4 relative hidden" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-3xl font-bold">&times;</button>
+            <h3 id="modalTitle" class="text-3xl font-bold text-gray-800 mb-6"></h3>
+            <div class="text-center mb-6">
+                <div class="w-full h-64 bg-gradient-to-br from-roxo to-azul rounded-lg flex items-center justify-center">
+                    <div class="text-white">
+                        <div class="text-6xl mb-4">🖼️</div>
+                        <p class="text-lg">Imagem em alta resolução</p>
+                    </div>
+                </div>
+            </div>
+            <p id="modalDescription" class="text-gray-700 text-lg"></p>
+        </div>
+    </div>
+
+    <script>
+        // --- Carrossel "Sobre Nós" ---
+        let currentImage = 0;
+        const images = document.querySelectorAll("#carouselImages img");
+        const totalImages = images.length;
+
+        function showImage(index) {
+            images.forEach((img, i) => {
+                img.style.opacity = i === index ? "1" : "0";
+            });
+        }
+
+        function nextImage() {
+            currentImage = (currentImage + 1) % totalImages;
+            showImage(currentImage);
+        }
+
+        function prevImage() {
+            currentImage = (currentImage - 1 + totalImages) % totalImages;
+            showImage(currentImage);
+        }
+
+        // Rotação automática a cada 5 segundos
+        setInterval(nextImage, 5000);
+
+        // Menu mobile
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll suave
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('mobileMenu').classList.add('hidden');
+            }
+        }
+
+        // Modal
+        function openModal(title, description, imageUrl = null) {
+            const modalImageMode = document.getElementById('modalImageMode');
+            const modalCardMode = document.getElementById('modalCardMode');
+            const modalImage = document.getElementById('modalImage');
+            
+            if (imageUrl) {
+                // Modo Imagem: apenas a imagem sem card
+                modalImage.src = imageUrl;
+                modalImage.alt = title;
+                modalImageMode.classList.remove('hidden');
+                modalCardMode.classList.add('hidden');
+            } else {
+                // Modo Card: com título, descrição e placeholder
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalDescription').textContent = description;
+                modalImageMode.classList.add('hidden');
+                modalCardMode.classList.remove('hidden');
+            }
+            
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'991306ede68802df',t:'MTc2MDkwNTc2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
