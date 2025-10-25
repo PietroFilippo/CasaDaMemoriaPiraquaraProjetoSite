@@ -69,8 +69,8 @@
                 <nav class="hidden lg:flex space-x-8">
                     <button onclick="scrollToSection('inicio')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Início</button>
                     <button onclick="scrollToSection('sobre')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Sobre</button>
-                    <button onclick="scrollToSection('missao')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Missão</button>
-                    <button onclick="scrollToSection('galeria')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Galeria</button>
+                    <a href="acervo.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Acervo</a>
+                    <a href="programacao.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Programação</a>
                     <button onclick="scrollToSection('horarios')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Horários</button>
                     <button onclick="scrollToSection('contato')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Contato</button>
                 </nav>
@@ -87,8 +87,8 @@
                 <div class="flex flex-col space-y-2">
                     <button onclick="scrollToSection('inicio')" class="text-left py-2 text-gray-700 hover:text-roxo">Início</button>
                     <button onclick="scrollToSection('sobre')" class="text-left py-2 text-gray-700 hover:text-roxo">Sobre</button>
-                    <button onclick="scrollToSection('missao')" class="text-left py-2 text-gray-700 hover:text-roxo">Missão</button>
-                    <button onclick="scrollToSection('galeria')" class="text-left py-2 text-gray-700 hover:text-roxo">Galeria</button>
+                    <a href="acervo.html" class="text-left py-2 text-gray-700 hover:text-roxo">Acervo</a>
+                    <a href="programacao.html" class="text-left py-2 text-gray-700 hover:text-roxo">Programação</a>
                     <button onclick="scrollToSection('horarios')" class="text-left py-2 text-gray-700 hover:text-roxo">Horários</button>
                     <button onclick="scrollToSection('contato')" class="text-left py-2 text-gray-700 hover:text-roxo">Contato</button>
                 </div>
@@ -267,17 +267,36 @@
         <!-- Projetos e Publicações -->
         <section class="py-20 bg-white">
             <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto">
+                <div class="max-w-5xl mx-auto">
                     <div class="text-center mb-12">
                         <h3 class="text-4xl font-bold text-gray-800 mb-4">Projetos e Publicações</h3>
                         <div class="text-5xl mb-6">📰</div>
                     </div>
                     
-                    <div class="bg-gradient-to-br from-roxo to-azul rounded-2xl p-8 text-white shadow-xl">
-                        <h4 class="text-2xl font-bold mb-4">Boletim da Memória</h4>
-                        <p class="text-lg leading-relaxed">
-                            Projeto da Casa da Memória que tem por objetivo informar sobre a documentação em relação ao município de Piraquara. O boletim também traz informações que tratam do trabalho com o acervo, utilizando metodologias diversas, principalmente história oral, revisão bibliográfica, texto museológico, entre outras.
-                        </p>
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <a href="programacao.html#boletins" class="bg-gradient-to-br from-roxo to-azul rounded-2xl p-8 text-white shadow-xl card-hover cursor-pointer block">
+                            <div class="text-4xl mb-4">📰</div>
+                            <h4 class="text-2xl font-bold mb-4">Boletim da Memória</h4>
+                            <p class="text-lg leading-relaxed mb-4">
+                                Projeto da Casa da Memória que tem por objetivo informar sobre a documentação em relação ao município de Piraquara.
+                            </p>
+                            <div class="flex items-center text-white text-sm font-semibold">
+                                <span>Ver Boletins</span>
+                                <span class="ml-2">→</span>
+                            </div>
+                        </a>
+
+                        <a href="programacao.html#atividades" class="bg-gradient-to-br from-verde to-amarelo rounded-2xl p-8 text-white shadow-xl card-hover cursor-pointer block">
+                            <div class="text-4xl mb-4">📅</div>
+                            <h4 class="text-2xl font-bold mb-4">Programação e Atividades</h4>
+                            <p class="text-lg leading-relaxed mb-4">
+                                Confira as atividades realizadas e programe-se para os próximos eventos da Casa da Memória.
+                            </p>
+                            <div class="flex items-center text-white text-sm font-semibold">
+                                <span>Ver Programação</span>
+                                <span class="ml-2">→</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Casa da Memória</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'roxo': '#8B5CF6',
+                        'verde': '#10B981',
+                        'azul': '#3B82F6',
+                        'amarelo': '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-active {
+            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+            color: white;
+        }
+        .form-section {
+            display: none;
+        }
+        .form-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Login Screen -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-roxo rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white text-3xl">🏛️</span>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Painel Administrativo</h1>
+                <p class="text-gray-600">Casa da Memória de Piraquara</p>
+            </div>
+
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Email</label>
+                    <input type="email" id="login-email" required 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                           placeholder="admin@casadamemoria.gov.br">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Senha</label>
+                    <input type="password" id="login-password" required 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                           placeholder="••••••••">
+                </div>
+                <div id="login-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm"></div>
+                <button type="submit" class="w-full bg-gradient-to-r from-roxo to-azul text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                    Entrar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-lg">
+            <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-roxo rounded-full flex items-center justify-center">
+                        <span class="text-white text-xl">🏛️</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">Painel Admin</h1>
+                        <p class="text-sm text-gray-600" id="user-email">admin@email.com</p>
+                    </div>
+                </div>
+                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                    Sair
+                </button>
+            </div>
+        </header>
+
+        <div class="container mx-auto px-4 py-8">
+            <!-- Tabs -->
+            <div class="flex flex-wrap gap-4 mb-8">
+                <button onclick="showTab('boletins')" class="tab-btn tab-active px-6 py-3 rounded-lg font-semibold transition-all">
+                    📰 Boletins
+                </button>
+                <button onclick="showTab('atividades')" class="tab-btn px-6 py-3 rounded-lg font-semibold bg-gray-200 text-gray-700 transition-all">
+                    📅 Atividades
+                </button>
+                <button onclick="showTab('acervo')" class="tab-btn px-6 py-3 rounded-lg font-semibold bg-gray-200 text-gray-700 transition-all">
+                    📚 Acervo
+                </button>
+            </div>
+
+            <!-- Boletins Section -->
+            <div id="section-boletins" class="form-section active">
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Adicionar Boletim da Memória</h2>
+                    <form id="form-boletim" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Título *</label>
+                                <input type="text" id="boletim-titulo" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       placeholder="Ex: Janeiro 2024">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Edição *</label>
+                                <input type="text" id="boletim-edicao" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       placeholder="Ex: Edição nº 1">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Data da Publicação *</label>
+                            <input type="text" id="boletim-data" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                   placeholder="Ex: 01/2024 ou Janeiro/2024">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Descrição</label>
+                            <textarea id="boletim-descricao" rows="3" 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                      placeholder="Breve descrição do conteúdo do boletim"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Arquivo PDF *</label>
+                            <input type="file" id="boletim-pdf" accept=".pdf" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                            <p class="text-sm text-gray-500 mt-1">Tamanho máximo: 10MB</p>
+                        </div>
+                        <div id="boletim-progress" class="hidden">
+                            <div class="bg-gray-200 rounded-full h-4">
+                                <div id="boletim-progress-bar" class="bg-gradient-to-r from-roxo to-azul h-4 rounded-full transition-all" style="width: 0%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2 text-center">Enviando... <span id="boletim-progress-text">0%</span></p>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-roxo to-azul text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                            Publicar Boletim
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lista de Boletins -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Boletins Publicados</h3>
+                    <div id="boletins-list" class="space-y-4">
+                        <p class="text-gray-500">Carregando...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Atividades Section -->
+            <div id="section-atividades" class="form-section">
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Adicionar Atividade</h2>
+                    <form id="form-atividade" class="space-y-6">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Título *</label>
+                            <input type="text" id="ativ-titulo" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                   placeholder="Ex: Distribuição de Folder Educativo">
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Tipo *</label>
+                                <select id="ativ-tipo" required 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                    <option value="">Selecione...</option>
+                                    <option value="educativa">Ação Educativa</option>
+                                    <option value="oficina">Oficina</option>
+                                    <option value="exposicao">Exposição</option>
+                                    <option value="palestra">Palestra</option>
+                                    <option value="roda-conversa">Roda de Conversa</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Status *</label>
+                                <select id="ativ-status" required 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                    <option value="proximas">Próxima</option>
+                                    <option value="realizadas">Realizada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Data *</label>
+                                <input type="text" id="ativ-data" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       placeholder="Ex: 22/09 ou 22/09 a 30/09">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Horário *</label>
+                                <input type="text" id="ativ-horario" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       placeholder="Ex: 09:00 às 17:00">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Descrição Curta *</label>
+                            <textarea id="ativ-descricao-curta" rows="2" required 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                      placeholder="Descrição breve (2-3 linhas)"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Descrição Completa *</label>
+                            <textarea id="ativ-descricao-completa" rows="5" required 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                      placeholder="Descrição detalhada da atividade"></textarea>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Local</label>
+                                <input type="text" id="ativ-local" 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       value="No mesmo endereço da instituição | Presencial">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Classificação</label>
+                                <select id="ativ-classificacao" 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                    <option value="Livre (L)">Livre (L)</option>
+                                    <option value="10 anos">10 anos</option>
+                                    <option value="12 anos">12 anos</option>
+                                    <option value="14 anos">14 anos</option>
+                                    <option value="16 anos">16 anos</option>
+                                    <option value="18 anos">18 anos</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-verde to-amarelo text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                            Publicar Atividade
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lista de Atividades -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Atividades Cadastradas</h3>
+                    <div id="atividades-list" class="space-y-4">
+                        <p class="text-gray-500">Carregando...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acervo Section -->
+            <div id="section-acervo" class="form-section">
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Adicionar ao Acervo</h2>
+                    <form id="form-acervo" class="space-y-6">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Tipo *</label>
+                            <select id="acervo-tipo" required 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                <option value="">Selecione...</option>
+                                <option value="fotografia">Fotografia</option>
+                                <option value="documento">Documento</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Título *</label>
+                            <input type="text" id="acervo-titulo" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                   placeholder="Ex: Vista da Praça Central">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Descrição *</label>
+                            <textarea id="acervo-descricao" rows="3" required 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                      placeholder="Descrição detalhada do item"></textarea>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Categoria *</label>
+                                <select id="acervo-categoria" required 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                    <option value="">Selecione...</option>
+                                    <option value="arquitetura">Arquitetura</option>
+                                    <option value="eventos">Eventos</option>
+                                    <option value="pessoas">Pessoas</option>
+                                    <option value="paisagens">Paisagens</option>
+                                    <option value="documentos">Documentos</option>
+                                    <option value="mapas">Mapas</option>
+                                    <option value="jornais">Jornais</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Ano</label>
+                                <input type="text" id="acervo-ano" 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       placeholder="Ex: 1980">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Arquivo (Imagem ou PDF) *</label>
+                            <input type="file" id="acervo-arquivo" accept="image/*,.pdf" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                            <p class="text-sm text-gray-500 mt-1">Tamanho máximo: 10MB</p>
+                        </div>
+                        <div id="acervo-progress" class="hidden">
+                            <div class="bg-gray-200 rounded-full h-4">
+                                <div id="acervo-progress-bar" class="bg-gradient-to-r from-azul to-verde h-4 rounded-full transition-all" style="width: 0%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2 text-center">Enviando... <span id="acervo-progress-text">0%</span></p>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-azul to-roxo text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                            Adicionar ao Acervo
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lista do Acervo -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Itens do Acervo</h3>
+                    <div class="flex gap-4 mb-4">
+                        <button onclick="filterAcervo('todos')" class="filter-acervo active px-4 py-2 rounded-lg text-sm font-semibold bg-roxo text-white">
+                            Todos
+                        </button>
+                        <button onclick="filterAcervo('fotografia')" class="filter-acervo px-4 py-2 rounded-lg text-sm font-semibold bg-gray-200 text-gray-700">
+                            Fotografias
+                        </button>
+                        <button onclick="filterAcervo('documento')" class="filter-acervo px-4 py-2 rounded-lg text-sm font-semibold bg-gray-200 text-gray-700">
+                            Documentos
+                        </button>
+                    </div>
+                    <div id="acervo-list" class="space-y-4">
+                        <p class="text-gray-500">Carregando...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+        // ⚠️ IMPORTANTE: Substitua com suas credenciais do Firebase
+        // Veja FIREBASE_SETUP.md para instruções
+        const firebaseConfig = {
+            apiKey: "AIzaSyDt-vCVDYnk_ntWK9wd3K0ykWir79b5xyA",
+            authDomain: "casa-memoria-piraquara.firebaseapp.com",
+            projectId: "casa-memoria-piraquara",
+            storageBucket: "casa-memoria-piraquara.firebasestorage.app",
+            messagingSenderId: "74803101661",
+            appId: "1:74803101661:web:5ed1c8527329d47740c034",
+            measurementId: "G-BVXBY1D482"
+            };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Tornar disponível globalmente
+        window.auth = auth;
+        window.db = db;
+        window.storage = storage;
+        window.firebaseModules = { 
+            signInWithEmailAndPassword, 
+            signOut, 
+            onAuthStateChanged,
+            collection, 
+            addDoc, 
+            getDocs, 
+            deleteDoc, 
+            doc,
+            query,
+            orderBy,
+            ref, 
+            uploadBytesResumable, 
+            getDownloadURL,
+            deleteObject
+        };
+
+        // Verificar autenticação
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('admin-dashboard').classList.remove('hidden');
+                document.getElementById('user-email').textContent = user.email;
+                loadAllData();
+            } else {
+                document.getElementById('login-screen').classList.remove('hidden');
+                document.getElementById('admin-dashboard').classList.add('hidden');
+            }
+        });
+    </script>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
+

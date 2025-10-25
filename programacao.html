@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programação e Boletins - Casa da Memória</title>
+    
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDt-vCVDYnk_ntWK9wd3K0ykWir79b5xyA",
+            authDomain: "casa-memoria-piraquara.firebaseapp.com",
+            projectId: "casa-memoria-piraquara",
+            storageBucket: "casa-memoria-piraquara.firebasestorage.app",
+            messagingSenderId: "74803101661",
+            appId: "1:74803101661:web:5ed1c8527329d47740c034",
+            measurementId: "G-BVXBY1D482"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Tornar disponível globalmente
+        window.db = db;
+        window.firebaseModules = { collection, getDocs, query, orderBy };
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'roxo': '#8B5CF6',
+                        'verde': '#10B981',
+                        'azul': '#3B82F6',
+                        'amarelo': '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .section-divider {
+            background: linear-gradient(90deg, #8B5CF6, #3B82F6, #10B981, #F59E0B);
+            height: 4px;
+        }
+        #pdf-canvas {
+            border: 1px solid #ddd;
+            max-width: 100%;
+            height: auto;
+        }
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-roxo rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">🏛️</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">Casa da Memória</h1>
+                        <p class="text-sm text-roxo">Manoel Alves Pereira</p>
+                    </div>
+                </a>
+                
+                <nav class="hidden lg:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Início</a>
+                    <a href="acervo.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Acervo</a>
+                    <a href="#boletins" class="text-gray-700 hover:text-roxo font-medium transition-colors">Boletins</a>
+                    <a href="#atividades" class="text-gray-700 hover:text-roxo font-medium transition-colors">Atividades</a>
+                    <a href="index.html#contato" class="text-gray-700 hover:text-roxo font-medium transition-colors">Contato</a>
+                </nav>
+
+                <button id="menuBtn" class="lg:hidden p-2">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden lg:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="index.html" class="text-left py-2 text-gray-700 hover:text-roxo">Início</a>
+                    <a href="acervo.html" class="text-left py-2 text-gray-700 hover:text-roxo">Acervo</a>
+                    <a href="#boletins" class="text-left py-2 text-gray-700 hover:text-roxo">Boletins</a>
+                    <a href="#atividades" class="text-left py-2 text-gray-700 hover:text-roxo">Atividades</a>
+                    <a href="index.html#contato" class="text-left py-2 text-gray-700 hover:text-roxo">Contato</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-roxo via-azul to-verde py-16">
+            <div class="container mx-auto px-4 text-center text-white">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4">Programação e Publicações</h2>
+                <p class="text-xl lg:text-2xl font-light">Boletins da Memória e Atividades</p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Boletins da Memória -->
+        <section id="boletins" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h3 class="text-4xl font-bold text-gray-800 mb-4">📰 Boletim da Memória</h3>
+                        <p class="text-xl text-gray-600">Publicações mensais sobre a história de Piraquara</p>
+                    </div>
+                    
+                    <!-- Busca de Boletins -->
+                    <div class="mb-8 flex flex-wrap gap-4 justify-center max-w-2xl mx-auto">
+                        <input type="text" 
+                               id="boletim-search" 
+                               placeholder="🔍 Buscar boletim por título..." 
+                               class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                               oninput="searchBoletins()">
+                        <input type="text" 
+                               id="boletim-date-search" 
+                               placeholder="📅 Filtrar por mês/ano (ex: 01/2024)..." 
+                               class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                               oninput="searchBoletins()">
+                        <button onclick="clearBoletimSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                            Limpar
+                        </button>
+                    </div>
+
+                    <div class="grid lg:grid-cols-3 gap-8 mb-12">
+                        <!-- Lista de Boletins -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-gray-50 rounded-xl p-6 sticky top-24">
+                                <h4 class="text-xl font-bold text-gray-800 mb-4">Edições Recentes</h4>
+                                <div id="boletins-list" class="space-y-3">
+                                    
+                                </div>
+                                <!-- Botão Ver Todos -->
+                                <button onclick="showAllBoletinsGallery()" 
+                                        id="ver-todos-boletins-btn" 
+                                        class="w-full mt-4 px-4 py-3 bg-gradient-to-r from-roxo to-azul text-white rounded-lg hover:opacity-90 transition-opacity font-semibold text-sm">
+                                    📋 Ver Todos os Boletins
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Visualizador de PDF -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 id="pdf-title" class="text-xl font-bold text-gray-800">Selecione um boletim</h4>
+                                    <a id="download-btn" href="#" download class="hidden bg-verde text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm font-semibold">
+                                        ⬇️ Baixar PDF
+                                    </a>
+                                </div>
+
+                                <div id="pdf-viewer" class="bg-gray-100 rounded-lg p-4">
+                                    <div id="pdf-loading" class="text-center py-20 text-gray-500">
+                                        <div class="text-6xl mb-4">📄</div>
+                                        <p class="text-lg">Selecione um boletim para visualizar</p>
+                                    </div>
+                                    <canvas id="pdf-canvas" class="mx-auto hidden"></canvas>
+                                </div>
+
+                                <!-- Controles de Navegação do PDF -->
+                                <div id="pdf-controls" class="hidden mt-4 flex items-center justify-between">
+                                    <button onclick="previousPage()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition-colors font-semibold">
+                                        ← Anterior
+                                    </button>
+                                    <div class="text-gray-700">
+                                        Página <span id="page-num">1</span> de <span id="page-count">1</span>
+                                    </div>
+                                    <button onclick="nextPage()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition-colors font-semibold">
+                                        Próxima →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informações sobre o Boletim -->
+                    <div class="bg-gradient-to-br from-roxo to-azul rounded-2xl p-8 text-white">
+                        <h4 class="text-2xl font-bold mb-4">Sobre o Boletim da Memória</h4>
+                        <p class="text-lg leading-relaxed">
+                            O Boletim da Memória tem por objetivo informar sobre a documentação em relação ao município de Piraquara. 
+                            O boletim também traz informações que tratam do trabalho com o acervo, utilizando metodologias diversas, 
+                            principalmente história oral, revisão bibliográfica, texto museológico, entre outras.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Atividades e Programação -->
+        <section id="atividades" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h3 class="text-4xl font-bold text-gray-800 mb-4">📅 Programação e Atividades</h3>
+                        <p class="text-xl text-gray-600">Confira nossa agenda de eventos e atividades</p>
+                    </div>
+
+                    <!-- Filtros e Busca -->
+                    <div class="mb-8 space-y-4">
+                        <!-- Filtros por Status/Tipo -->
+                        <div class="flex flex-wrap gap-4 justify-center">
+                            <button onclick="filterActivities('todas')" class="filter-btn active px-6 py-3 rounded-lg font-semibold bg-gray-200 text-gray-700">
+                                Todas
+                            </button>
+                            <button onclick="filterActivities('proximas')" class="filter-btn px-6 py-3 rounded-lg font-semibold bg-gray-200 text-gray-700">
+                                Próximas
+                            </button>
+                            <button onclick="filterActivities('realizadas')" class="filter-btn px-6 py-3 rounded-lg font-semibold bg-gray-200 text-gray-700">
+                                Realizadas
+                            </button>
+                            <button onclick="filterActivities('educativa')" class="filter-btn px-6 py-3 rounded-lg font-semibold bg-gray-200 text-gray-700">
+                                Ação Educativa
+                            </button>
+                            <button onclick="filterActivities('oficina')" class="filter-btn px-6 py-3 rounded-lg font-semibold bg-gray-200 text-gray-700">
+                                Oficinas
+                            </button>
+                        </div>
+                        
+                        <!-- Busca por Nome e Data -->
+                        <div class="flex flex-wrap gap-4 justify-center max-w-2xl mx-auto">
+                            <input type="text" 
+                                   id="activity-search" 
+                                   placeholder="🔍 Buscar por nome..." 
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-azul"
+                                   oninput="searchActivities()">
+                            <input type="text" 
+                                   id="activity-date-search" 
+                                   placeholder="📅 Buscar por data (ex: 15/11)..." 
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-azul"
+                                   oninput="searchActivities()">
+                            <button onclick="clearActivitySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                                Limpar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Atividades -->
+                    <div id="activities-container" class="grid lg:grid-cols-2 gap-6">
+                        <!-- Atividade 1 - Exemplo -->
+                        <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" data-type="educativa" data-status="realizadas" onclick="openActivityModal('atividade1')">
+                            <div class="relative h-48 bg-gradient-to-br from-roxo to-azul flex items-center justify-center">
+                                <div class="absolute top-4 right-4 bg-white text-roxo px-4 py-2 rounded-full text-sm font-bold">
+                                    ENCERRADA
+                                </div>
+                                <div class="text-white text-center">
+                                    <div class="text-5xl mb-2">📚</div>
+                                    <div class="text-xl font-bold">AÇÃO EDUCATIVA</div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center text-gray-600 mb-3">
+                                    <span class="text-verde mr-2">📅</span>
+                                    <span class="font-semibold">22/09 a 30/09</span>
+                                </div>
+                                <div class="flex items-center text-gray-600 mb-4">
+                                    <span class="text-azul mr-2">🕐</span>
+                                    <span>09:00 às 17:00</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">Distribuição de Folder Educativo</h4>
+                                <p class="text-gray-600 text-sm">
+                                    Distribuição de folder com conteúdo informativo sobre justiça climática e racismo ambiental.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Atividade 2 - Exemplo -->
+                        <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" data-type="oficina" data-status="realizadas" onclick="openActivityModal('atividade2')">
+                            <div class="relative h-48 bg-gradient-to-br from-verde to-amarelo flex items-center justify-center">
+                                <div class="absolute top-4 right-4 bg-white text-verde px-4 py-2 rounded-full text-sm font-bold">
+                                    ENCERRADA
+                                </div>
+                                <div class="text-white text-center">
+                                    <div class="text-5xl mb-2">🎨</div>
+                                    <div class="text-xl font-bold">OFICINA</div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center text-gray-600 mb-3">
+                                    <span class="text-verde mr-2">📅</span>
+                                    <span class="font-semibold">26/09</span>
+                                </div>
+                                <div class="flex items-center text-gray-600 mb-4">
+                                    <span class="text-azul mr-2">🕐</span>
+                                    <span>08:30 às 11:30</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">Museu e Mudança Climática</h4>
+                                <p class="text-gray-600 text-sm">
+                                    Oficina sobre a importância dos museus na conscientização sobre mudanças climáticas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Adicione mais atividades aqui -->
+                    </div>
+
+                    <!-- Mensagem quando não há atividades -->
+                    <div id="no-activities" class="hidden text-center py-12">
+                        <div class="text-6xl mb-4 opacity-30">📅</div>
+                        <p class="text-gray-500 text-lg">Nenhuma atividade encontrada com os filtros selecionados</p>
+                    </div>
+                    
+                    <!-- Botões de Controle de Paginação -->
+                    <div class="flex flex-wrap justify-center gap-4 mt-12">
+                        <button id="showAllActivitiesBtn" onclick="showAllActivitiesGallery()" class="px-8 py-3 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                            📋 Ver Todas as Atividades
+                        </button>
+                        <button id="loadMoreActivitiesBtn" onclick="loadMoreActivities()" class="hidden px-8 py-3 bg-roxo text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                            ➕ Carregar Mais (4)
+                        </button>
+                        <button id="showLessActivitiesBtn" onclick="showLessActivities()" class="hidden px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                            ➖ Mostrar Menos (4)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Modal de Galeria Completa de Boletins -->
+    <div id="boletins-gallery-modal" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto">
+        <div class="sticky top-0 bg-white shadow-md z-10">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800">📰 Todos os Boletins da Memória</h3>
+                    <button onclick="closeBoletinsGalleryModal()" class="text-gray-600 hover:text-gray-800 text-3xl font-bold">
+                        &times;
+                    </button>
+                </div>
+                <!-- Busca na Galeria -->
+                <div class="flex flex-wrap gap-3 justify-center max-w-2xl mx-auto">
+                    <input type="text" 
+                           id="boletim-gallery-search" 
+                           placeholder="🔍 Buscar boletim..." 
+                           class="flex-1 min-w-[200px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           oninput="searchBoletinsInGallery()">
+                    <input type="text" 
+                           id="boletim-gallery-date-search" 
+                           placeholder="📅 Filtrar por data..." 
+                           class="flex-1 min-w-[150px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           oninput="searchBoletinsInGallery()">
+                    <button onclick="clearBoletimGallerySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
+                        Limpar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-8">
+            <div id="boletins-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Boletins serão carregados aqui -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Galeria Completa de Atividades -->
+    <div id="activities-gallery-modal" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto">
+        <div class="sticky top-0 bg-white shadow-md z-10">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 id="activities-gallery-title" class="text-2xl font-bold text-gray-800">Todas as Atividades</h3>
+                    <button onclick="closeActivitiesGalleryModal()" class="text-gray-600 hover:text-gray-800 text-3xl font-bold">
+                        &times;
+                    </button>
+                </div>
+                <!-- Filtros na Galeria -->
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button onclick="filterActivitiesInGallery('todas')" class="gallery-filter-btn active px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm">
+                        Todas
+                    </button>
+                    <button onclick="filterActivitiesInGallery('proximas')" class="gallery-filter-btn px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm">
+                        Próximas
+                    </button>
+                    <button onclick="filterActivitiesInGallery('realizadas')" class="gallery-filter-btn px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm">
+                        Realizadas
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-8">
+            <div id="activities-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Atividades serão carregadas aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes da Atividade -->
+    <div id="activity-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4" onclick="closeActivityModal()">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+            <div class="relative">
+                <button onclick="closeActivityModal()" class="absolute top-4 right-4 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg hover:bg-gray-100 transition-colors z-10">
+                    <span class="text-2xl text-gray-600">×</span>
+                </button>
+                
+                <div id="modal-content">
+                    <!-- Conteúdo será inserido dinamicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-roxo rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold">🏛️</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold">Casa da Memória</h4>
+                            <p class="text-gray-400 text-sm">Manoel Alves Pereira</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-md">
+                        Preservando a história e cultura de Piraquara para as futuras gerações desde 2015.
+                    </p>
+                    <p class="text-sm text-gray-400 italic">
+                        "Cercada de Verdes Serras, Piraquara abriga uma história emocionante"
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="text-lg font-bold mb-4">Links Rápidos</h5>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-300 hover:text-roxo transition-colors">Início</a>
+                        <a href="acervo.html" class="block text-gray-300 hover:text-roxo transition-colors">Acervo</a>
+                        <a href="#boletins" class="block text-gray-300 hover:text-roxo transition-colors">Boletins</a>
+                        <a href="#atividades" class="block text-gray-300 hover:text-roxo transition-colors">Atividades</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="text-lg font-bold mb-4">Contato</h5>
+                    <div class="space-y-2 text-gray-300 text-sm">
+                        <p>📱 (41) 3590-3605</p>
+                        <p>📧 cm.manoelapereira@gmail.com</p>
+                        <p>📍 Av. Getúlio Vargas, 67</p>
+                        <p>Centro - Piraquara/PR</p>
+                        <p>CEP: 83301-011</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 Casa da Memória de Piraquara. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // ==========================================
+        // FUNÇÕES DE PDF REMOVIDAS
+        // ==========================================
+        // As funções de PDF (renderPage, loadPDF, previousPage, nextPage, etc.) 
+        // agora estão no arquivo programacao-firebase.js que gerencia tudo dinamicamente.
+
+        // === FILTROS DE ATIVIDADES ===
+        function filterActivities(filter) {
+            const activities = document.querySelectorAll('.activity-card');
+            const noActivities = document.getElementById('no-activities');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            let visibleCount = 0;
+
+            // Atualizar botões ativos
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(filter) || (filter === 'todas' && btn.textContent === 'Todas')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filtrar atividades
+            activities.forEach(activity => {
+                let shouldShow = false;
+
+                if (filter === 'todas') {
+                    shouldShow = true;
+                } else if (filter === 'proximas' && activity.dataset.status === 'proximas') {
+                    shouldShow = true;
+                } else if (filter === 'realizadas' && activity.dataset.status === 'realizadas') {
+                    shouldShow = true;
+                } else if (activity.dataset.type === filter) {
+                    shouldShow = true;
+                }
+
+                if (shouldShow) {
+                    activity.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    activity.style.display = 'none';
+                }
+            });
+
+            // Mostrar mensagem se não houver atividades
+            if (visibleCount === 0) {
+                noActivities.classList.remove('hidden');
+            } else {
+                noActivities.classList.add('hidden');
+            }
+        }
+
+        // ==========================================
+        // DADOS REMOVIDOS - AGORA CARREGADOS DO FIREBASE
+        // ==========================================
+        // Os dados de atividades e boletins agora são carregados
+        // dinamicamente do Firebase através do script programacao-firebase.js
+        
+        // ⚠️ IMPORTANTE: Não adicione dados hardcoded aqui!
+        // Use o painel administrativo (admin.html) para gerenciar atividades e boletins.
+
+        // Scroll suave para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.includes('#')) {
+                    e.preventDefault();
+                    const element = document.querySelector(href.split('#')[1] ? '#' + href.split('#')[1] : href);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+
+    <!-- Script de integração Firebase -->
+    <script src="js/programacao-firebase.js"></script>
+</body>
+</html>
+

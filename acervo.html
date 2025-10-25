@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acervo - Casa da Memória de Piraquara</title>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, getDocs, query, orderBy, where } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDt-vCVDYnk_ntWK9wd3K0ykWir79b5xyA",
+            authDomain: "casa-memoria-piraquara.firebaseapp.com",
+            projectId: "casa-memoria-piraquara",
+            storageBucket: "casa-memoria-piraquara.firebasestorage.app",
+            messagingSenderId: "74803101661",
+            appId: "1:74803101661:web:5ed1c8527329d47740c034",
+            measurementId: "G-BVXBY1D482"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Tornar disponível globalmente
+        window.db = db;
+        window.firebaseModules = { collection, getDocs, query, orderBy, where };
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -60,6 +84,7 @@
                 <nav class="hidden lg:flex space-x-8">
                     <a href="index.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Início</a>
                     <a href="acervo.html" class="text-roxo font-bold">Acervo</a>
+                    <a href="programacao.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Programação</a>
                     <a href="index.html#contato" class="text-gray-700 hover:text-roxo font-medium transition-colors">Contato</a>
                 </nav>
 
@@ -75,6 +100,7 @@
                 <div class="flex flex-col space-y-2">
                     <a href="index.html" class="text-left py-2 text-gray-700 hover:text-roxo">Início</a>
                     <a href="acervo.html" class="text-left py-2 text-roxo font-bold">Acervo</a>
+                    <a href="programacao.html" class="text-left py-2 text-gray-700 hover:text-roxo">Programação</a>
                     <a href="index.html#contato" class="text-left py-2 text-gray-700 hover:text-roxo">Contato</a>
                 </div>
             </div>
@@ -119,22 +145,51 @@
                     </div>
 
                     <!-- Filtros -->
-                    <div class="flex flex-wrap justify-center gap-3 mb-12">
-                        <button onclick="filterPhotos('todas')" class="filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
-                            Todas
-                        </button>
-                        <button onclick="filterPhotos('arquitetura')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
-                            Arquitetura
-                        </button>
-                        <button onclick="filterPhotos('eventos')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
-                            Eventos
-                        </button>
-                        <button onclick="filterPhotos('pessoas')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
-                            Pessoas
-                        </button>
-                        <button onclick="filterPhotos('paisagens')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
-                            Paisagens
-                        </button>
+                    <div class="mb-8 space-y-4">
+                        <!-- Botões de Filtro -->
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <button onclick="filterPhotos('todas')" class="filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                                Todas
+                            </button>
+                            <button onclick="filterPhotos('arquitetura')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                                Arquitetura
+                            </button>
+                            <button onclick="filterPhotos('eventos')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                                Eventos
+                            </button>
+                            <button onclick="filterPhotos('pessoas')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                                Pessoas
+                            </button>
+                            <button onclick="filterPhotos('paisagens')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                                Paisagens
+                            </button>
+                            <button onclick="filterPhotos('documentos')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                                Documentos
+                            </button>
+                            <button onclick="filterPhotos('mapas')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                                Mapas
+                            </button>
+                            <button onclick="filterPhotos('jornais')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                                Jornais
+                            </button>
+                        </div>
+                        
+                        <!-- Busca -->
+                        <div class="flex flex-wrap gap-4 justify-center max-w-2xl mx-auto">
+                            <input type="text" 
+                                   id="photo-search" 
+                                   placeholder="🔍 Buscar por título..." 
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                   oninput="searchPhotos()">
+                            <input type="text" 
+                                   id="photo-year-search" 
+                                   placeholder="📅 Filtrar por ano (ex: 1980)..." 
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                   oninput="searchPhotos()">
+                            <button onclick="clearPhotoSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                                Limpar
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Grid de Fotografias -->
@@ -147,10 +202,16 @@
                         <p class="text-gray-500 text-lg">Nenhuma fotografia encontrada para este filtro.</p>
                     </div>
 
-                    <!-- Botão Carregar Mais -->
-                    <div class="text-center mt-12">
-                        <button id="loadMorePhotos" onclick="loadMorePhotos()" class="px-8 py-3 bg-roxo text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">
-                            Carregar Mais Fotografias
+                    <!-- Botões de Controle -->
+                    <div class="flex flex-wrap justify-center gap-4 mt-12">
+                        <button id="showAllPhotosBtn" onclick="showAllPhotosGallery()" class="px-8 py-3 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                            📋 Ver Todas as Fotografias
+                        </button>
+                        <button id="loadMorePhotosBtn" onclick="loadMorePhotos()" class="hidden px-8 py-3 bg-roxo text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                            ➕ Carregar Mais (4)
+                        </button>
+                        <button id="showLessPhotosBtn" onclick="showLessPhotos()" class="hidden px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                            ➖ Mostrar Menos (4)
                         </button>
                     </div>
                 </div>
@@ -170,22 +231,51 @@
                     </div>
 
                     <!-- Filtros de Documentos -->
-                    <div class="flex flex-wrap justify-center gap-3 mb-12">
-                        <button onclick="filterDocuments('todos')" class="doc-filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
-                            Todos
-                        </button>
-                        <button onclick="filterDocuments('mapas')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
-                            Mapas
-                        </button>
-                        <button onclick="filterDocuments('registros')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
-                            Registros
-                        </button>
-                        <button onclick="filterDocuments('jornais')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
-                            Jornais
-                        </button>
-                        <button onclick="filterDocuments('certidoes')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
-                            Certidões
-                        </button>
+                    <div class="mb-8 space-y-4">
+                        <!-- Botões de Filtro -->
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <button onclick="filterDocuments('todos')" class="doc-filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                                Todos
+                            </button>
+                            <button onclick="filterDocuments('arquitetura')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                                Arquitetura
+                            </button>
+                            <button onclick="filterDocuments('eventos')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                                Eventos
+                            </button>
+                            <button onclick="filterDocuments('pessoas')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                                Pessoas
+                            </button>
+                            <button onclick="filterDocuments('paisagens')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                                Paisagens
+                            </button>
+                            <button onclick="filterDocuments('documentos')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                                Documentos
+                            </button>
+                            <button onclick="filterDocuments('mapas')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                                Mapas
+                            </button>
+                            <button onclick="filterDocuments('jornais')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                                Jornais
+                            </button>
+                        </div>
+                        
+                        <!-- Busca -->
+                        <div class="flex flex-wrap gap-4 justify-center max-w-2xl mx-auto">
+                            <input type="text" 
+                                   id="doc-search" 
+                                   placeholder="🔍 Buscar por título..." 
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde"
+                                   oninput="searchDocuments()">
+                            <input type="text" 
+                                   id="doc-year-search" 
+                                   placeholder="📅 Filtrar por ano (ex: 1980)..." 
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde"
+                                   oninput="searchDocuments()">
+                            <button onclick="clearDocSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                                Limpar
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Grid de Documentos -->
@@ -198,10 +288,16 @@
                         <p class="text-gray-500 text-lg">Nenhum documento encontrado para este filtro.</p>
                     </div>
 
-                    <!-- Botão Carregar Mais -->
-                    <div class="text-center mt-12">
-                        <button id="loadMoreDocuments" onclick="loadMoreDocuments()" class="px-8 py-3 bg-verde text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
-                            Carregar Mais Documentos
+                    <!-- Botões de Controle -->
+                    <div class="flex flex-wrap justify-center gap-4 mt-12">
+                        <button id="showAllDocsBtn" onclick="showAllDocsGallery()" class="px-8 py-3 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                            📋 Ver Todos os Documentos
+                        </button>
+                        <button id="loadMoreDocsBtn" onclick="loadMoreDocs()" class="hidden px-8 py-3 bg-verde text-white rounded-lg hover:bg-green-600 transition-colors font-medium">
+                            ➕ Carregar Mais (4)
+                        </button>
+                        <button id="showLessDocsBtn" onclick="showLessDocs()" class="hidden px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                            ➖ Mostrar Menos (4)
                         </button>
                     </div>
                 </div>
@@ -269,276 +365,116 @@
         </div>
     </footer>
 
+    <!-- Modal de Galeria Completa -->
+    <div id="gallery-modal" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto">
+        <div class="sticky top-0 bg-white shadow-md z-10">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 id="gallery-modal-title" class="text-2xl font-bold text-gray-800">Todas as Fotografias</h3>
+                    <button onclick="closeGalleryModal()" class="text-gray-600 hover:text-gray-800 text-3xl font-bold">
+                        &times;
+                    </button>
+                </div>
+                <!-- Filtros na Galeria -->
+                <div class="space-y-3">
+                    <!-- Filtros por Categoria -->
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button onclick="filterGallery('todas')" class="gallery-filter-btn active px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                            Todas
+                        </button>
+                        <button onclick="filterGallery('arquitetura')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                            Arquitetura
+                        </button>
+                        <button onclick="filterGallery('eventos')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                            Eventos
+                        </button>
+                        <button onclick="filterGallery('pessoas')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                            Pessoas
+                        </button>
+                        <button onclick="filterGallery('paisagens')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                            Paisagens
+                        </button>
+                        <button onclick="filterGallery('documentos')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                            Documentos
+                        </button>
+                        <button onclick="filterGallery('mapas')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                            Mapas
+                        </button>
+                        <button onclick="filterGallery('jornais')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                            Jornais
+                        </button>
+                    </div>
+                    
+                    <!-- Busca na Galeria -->
+                    <div class="flex flex-wrap gap-3 justify-center max-w-2xl mx-auto">
+                        <input type="text" 
+                               id="gallery-search" 
+                               placeholder="🔍 Buscar por título..." 
+                               class="flex-1 min-w-[200px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                               oninput="searchInGallery()">
+                        <input type="text" 
+                               id="gallery-year-search" 
+                               placeholder="📅 Filtrar por ano..." 
+                               class="flex-1 min-w-[150px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                               oninput="searchInGallery()">
+                        <button onclick="clearGallerySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
+                            Limpar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-8">
+            <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                <!-- Fotos serão carregadas aqui -->
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Lightbox -->
     <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 hidden p-4" onclick="closeLightbox()">
-        <div class="relative max-w-7xl max-h-[95vh]" onclick="event.stopPropagation()">
-            <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-gray-300 text-4xl font-bold">&times;</button>
-            <img id="lightboxImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
-            <div class="bg-white bg-opacity-90 rounded-lg p-4 mt-4">
-                <h4 id="lightboxTitle" class="text-xl font-bold text-gray-800 mb-2"></h4>
-                <p id="lightboxDescription" class="text-gray-600"></p>
-                <p id="lightboxDate" class="text-sm text-gray-500 mt-2"></p>
+        <div class="relative w-full h-full flex items-center justify-center" onclick="event.stopPropagation()">
+            <!-- Botão Fechar -->
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white hover:text-gray-300 text-4xl font-bold z-20 bg-black bg-opacity-50 w-12 h-12 rounded-full flex items-center justify-center">
+                &times;
+            </button>
+            
+            <!-- Botão Info (Toggle Descrição) -->
+            <button onclick="toggleLightboxInfo()" class="absolute bottom-4 right-4 text-white hover:text-gray-300 z-20 bg-black bg-opacity-70 px-4 py-2 rounded-full flex items-center gap-2">
+                <span id="info-icon">ℹ️</span>
+                <span id="info-text">Ver Informações</span>
+            </button>
+            
+            <!-- Conteúdo (Imagem ou PDF) -->
+            <div id="lightbox-content" class="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center">
+                <img id="lightboxImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
+                
+                <!-- Iframe para PDF -->
+                <iframe id="lightboxPDF" src="" class="hidden w-[90vw] h-[90vh] rounded-lg shadow-2xl"></iframe>
+            </div>
+            
+            <!-- Painel de Informações (Oculto por padrão) -->
+            <div id="lightbox-info-panel" class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-95 p-6 rounded-t-2xl transform translate-y-full transition-transform duration-300 max-h-[40vh] overflow-y-auto">
+                <h4 id="lightboxTitle" class="text-2xl font-bold text-gray-800 mb-3"></h4>
+                <p id="lightboxDescription" class="text-gray-600 mb-3"></p>
+                <p id="lightboxDate" class="text-sm text-gray-500"></p>
             </div>
         </div>
     </div>
 
     <script>
-        // DADOS DO ACERVO
-        // Em produção, estes dados devem vir de um banco de dados via API
-        // Esta é uma demonstração
-
-        const photosData = [
-            {
-                id: 1,
-                url: 'https://piraquara.pr.gov.br/storage/content/noticias/1515/galeria/mg162399768img-18042023125212.jpg',
-                title: 'Fachada da Casa da Memória',
-                description: 'Vista frontal do prédio histórico',
-                category: 'arquitetura',
-                date: '2023'
-            },
-            {
-                id: 2,
-                url: 'http://portal.iphan.gov.br/uploads/ckfinder/images/IMG_7686.JPG',
-                title: 'Sala de Exposições',
-                description: 'Interior do museu com exposições permanentes',
-                category: 'arquitetura',
-                date: '2023'
-            },
-            {
-                id: 3,
-                url: 'https://www.piraquara.pr.gov.br/storage/content/noticias/geral/1132/destaque/img_202304131219OyLE.jpg',
-                title: 'Vista Aérea de Piraquara',
-                description: 'Cercada de Verdes Serras',
-                category: 'paisagens',
-                date: '2023'
-            }
-            // Adicionar mais fotos aqui conforme necessário
-        ];
-
-        const documentsData = [
-            // Exemplo de estrutura para documentos
-            // {
-            //     id: 1,
-            //     url: 'caminho/para/documento.jpg',
-            //     title: 'Mapa Histórico de Piraquara',
-            //     description: 'Mapa da cidade de 1950',
-            //     category: 'mapas',
-            //     date: '1950'
-            // }
-        ];
-
         // ==========================================
-        // VARIÁVEIS DE CONTROLE
+        // DADOS REMOVIDOS - AGORA CARREGADOS DO FIREBASE
         // ==========================================
-        let currentPhotoFilter = 'todas';
-        let currentDocumentFilter = 'todos';
-        let photosDisplayed = 0;
-        let documentsDisplayed = 0;
-        const itemsPerLoad = 12; // Quantos itens carregar por vez
-
-        // FUNÇÕES DE INICIALIZAÇÃO
-        document.addEventListener('DOMContentLoaded', function() {
-            loadPhotos();
-            loadDocuments();
-        });
-
-        // FUNÇÕES DE FOTOGRAFIAS
-        function loadPhotos() {
-            const filteredPhotos = currentPhotoFilter === 'todas' 
-                ? photosData 
-                : photosData.filter(photo => photo.category === currentPhotoFilter);
-
-            const photosToShow = filteredPhotos.slice(photosDisplayed, photosDisplayed + itemsPerLoad);
-            const grid = document.getElementById('photosGrid');
-
-            if (photosDisplayed === 0) {
-                grid.innerHTML = ''; // Limpa o grid ao trocar de filtro
-            }
-
-            if (filteredPhotos.length === 0) {
-                document.getElementById('noPhotosMessage').classList.remove('hidden');
-                document.getElementById('loadMorePhotos').classList.add('hidden');
-                return;
-            } else {
-                document.getElementById('noPhotosMessage').classList.add('hidden');
-            }
-
-            photosToShow.forEach(photo => {
-                const photoCard = createPhotoCard(photo);
-                grid.appendChild(photoCard);
-            });
-
-            photosDisplayed += photosToShow.length;
-
-            // Esconde botão "Carregar Mais" se não houver mais itens
-            if (photosDisplayed >= filteredPhotos.length) {
-                document.getElementById('loadMorePhotos').classList.add('hidden');
-            } else {
-                document.getElementById('loadMorePhotos').classList.remove('hidden');
-            }
-        }
-
-        function createPhotoCard(photo) {
-            const card = document.createElement('div');
-            card.className = 'bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer';
-            card.onclick = () => openLightbox(photo);
-
-            card.innerHTML = `
-                <div class="relative h-64 overflow-hidden lazy-image">
-                    <img src="${photo.url}" 
-                         alt="${photo.title}" 
-                         class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                         loading="lazy"
-                         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect fill=%22%23e5e7eb%22 width=%22400%22 height=%22300%22/><text x=%2250%%22 y=%2250%%22 font-family=%22Arial%22 font-size=%2218%22 fill=%22%239ca3af%22 text-anchor=%22middle%22 dy=%22.3em%22>Imagem não disponível</text></svg>'">
-                </div>
-                <div class="p-4">
-                    <h4 class="font-bold text-gray-800 mb-1">${photo.title}</h4>
-                    <p class="text-sm text-gray-600 mb-2">${photo.description}</p>
-                    <p class="text-xs text-gray-400">${photo.date}</p>
-                </div>
-            `;
-
-            return card;
-        }
-
-        function filterPhotos(category) {
-            currentPhotoFilter = category;
-            photosDisplayed = 0;
-            
-            // Atualiza botões ativos
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            loadPhotos();
-        }
-
-        function loadMorePhotos() {
-            loadPhotos();
-        }
-
-        // FUNÇÕES DE DOCUMENTOS
-        function loadDocuments() {
-            const filteredDocs = currentDocumentFilter === 'todos' 
-                ? documentsData 
-                : documentsData.filter(doc => doc.category === currentDocumentFilter);
-
-            const docsToShow = filteredDocs.slice(documentsDisplayed, documentsDisplayed + itemsPerLoad);
-            const grid = document.getElementById('documentsGrid');
-
-            if (documentsDisplayed === 0) {
-                grid.innerHTML = '';
-            }
-
-            if (filteredDocs.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <div class="text-6xl mb-4">📄</div>
-                        <p class="text-gray-500 text-lg">Documentos históricos em breve.</p>
-                        <p class="text-gray-400 mt-2">Estamos digitalizando nosso acervo documental.</p>
-                    </div>
-                `;
-                document.getElementById('loadMoreDocuments').classList.add('hidden');
-                return;
-            }
-
-            docsToShow.forEach(doc => {
-                const docCard = createDocumentCard(doc);
-                grid.appendChild(docCard);
-            });
-
-            documentsDisplayed += docsToShow.length;
-
-            if (documentsDisplayed >= filteredDocs.length) {
-                document.getElementById('loadMoreDocuments').classList.add('hidden');
-            } else {
-                document.getElementById('loadMoreDocuments').classList.remove('hidden');
-            }
-        }
-
-        function createDocumentCard(doc) {
-            const card = document.createElement('div');
-            card.className = 'bg-white rounded-lg overflow-hidden shadow-md card-hover cursor-pointer';
-            card.onclick = () => openLightbox(doc);
-
-            card.innerHTML = `
-                <div class="relative h-80 overflow-hidden lazy-image">
-                    <img src="${doc.url}" 
-                         alt="${doc.title}" 
-                         class="w-full h-full object-contain bg-gray-100 p-4"
-                         loading="lazy">
-                </div>
-                <div class="p-4">
-                    <h4 class="font-bold text-gray-800 mb-1">${doc.title}</h4>
-                    <p class="text-sm text-gray-600 mb-2">${doc.description}</p>
-                    <p class="text-xs text-gray-400">${doc.date}</p>
-                </div>
-            `;
-
-            return card;
-        }
-
-        function filterDocuments(category) {
-            currentDocumentFilter = category;
-            documentsDisplayed = 0;
-            
-            document.querySelectorAll('.doc-filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            loadDocuments();
-        }
-
-        function loadMoreDocuments() {
-            loadDocuments();
-        }
-
-        // LIGHTBOX
-        function openLightbox(item) {
-            document.getElementById('lightboxImage').src = item.url;
-            document.getElementById('lightboxTitle').textContent = item.title;
-            document.getElementById('lightboxDescription').textContent = item.description;
-            document.getElementById('lightboxDate').textContent = `Data: ${item.date}`;
-            document.getElementById('lightbox').classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Previne scroll do body
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Fechar lightbox com tecla ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            }
-        });
-
-        // NAVEGAÇÃO
-        function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                const headerOffset = 150; // Altura do header sticky
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-                document.getElementById('mobileMenu').classList.add('hidden');
-            }
-        }
-
-        // Menu mobile
-        document.getElementById('menuBtn').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('hidden');
-        });
+        // Os dados de fotografias e documentos agora são carregados
+        // dinamicamente do Firebase através do script acervo-firebase.js
+        
+        // ⚠️ IMPORTANTE: Não adicione dados hardcoded aqui!
+        // Use o painel administrativo (admin.html) para gerenciar o acervo.
     </script>
+
+    <!-- Script de integração Firebase -->
+    <script src="js/acervo-firebase.js"></script>
 </body>
 </html>
 
