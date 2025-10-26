@@ -96,16 +96,16 @@ function renderBoletins(boletins) {
                 <div class="flex-1">
                     <h5 class="font-semibold text-gray-800 text-lg mb-2">${boletim.titulo}</h5>
                     <p class="text-sm text-gray-600 mb-2">${boletim.edicao || 'Edição especial'}</p>
-                    ${boletim.data ? `<p class="text-xs text-azul font-semibold mb-2">📅 ${boletim.data}</p>` : ''}
+                    ${boletim.data ? `<p class="text-xs text-cinza-verde font-semibold mb-2">📅 ${boletim.data}</p>` : ''}
                     ${boletim.descricao ? `<p class="text-sm text-gray-500 line-clamp-2">${boletim.descricao}</p>` : ''}
                 </div>
                 <div class="flex flex-col gap-2 ml-4">
                     <button onclick="showBoletimDescription('${boletim.id}')" 
-                            class="px-3 py-1 bg-azul text-white rounded text-sm hover:bg-blue-600 transition-colors">
+                            class="px-3 py-1 bg-cinza-verde text-white rounded text-sm hover:bg-verde-musgo transition-colors">
                         📖 Ver Descrição
                     </button>
                     <button onclick="downloadPDF('${boletim.pdfUrl}', '${boletim.titulo}')" 
-                            class="px-3 py-1 bg-verde text-white rounded text-sm hover:bg-green-600 transition-colors">
+                            class="px-3 py-1 bg-verde-musgo text-white rounded text-sm hover:bg-verde-cultural transition-colors">
                         ⬇️ Baixar PDF
                     </button>
                 </div>
@@ -282,7 +282,7 @@ function renderBoletinsGallery(boletins) {
         };
         
         card.innerHTML = `
-            <div class="relative pb-[75%] overflow-hidden bg-gradient-to-br from-roxo to-purple-600">
+            <div class="relative pb-[75%] overflow-hidden bg-gradient-to-br from-verde-cultural to-cinza-verde">
                 <div class="absolute inset-0 flex items-center justify-center text-white">
                     <div class="text-5xl">📰</div>
                 </div>
@@ -290,7 +290,7 @@ function renderBoletinsGallery(boletins) {
             <div class="p-4">
                 <h4 class="text-sm font-bold text-gray-800 mb-2 line-clamp-2">${boletim.titulo}</h4>
                 <p class="text-xs text-gray-600 mb-1">${boletim.edicao || 'Edição especial'}</p>
-                ${boletim.data ? `<p class="text-xs text-azul font-semibold">📅 ${boletim.data}</p>` : ''}
+                ${boletim.data ? `<p class="text-xs text-cinza-verde font-semibold">📅 ${boletim.data}</p>` : ''}
             </div>
         `;
         
@@ -370,7 +370,7 @@ function tryIframeFallback(url, title, pdfLoading, pdfCanvas, pdfControls, downl
     if (pdfLoading) {
         pdfLoading.innerHTML = `
             <div class="text-center py-20">
-                <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-roxo mx-auto mb-4"></div>
+                <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-verde-cultural mx-auto mb-4"></div>
                 <p class="text-gray-600">Carregando ${title} (modo iframe)...</p>
             </div>
         `;
@@ -395,10 +395,10 @@ function tryIframeFallback(url, title, pdfLoading, pdfCanvas, pdfControls, downl
                     <p class="text-sm mt-2">O PDF demorou muito para carregar</p>
                     <p class="text-xs mt-2 text-gray-500">URL: ${url}</p>
                     <div class="mt-4 space-x-2">
-                        <a href="${url}" target="_blank" class="inline-block px-4 py-2 bg-roxo text-white rounded-lg hover:bg-purple-700 transition-colors">
+                        <a href="${url}" target="_blank" class="inline-block px-4 py-2 bg-verde-cultural text-white rounded-lg hover:bg-verde-musgo transition-colors">
                             🔗 Abrir PDF em nova aba
                         </a>
-                        <button onclick="downloadPDF('${url}', '${title}')" class="inline-block px-4 py-2 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        <button onclick="downloadPDF('${url}', '${title}')" class="inline-block px-4 py-2 bg-cinza-verde text-white rounded-lg hover:bg-verde-musgo transition-colors">
                             🔄 Tentar novamente
                         </button>
                     </div>
@@ -441,10 +441,10 @@ function tryIframeFallback(url, title, pdfLoading, pdfCanvas, pdfControls, downl
                     <p class="text-sm mt-2">Não foi possível carregar o PDF nem com PDF.js nem com iframe</p>
                     <p class="text-xs mt-2 text-gray-500">URL: ${url}</p>
                     <div class="mt-4 space-x-2">
-                        <a href="${url}" target="_blank" class="inline-block px-4 py-2 bg-roxo text-white rounded-lg hover:bg-purple-700 transition-colors">
+                        <a href="${url}" target="_blank" class="inline-block px-4 py-2 bg-verde-cultural text-white rounded-lg hover:bg-verde-musgo transition-colors">
                             🔗 Abrir PDF em nova aba
                         </a>
-                        <button onclick="downloadPDF('${url}', '${title}')" class="inline-block px-4 py-2 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        <button onclick="downloadPDF('${url}', '${title}')" class="inline-block px-4 py-2 bg-cinza-verde text-white rounded-lg hover:bg-verde-musgo transition-colors">
                             🔄 Tentar novamente
                         </button>
                     </div>
@@ -608,16 +608,16 @@ function renderBoletinsGallery(boletins) {
                 <div class="flex-1">
                     <h5 class="font-semibold text-gray-800 text-lg mb-2">${boletim.titulo}</h5>
                     <p class="text-sm text-gray-600 mb-2">${boletim.edicao || 'Edição especial'}</p>
-                    ${boletim.data ? `<p class="text-xs text-azul font-semibold mb-2">📅 ${boletim.data}</p>` : ''}
+                    ${boletim.data ? `<p class="text-xs text-cinza-verde font-semibold mb-2">📅 ${boletim.data}</p>` : ''}
                     ${boletim.descricao ? `<p class="text-sm text-gray-500 line-clamp-2">${boletim.descricao}</p>` : ''}
                 </div>
                 <div class="flex flex-col gap-2 ml-4">
                     <button onclick="showBoletimDescription('${boletim.id}')" 
-                            class="px-3 py-1 bg-azul text-white rounded text-sm hover:bg-blue-600 transition-colors">
+                            class="px-3 py-1 bg-cinza-verde text-white rounded text-sm hover:bg-verde-musgo transition-colors">
                         📖 Ver Descrição
                     </button>
                     <button onclick="downloadPDF('${boletim.pdfUrl}', '${boletim.titulo}')" 
-                            class="px-3 py-1 bg-verde text-white rounded text-sm hover:bg-green-600 transition-colors">
+                            class="px-3 py-1 bg-verde-musgo text-white rounded text-sm hover:bg-verde-cultural transition-colors">
                         ⬇️ Baixar PDF
                     </button>
                 </div>
@@ -725,7 +725,7 @@ function showBoletimDescription(boletimId) {
                     
                     <div class="flex gap-3 pt-4">
                         <button onclick="downloadPDF('${boletim.pdfUrl}', '${boletim.titulo}'); this.closest('.fixed').remove();" 
-                                class="flex-1 bg-verde text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors font-semibold">
+                                class="flex-1 bg-verde-musgo text-white px-4 py-2 rounded-lg hover:bg-verde-cultural transition-colors font-semibold">
                             ⬇️ Baixar PDF
                         </button>
                         <button onclick="this.closest('.fixed').remove()" 
@@ -1055,17 +1055,18 @@ function createActivityCard(id, data) {
     
     // Definir gradientes e cores baseado no tipo
     const typeStyles = {
-        'oficina': { gradient: 'from-roxo to-purple-600', emoji: '🎨' },
-        'palestra': { gradient: 'from-azul to-blue-600', emoji: '🎤' },
-        'exposicao': { gradient: 'from-verde to-green-600', emoji: '🖼️' },
-        'evento': { gradient: 'from-amarelo to-orange-500', emoji: '🎉' }
+        'oficina': { gradient: 'from-verde-cultural to-cinza-verde', emoji: '🎨' },
+        'palestra': { gradient: 'from-cinza-verde to-verde-musgo', emoji: '🎤' },
+        'exposicao': { gradient: 'from-verde-musgo to-areia', emoji: '🖼️' },
+        'evento': { gradient: 'from-areia to-verde-cultural', emoji: '🎉' },
+        'educativa': { gradient: 'from-verde-cultural to-verde-musgo', emoji: '📚' }
     };
     
     const style = typeStyles[data.tipo] || typeStyles['evento'];
     
     // Status labels
     const statusLabels = {
-        'proximas': { text: 'PRÓXIMA', color: 'text-verde' },
+        'proximas': { text: 'PRÓXIMA', color: 'text-verde-musgo-musgo' },
         'realizadas': { text: 'ENCERRADA', color: 'text-gray-500' }
     };
     
@@ -1083,11 +1084,11 @@ function createActivityCard(id, data) {
         </div>
         <div class="p-6">
             <div class="flex items-center text-gray-600 mb-3">
-                <span class="text-verde mr-2">📅</span>
+                <span class="text-verde-musgo-musgo mr-2">📅</span>
                 <span class="font-semibold">${data.data || 'Data a confirmar'}</span>
             </div>
             <div class="flex items-center text-gray-600 mb-4">
-                <span class="text-azul mr-2">🕐</span>
+                <span class="text-cinza-verde mr-2">🕐</span>
                 <span>${data.horario || 'Horário a confirmar'}</span>
             </div>
             <h4 class="text-xl font-bold text-gray-800 mb-2">${data.titulo}</h4>
@@ -1113,10 +1114,11 @@ function openActivityModal(id, data) {
     
     // Definir gradientes baseado no tipo
     const typeStyles = {
-        'oficina': { gradient: 'from-roxo to-purple-600', emoji: '🎨' },
-        'palestra': { gradient: 'from-azul to-blue-600', emoji: '🎤' },
-        'exposicao': { gradient: 'from-verde to-green-600', emoji: '🖼️' },
-        'evento': { gradient: 'from-amarelo to-orange-500', emoji: '🎉' }
+        'oficina': { gradient: 'from-verde-cultural to-cinza-verde', emoji: '🎨' },
+        'palestra': { gradient: 'from-cinza-verde to-verde-musgo', emoji: '🎤' },
+        'exposicao': { gradient: 'from-verde-musgo to-areia', emoji: '🖼️' },
+        'evento': { gradient: 'from-areia to-verde-cultural', emoji: '🎉' },
+        'educativa': { gradient: 'from-verde-cultural to-verde-musgo', emoji: '📚' }
     };
     
     const style = typeStyles[data.tipo] || typeStyles['evento'];
@@ -1134,11 +1136,11 @@ function openActivityModal(id, data) {
             
             <div class="grid grid-cols-2 gap-4 mb-6">
                 <div class="bg-gray-50 rounded-lg p-4">
-                    <div class="text-verde text-sm font-semibold mb-1">📅 Data</div>
+                    <div class="text-verde-musgo text-sm font-semibold mb-1">📅 Data</div>
                     <div class="text-gray-700">${data.data || 'Data a confirmar'}</div>
                 </div>
                 <div class="bg-gray-50 rounded-lg p-4">
-                    <div class="text-azul text-sm font-semibold mb-1">🕐 Horário</div>
+                    <div class="text-cinza-verde text-sm font-semibold mb-1">🕐 Horário</div>
                     <div class="text-gray-700">${data.horario || 'Horário a confirmar'}</div>
                 </div>
             </div>
@@ -1454,10 +1456,11 @@ function renderActivitiesGallery(activities) {
         };
         
         const typeStyles = {
-            'oficina': { gradient: 'from-roxo to-purple-600', emoji: '🎨' },
-            'palestra': { gradient: 'from-azul to-blue-600', emoji: '🎤' },
-            'exposicao': { gradient: 'from-verde to-green-600', emoji: '🖼️' },
-            'evento': { gradient: 'from-amarelo to-orange-500', emoji: '🎉' }
+            'oficina': { gradient: 'from-verde-cultural to-cinza-verde', emoji: '🎨' },
+            'palestra': { gradient: 'from-cinza-verde to-verde-musgo', emoji: '🎤' },
+            'exposicao': { gradient: 'from-verde-musgo to-areia', emoji: '🖼️' },
+            'evento': { gradient: 'from-areia to-verde-cultural', emoji: '🎉' },
+            'educativa': { gradient: 'from-verde-cultural to-verde-musgo', emoji: '📚' }
         };
         
         const style = typeStyles[activity.tipo] || typeStyles['evento'];

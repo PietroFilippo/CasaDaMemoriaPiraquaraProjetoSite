@@ -135,16 +135,16 @@ async function loadBoletins() {
         snapshot.forEach((doc) => {
             const data = doc.data();
             const item = document.createElement('div');
-            item.className = 'border border-gray-200 rounded-lg p-4 flex items-center justify-between';
+            item.className = 'boletim-item border border-gray-200 rounded-lg p-4 flex items-center justify-between';
             item.innerHTML = `
                 <div>
-                    <h4 class="font-bold text-gray-800">${data.titulo}</h4>
+                    <h4 class="boletim-titulo font-bold text-gray-800">${data.titulo}</h4>
                     <p class="text-sm text-gray-600">${data.edicao}</p>
-                    ${data.data ? `<p class="text-sm text-azul font-semibold mt-1">📅 ${data.data}</p>` : ''}
+                    ${data.data ? `<p class="boletim-data text-sm text-cinza-verde font-semibold mt-1">📅 ${data.data}</p>` : ''}
                     <p class="text-xs text-gray-500 mt-1">Criado em: ${new Date(data.createdAt).toLocaleDateString('pt-BR')}</p>
                 </div>
                 <div class="flex gap-2">
-                    <a href="${data.pdfUrl}" target="_blank" class="bg-azul text-white px-4 py-2 rounded-lg text-sm hover:opacity-90">
+                    <a href="${data.pdfUrl}" target="_blank" class="bg-cinza-verde text-white px-4 py-2 rounded-lg text-sm hover:bg-verde-musgo">
                         Ver PDF
                     </a>
                     <button onclick="deleteBoletim('${doc.id}', '${data.fileName}')" class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600">
@@ -250,16 +250,16 @@ async function loadAtividades() {
         snapshot.forEach((doc) => {
             const data = doc.data();
             const item = document.createElement('div');
-            item.className = 'border border-gray-200 rounded-lg p-4';
+            item.className = 'atividade-item border border-gray-200 rounded-lg p-4';
             item.innerHTML = `
                 <div class="flex items-start justify-between">
                     <div>
                         <div class="flex items-center gap-2 mb-2">
                             <span class="text-2xl">${data.emoji}</span>
-                            <h4 class="font-bold text-gray-800">${data.titulo}</h4>
+                            <h4 class="atividade-titulo font-bold text-gray-800">${data.titulo}</h4>
                         </div>
                         <p class="text-sm text-gray-600 mb-1"><strong>Tipo:</strong> ${data.tipoLabel}</p>
-                        <p class="text-sm text-gray-600 mb-1"><strong>Data:</strong> ${data.data} | ${data.horario}</p>
+                        <p class="text-sm text-gray-600 mb-1"><strong>Data:</strong> <span class="atividade-data">${data.data}</span> | ${data.horario}</p>
                         <p class="text-sm text-gray-600"><strong>Status:</strong> ${data.status === 'proximas' ? 'Próxima' : 'Realizada'}</p>
                     </div>
                     <button onclick="deleteAtividade('${doc.id}')" class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600">
@@ -400,7 +400,7 @@ function displayAcervo(items) {
     listDiv.innerHTML = '';
     items.forEach((data) => {
         const item = document.createElement('div');
-        item.className = 'border border-gray-200 rounded-lg p-4 flex items-center justify-between';
+        item.className = 'acervo-item border border-gray-200 rounded-lg p-4 flex items-center justify-between';
         item.innerHTML = `
             <div class="flex items-center gap-4">
                 <div class="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
@@ -410,13 +410,13 @@ function displayAcervo(items) {
                     }
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-800">${data.titulo}</h4>
+                    <h4 class="acervo-titulo font-bold text-gray-800">${data.titulo}</h4>
                     <p class="text-sm text-gray-600">Tipo: ${data.tipo === 'fotografia' ? 'Fotografia' : 'Documento'} | Categoria: ${data.categoria}</p>
-                    <p class="text-xs text-gray-500 mt-1">${data.ano ? data.ano : ''} | ${new Date(data.createdAt).toLocaleDateString('pt-BR')}</p>
+                    <p class="text-xs text-gray-500 mt-1"><span class="acervo-ano">${data.ano ? data.ano : ''}</span> | ${new Date(data.createdAt).toLocaleDateString('pt-BR')}</p>
                 </div>
             </div>
             <div class="flex gap-2">
-                <a href="${data.url}" target="_blank" class="bg-azul text-white px-4 py-2 rounded-lg text-sm hover:opacity-90">
+                <a href="${data.url}" target="_blank" class="bg-cinza-verde text-white px-4 py-2 rounded-lg text-sm hover:bg-verde-musgo">
                     Ver
                 </a>
                 <button onclick="deleteAcervo('${data.id}', '${data.fileName}')" class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600">
@@ -431,10 +431,10 @@ function displayAcervo(items) {
 function filterAcervo(filter) {
     // Atualizar botões
     document.querySelectorAll('.filter-acervo').forEach(btn => {
-        btn.classList.remove('active', 'bg-roxo', 'text-white');
+        btn.classList.remove('active', 'bg-verde-cultural', 'text-white');
         btn.classList.add('bg-gray-200', 'text-gray-700');
     });
-    event.target.classList.add('active', 'bg-roxo', 'text-white');
+    event.target.classList.add('active', 'bg-verde-cultural', 'text-white');
     event.target.classList.remove('bg-gray-200', 'text-gray-700');
     
     // Filtrar dados
@@ -475,6 +475,111 @@ function loadAllData() {
     loadAcervo();
 }
 
+// === FUNÇÕES DE BUSCA ===
+
+// Busca de Boletins
+function searchBoletins() {
+    const searchTerm = document.getElementById('boletim-search').value.toLowerCase();
+    const dateTerm = document.getElementById('boletim-date-search').value.toLowerCase();
+    
+    const boletinsList = document.getElementById('boletins-list');
+    const items = boletinsList.querySelectorAll('.boletim-item');
+    
+    items.forEach(item => {
+        const titulo = item.querySelector('.boletim-titulo')?.textContent.toLowerCase() || '';
+        const data = item.querySelector('.boletim-data')?.textContent.toLowerCase() || '';
+        
+        const matchesSearch = !searchTerm || titulo.includes(searchTerm);
+        const matchesDate = !dateTerm || data.includes(dateTerm);
+        
+        if (matchesSearch && matchesDate) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+function clearBoletimSearch() {
+    document.getElementById('boletim-search').value = '';
+    document.getElementById('boletim-date-search').value = '';
+    
+    const boletinsList = document.getElementById('boletins-list');
+    const items = boletinsList.querySelectorAll('.boletim-item');
+    items.forEach(item => item.style.display = 'block');
+}
+
+// Busca de Atividades
+function searchAtividades() {
+    const searchTerm = document.getElementById('atividade-search').value.toLowerCase();
+    const dateTerm = document.getElementById('atividade-date-search').value.toLowerCase();
+    
+    const atividadesList = document.getElementById('atividades-list');
+    const items = atividadesList.querySelectorAll('.atividade-item');
+    
+    items.forEach(item => {
+        const titulo = item.querySelector('.atividade-titulo')?.textContent.toLowerCase() || '';
+        const data = item.querySelector('.atividade-data')?.textContent.toLowerCase() || '';
+        
+        const matchesSearch = !searchTerm || titulo.includes(searchTerm);
+        const matchesDate = !dateTerm || data.includes(dateTerm);
+        
+        if (matchesSearch && matchesDate) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+function clearAtividadeSearch() {
+    document.getElementById('atividade-search').value = '';
+    document.getElementById('atividade-date-search').value = '';
+    
+    const atividadesList = document.getElementById('atividades-list');
+    const items = atividadesList.querySelectorAll('.atividade-item');
+    items.forEach(item => item.style.display = 'block');
+}
+
+// Busca de Acervo
+function searchAcervo() {
+    const searchTerm = document.getElementById('acervo-search').value.toLowerCase();
+    const yearTerm = document.getElementById('acervo-year-search').value.toLowerCase();
+    
+    const acervoList = document.getElementById('acervo-list');
+    const items = acervoList.querySelectorAll('.acervo-item');
+    
+    items.forEach(item => {
+        const titulo = item.querySelector('.acervo-titulo')?.textContent.toLowerCase() || '';
+        const ano = item.querySelector('.acervo-ano')?.textContent.toLowerCase() || '';
+        
+        const matchesSearch = !searchTerm || titulo.includes(searchTerm);
+        const matchesYear = !yearTerm || ano.includes(yearTerm);
+        
+        if (matchesSearch && matchesYear) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+function clearAcervoSearch() {
+    document.getElementById('acervo-search').value = '';
+    document.getElementById('acervo-year-search').value = '';
+    
+    const acervoList = document.getElementById('acervo-list');
+    const items = acervoList.querySelectorAll('.acervo-item');
+    items.forEach(item => item.style.display = 'block');
+}
+
+// === EXPORTAR FUNÇÕES ===
 window.loadAllData = loadAllData;
 window.logout = logout;
+window.searchBoletins = searchBoletins;
+window.clearBoletimSearch = clearBoletimSearch;
+window.searchAtividades = searchAtividades;
+window.clearAtividadeSearch = clearAtividadeSearch;
+window.searchAcervo = searchAcervo;
+window.clearAcervoSearch = clearAcervoSearch;
 

@@ -16,10 +16,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'roxo': '#8B5CF6',
-                        'verde': '#10B981',
-                        'azul': '#3B82F6',
-                        'amarelo': '#F59E0B'
+                        'verde-cultural': '#3B5E3B',
+                        'verde-musgo': '#596F52',
+                        'areia': '#E3D8C3',
+                        'cinza-verde': '#4A6B5E',
+                        'preto-suave': '#1F1F1F'
                     }
                 }
             }
@@ -30,7 +31,7 @@
             box-sizing: border-box;
         }
         .hero-bg {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(59, 130, 246, 0.9) 50%, rgba(16, 185, 129, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(59, 94, 59, 0.9) 0%, rgba(74, 107, 94, 0.9) 50%, rgba(89, 111, 82, 0.9) 100%);
         }
         .card-hover {
             transition: all 0.3s ease;
@@ -40,7 +41,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         .section-divider {
-            background: linear-gradient(90deg, #8B5CF6, #3B82F6, #10B981, #F59E0B);
+            background: linear-gradient(90deg, #3B5E3B, #4A6B5E, #596F52, #E3D8C3);
             height: 4px;
         }
         #map {
@@ -57,22 +58,22 @@
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between py-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-roxo rounded-full flex items-center justify-center">
+                    <div class="w-12 h-12 bg-verde-cultural rounded-full flex items-center justify-center">
                         <span class="text-white font-bold text-xl">🏛️</span>
                     </div>
                     <div>
                         <h1 class="text-xl font-bold text-gray-800">Casa da Memória</h1>
-                        <p class="text-sm text-roxo">Manoel Alves Pereira</p>
+                        <p class="text-sm text-verde-cultural">Manoel Alves Pereira</p>
                     </div>
                 </div>
                 
                 <nav class="hidden lg:flex space-x-8">
-                    <button onclick="scrollToSection('inicio')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Início</button>
-                    <button onclick="scrollToSection('sobre')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Sobre</button>
-                    <a href="acervo.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Acervo</a>
-                    <a href="programacao.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Programação</a>
-                    <button onclick="scrollToSection('horarios')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Horários</button>
-                    <button onclick="scrollToSection('contato')" class="text-gray-700 hover:text-roxo font-medium transition-colors">Contato</button>
+                    <button onclick="scrollToSection('inicio')" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Início</button>
+                    <button onclick="scrollToSection('sobre')" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Sobre</button>
+                    <a href="acervo.html" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Acervo</a>
+                    <a href="programacao.html" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Programação</a>
+                    <button onclick="scrollToSection('horarios')" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Horários</button>
+                    <button onclick="scrollToSection('contato')" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Contato</button>
                 </nav>
 
                 <button id="menuBtn" class="lg:hidden p-2">
@@ -85,12 +86,12 @@
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden lg:hidden pb-4">
                 <div class="flex flex-col space-y-2">
-                    <button onclick="scrollToSection('inicio')" class="text-left py-2 text-gray-700 hover:text-roxo">Início</button>
-                    <button onclick="scrollToSection('sobre')" class="text-left py-2 text-gray-700 hover:text-roxo">Sobre</button>
-                    <a href="acervo.html" class="text-left py-2 text-gray-700 hover:text-roxo">Acervo</a>
-                    <a href="programacao.html" class="text-left py-2 text-gray-700 hover:text-roxo">Programação</a>
-                    <button onclick="scrollToSection('horarios')" class="text-left py-2 text-gray-700 hover:text-roxo">Horários</button>
-                    <button onclick="scrollToSection('contato')" class="text-left py-2 text-gray-700 hover:text-roxo">Contato</button>
+                    <button onclick="scrollToSection('inicio')" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Início</button>
+                    <button onclick="scrollToSection('sobre')" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Sobre</button>
+                    <a href="acervo.html" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Acervo</a>
+                    <a href="programacao.html" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Programação</a>
+                    <button onclick="scrollToSection('horarios')" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Horários</button>
+                    <button onclick="scrollToSection('contato')" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Contato</button>
                 </div>
             </div>
         </div>
@@ -98,7 +99,7 @@
 
     <!-- Hero Section -->
     <main>
-        <section id="inicio" class="relative min-h-full" style="background-image: linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) 50%, rgba(16, 185, 129, 0.8) 100%), url('https://www.piraquara.pr.gov.br/storage/content/noticias/geral/1132/destaque/img_202304131219OyLE.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <section id="inicio" class="relative min-h-full" style="background-image: linear-gradient(135deg, rgba(59, 94, 59, 0.85) 0%, rgba(74, 107, 94, 0.85) 50%, rgba(89, 111, 82, 0.85) 100%), url('https://www.piraquara.pr.gov.br/storage/content/noticias/geral/1132/destaque/img_202304131219OyLE.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
             <div class="container mx-auto px-4 py-20">
                 <div class="text-center text-white">
                     <h2 class="text-4xl lg:text-5xl font-bold mb-6">Casa da Memória Manoel Alves Pereira</h2>
@@ -146,7 +147,7 @@
                             <p class="text-lg text-gray-600 mb-8 leading-relaxed">
                                 O patrono da instituição é o Senhor <strong>Manoel Alves Pereira</strong>, duas vezes prefeito de Piraquara (pleito de 1969 a 1973, e novamente em maio de 1982 até fevereiro de 1983).
                             </p>
-                            <button onclick="scrollToSection('contato')" class="bg-roxo text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                            <button onclick="scrollToSection('contato')" class="bg-verde-cultural text-white px-8 py-3 rounded-lg hover:bg-verde-musgo transition-colors font-medium">
                                 Visite-nos
                             </button>
                         </div>
@@ -220,29 +221,29 @@
 
                 <div class="grid lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
                     <div class="text-center card-hover">
-                        <div class="w-20 h-20 bg-roxo rounded-full flex items-center justify-center mx-auto mb-6">
+                        <div class="w-20 h-20 bg-verde-cultural rounded-full flex items-center justify-center mx-auto mb-6">
                             <span class="text-3xl text-white">🎯</span>
                         </div>
                         <h4 class="text-xl font-bold text-gray-800 mb-4">Preservar</h4>
                         <p class="text-gray-600">Manter viva a memória histórica através da conservação de documentos e objetos</p>
                     </div>
                     <div class="text-center card-hover">
-                        <div class="w-20 h-20 bg-verde rounded-full flex items-center justify-center mx-auto mb-6">
+                        <div class="w-20 h-20 bg-verde-musgo rounded-full flex items-center justify-center mx-auto mb-6">
                             <span class="text-3xl text-white">📚</span>
                         </div>
                         <h4 class="text-xl font-bold text-gray-800 mb-4">Educar</h4>
                         <p class="text-gray-600">Promover educação patrimonial conectando a comunidade com suas raízes</p>
                     </div>
                     <div class="text-center card-hover">
-                        <div class="w-20 h-20 bg-azul rounded-full flex items-center justify-center mx-auto mb-6">
+                        <div class="w-20 h-20 bg-cinza-verde rounded-full flex items-center justify-center mx-auto mb-6">
                             <span class="text-3xl text-white">🤝</span>
                         </div>
                         <h4 class="text-xl font-bold text-gray-800 mb-4">Conectar</h4>
                         <p class="text-gray-600">Criar pontes entre gerações facilitando diálogo e troca de experiências</p>
                     </div>
                     <div class="text-center card-hover">
-                        <div class="w-20 h-20 bg-amarelo rounded-full flex items-center justify-center mx-auto mb-6">
-                            <span class="text-3xl text-white">🌟</span>
+                        <div class="w-20 h-20 bg-areia rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl text-preto-suave">🌟</span>
                         </div>
                         <h4 class="text-xl font-bold text-gray-800 mb-4">Inspirar</h4>
                         <p class="text-gray-600">Fortalecer identidade cultural e orgulho pela nossa cidade</p>
@@ -256,7 +257,7 @@
                         <div class="text-6xl mb-6">🏠</div>
                     </div>
                     <p class="text-lg text-gray-600 leading-relaxed text-center">
-                        O nome representa mais do que um museu - é verdadeiramente uma <strong class="text-roxo">casa</strong> acolhedora onde as memórias de Piraquara encontram seu lugar de celebração. Como uma casa abriga uma família, nossa instituição abriga as <strong class="text-verde">memórias coletivas</strong> de toda a comunidade piraquarense.
+                        O nome representa mais do que um museu - é verdadeiramente uma <strong class="text-verde-cultural">casa</strong> acolhedora onde as memórias de Piraquara encontram seu lugar de celebração. Como uma casa abriga uma família, nossa instituição abriga as <strong class="text-verde-musgo">memórias coletivas</strong> de toda a comunidade piraquarense.
                     </p>
                 </div>
             </div>
@@ -274,7 +275,7 @@
                     </div>
                     
                     <div class="grid lg:grid-cols-2 gap-8">
-                        <a href="programacao.html#boletins" class="bg-gradient-to-br from-roxo to-azul rounded-2xl p-8 text-white shadow-xl card-hover cursor-pointer block">
+                        <a href="programacao.html#boletins" class="bg-gradient-to-br from-verde-cultural to-cinza-verde rounded-2xl p-8 text-white shadow-xl card-hover cursor-pointer block">
                             <div class="text-4xl mb-4">📰</div>
                             <h4 class="text-2xl font-bold mb-4">Boletim da Memória</h4>
                             <p class="text-lg leading-relaxed mb-4">
@@ -286,7 +287,7 @@
                             </div>
                         </a>
 
-                        <a href="programacao.html#atividades" class="bg-gradient-to-br from-verde to-amarelo rounded-2xl p-8 text-white shadow-xl card-hover cursor-pointer block">
+                        <a href="programacao.html#atividades" class="bg-gradient-to-br from-verde-musgo to-areia rounded-2xl p-8 text-white shadow-xl card-hover cursor-pointer block">
                             <div class="text-4xl mb-4">📅</div>
                             <h4 class="text-2xl font-bold mb-4">Programação e Atividades</h4>
                             <p class="text-lg leading-relaxed mb-4">
@@ -319,7 +320,7 @@
                             <p class="text-white font-semibold p-4">Fachada Principal</p>
                         </div>
                     </div>
-                    <a href="acervo.html#documentos" class="bg-gradient-to-br from-verde to-amarelo rounded-lg h-64 flex items-center justify-center card-hover cursor-pointer">
+                    <a href="acervo.html#documentos" class="bg-gradient-to-br from-verde-musgo to-areia rounded-lg h-64 flex items-center justify-center card-hover cursor-pointer">
                         <div class="text-center text-white">
                             <div class="text-4xl mb-2">📚</div>
                             <p class="font-semibold">Acervo Histórico</p>
@@ -331,7 +332,7 @@
                             <p class="text-white font-semibold p-4">Sala de Exposições</p>
                         </div>
                     </div>
-                    <a href="acervo.html#fotografias" class="bg-gradient-to-br from-roxo to-verde rounded-lg h-64 flex items-center justify-center card-hover cursor-pointer">
+                    <a href="acervo.html#fotografias" class="bg-gradient-to-br from-verde-cultural to-verde-musgo rounded-lg h-64 flex items-center justify-center card-hover cursor-pointer">
                         <div class="text-center text-white">
                             <div class="text-4xl mb-2">📸</div>
                             <p class="font-semibold">Arquivo Fotográfico</p>
@@ -352,13 +353,13 @@
 
                     <div class="grid lg:grid-cols-2 gap-12">
                         <div class="bg-white rounded-2xl shadow-lg p-8">
-                            <h4 class="text-2xl font-bold text-roxo mb-8 text-center">Horários</h4>
+                            <h4 class="text-2xl font-bold text-verde-cultural mb-8 text-center">Horários</h4>
                             <div class="space-y-4">
                                 <div class="flex justify-between items-center py-3 border-b border-gray-200">
                                     <span class="font-semibold text-gray-700">Segunda a Sexta</span>
                                     <div class="text-right">
-                                        <div class="text-verde font-semibold">9h às 12h</div>
-                                        <div class="text-verde font-semibold">13h às 17h</div>
+                                        <div class="text-verde-musgo font-semibold">9h às 12h</div>
+                                        <div class="text-verde-musgo font-semibold">13h às 17h</div>
                                     </div>
                                 </div>
                                 <div class="flex justify-between items-center py-3 border-b border-gray-200">
@@ -370,7 +371,7 @@
                                     <span class="text-gray-500">Fechado</span>
                                 </div>
                             </div>
-                            <div class="mt-6 bg-azul bg-opacity-10 rounded-lg p-4">
+                            <div class="mt-6 bg-cinza-verde bg-opacity-10 rounded-lg p-4">
                                 <p class="text-sm text-gray-600 text-center">
                                     <strong>Observação:</strong> Fechado durante o horário de almoço (12h às 13h)
                                 </p>
@@ -378,28 +379,28 @@
                         </div>
 
                         <div class="space-y-6">
-                            <div class="bg-roxo bg-opacity-10 rounded-xl p-6">
+                            <div class="bg-verde-cultural bg-opacity-10 rounded-xl p-6">
                                 <div class="flex items-center mb-3">
                                     <span class="text-2xl mr-3">👥</span>
-                                    <h5 class="text-lg font-bold text-roxo">Atendimento</h5>
+                                    <h5 class="text-lg font-bold text-verde-cultural">Atendimento</h5>
                                 </div>
                                 <p class="text-gray-700">Visitantes e pesquisadores</p>
                                 <p class="text-sm text-gray-600">Agendamento recomendado para grupos</p>
                             </div>
 
-                            <div class="bg-verde bg-opacity-10 rounded-xl p-6">
+                            <div class="bg-verde-musgo bg-opacity-10 rounded-xl p-6">
                                 <div class="flex items-center mb-3">
                                     <span class="text-2xl mr-3">📚</span>
-                                    <h5 class="text-lg font-bold text-verde">Serviços</h5>
+                                    <h5 class="text-lg font-bold text-verde-musgo">Serviços</h5>
                                 </div>
                                 <p class="text-gray-700">Exposições, pesquisas temáticas</p>
                                 <p class="text-sm text-gray-600">Palestras e rodas de conversa</p>
                             </div>
 
-                            <div class="bg-amarelo bg-opacity-10 rounded-xl p-6">
+                            <div class="bg-areia bg-opacity-30 rounded-xl p-6">
                                 <div class="flex items-center mb-3">
                                     <span class="text-2xl mr-3">🎫</span>
-                                    <h5 class="text-lg font-bold text-amarelo">Entrada Gratuita</h5>
+                                    <h5 class="text-lg font-bold text-verde-cultural">Entrada Gratuita</h5>
                                 </div>
                                 <p class="text-gray-700">R$ 0,00 para todos os públicos</p>
                                 <p class="text-sm text-gray-600">Acesso livre e gratuito</p>
@@ -423,7 +424,7 @@
 
                     <div class="grid lg:grid-cols-2 gap-12">
                         <div class="bg-white rounded-2xl shadow-lg p-8">
-                            <h4 class="text-2xl font-bold text-roxo mb-8">📍 Nossa Localização</h4>
+                            <h4 class="text-2xl font-bold text-verde-cultural mb-8">📍 Nossa Localização</h4>
                             <div class="space-y-4 mb-8">
                                 <p class="text-lg text-gray-700">
                                     <strong>Endereço:</strong><br>
@@ -440,51 +441,51 @@
                             
                             <div class="space-y-3">
                                 <div class="flex items-center text-gray-600">
-                                    <span class="text-verde mr-3">🚌</span>
+                                    <span class="text-verde-musgo mr-3">🚌</span>
                                     <span>Próximo à linha do trem</span>
                                 </div>
                                 <div class="flex items-center text-gray-600">
-                                    <span class="text-azul mr-3">🏛️</span>
+                                    <span class="text-cinza-verde mr-3">🏛️</span>
                                     <span>Centro Histórico</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="bg-white rounded-2xl shadow-lg p-8">
-                            <h4 class="text-2xl font-bold text-verde mb-8">📞 Entre em Contato</h4>
+                            <h4 class="text-2xl font-bold text-verde-musgo mb-8">📞 Entre em Contato</h4>
                             <div class="space-y-6">
                                 <div class="flex items-center">
-                                    <div class="w-12 h-12 bg-amarelo bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                                        <span class="text-amarelo">📱</span>
+                                    <div class="w-12 h-12 bg-areia rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-verde-cultural">📱</span>
                                     </div>
                                     <div>
                                         <p class="font-semibold text-gray-700">Telefone</p>
-                                        <p class="text-azul">(41) 3590-3605</p>
+                                        <p class="text-cinza-verde">(41) 3590-3605</p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-center">
-                                    <div class="w-12 h-12 bg-verde bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                                        <span class="text-verde">📧</span>
+                                    <div class="w-12 h-12 bg-verde-musgo bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-verde-musgo">📧</span>
                                     </div>
                                     <div>
                                         <p class="font-semibold text-gray-700">E-mails</p>
-                                        <a href="mailto:cm.manoelapereira@gmail.com" class="text-azul hover:underline block text-sm">cm.manoelapereira@gmail.com</a>
-                                        <a href="mailto:casa.memoria@piraquara.pr.gov.br" class="text-azul hover:underline block text-sm">casa.memoria@piraquara.pr.gov.br</a>
+                                        <a href="mailto:cm.manoelapereira@gmail.com" class="text-cinza-verde hover:underline block text-sm">cm.manoelapereira@gmail.com</a>
+                                        <a href="mailto:casa.memoria@piraquara.pr.gov.br" class="text-cinza-verde hover:underline block text-sm">casa.memoria@piraquara.pr.gov.br</a>
                                     </div>
                                 </div>
 
                                 <div class="flex items-center">
-                                    <div class="w-12 h-12 bg-roxo bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                                        <span class="text-roxo">🌐</span>
+                                    <div class="w-12 h-12 bg-verde-cultural bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-verde-cultural">🌐</span>
                                     </div>
                                     <div>
                                         <p class="font-semibold text-gray-700">Website</p>
-                                        <a href="https://piraquara.pr.gov.br" target="_blank" class="text-azul hover:underline">piraquara.pr.gov.br</a>
+                                        <a href="https://piraquara.pr.gov.br" target="_blank" class="text-cinza-verde hover:underline">piraquara.pr.gov.br</a>
                                     </div>
                                 </div>
 
-                                <div class="bg-verde bg-opacity-10 rounded-lg p-4 mt-6">
+                                <div class="bg-verde-musgo bg-opacity-10 rounded-lg p-4 mt-6">
                                     <p class="text-sm text-gray-600 text-center">
                                         Secretaria Municipal de Cultura, Esporte e Lazer
                                     </p>
@@ -514,7 +515,7 @@
             <div class="grid lg:grid-cols-4 gap-8">
                 <div class="lg:col-span-2">
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-roxo rounded-full flex items-center justify-center">
+                        <div class="w-10 h-10 bg-verde-cultural rounded-full flex items-center justify-center">
                             <span class="text-white font-bold">🏛️</span>
                         </div>
                         <div>
@@ -533,10 +534,10 @@
                 <div>
                     <h5 class="text-lg font-bold mb-4">Links Rápidos</h5>
                     <div class="space-y-2">
-                        <button onclick="scrollToSection('sobre')" class="block text-gray-300 hover:text-roxo transition-colors">Sobre Nós</button>
-                        <button onclick="scrollToSection('missao')" class="block text-gray-300 hover:text-roxo transition-colors">Nossa Missão</button>
-                        <button onclick="scrollToSection('galeria')" class="block text-gray-300 hover:text-roxo transition-colors">Galeria</button>
-                        <button onclick="scrollToSection('horarios')" class="block text-gray-300 hover:text-roxo transition-colors">Horários</button>
+                        <button onclick="scrollToSection('sobre')" class="block text-gray-300 hover:text-areia transition-colors">Sobre Nós</button>
+                        <button onclick="scrollToSection('missao')" class="block text-gray-300 hover:text-areia transition-colors">Nossa Missão</button>
+                        <button onclick="scrollToSection('galeria')" class="block text-gray-300 hover:text-areia transition-colors">Galeria</button>
+                        <button onclick="scrollToSection('horarios')" class="block text-gray-300 hover:text-areia transition-colors">Horários</button>
                     </div>
                 </div>
 
@@ -571,7 +572,7 @@
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-3xl font-bold">&times;</button>
             <h3 id="modalTitle" class="text-3xl font-bold text-gray-800 mb-6"></h3>
             <div class="text-center mb-6">
-                <div class="w-full h-64 bg-gradient-to-br from-roxo to-azul rounded-lg flex items-center justify-center">
+                <div class="w-full h-64 bg-gradient-to-br from-verde-cultural to-cinza-verde rounded-lg flex items-center justify-center">
                     <div class="text-white">
                         <div class="text-6xl mb-4">🖼️</div>
                         <p class="text-lg">Imagem em alta resolução</p>
@@ -675,7 +676,7 @@
             // Cria ícone customizado com as cores da Casa da Memória
             const customIcon = L.divIcon({
                 className: 'custom-marker',
-                html: '<div style="background-color: #8B5CF6; width: 30px; height: 30px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 3px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.3);"><div style="transform: rotate(45deg); text-align: center; line-height: 24px; font-size: 16px;">🏛️</div></div>',
+                html: '<div style="background-color: #3B5E3B; width: 30px; height: 30px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 3px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.3);"><div style="transform: rotate(45deg); text-align: center; line-height: 24px; font-size: 16px;">🏛️</div></div>',
                 iconSize: [30, 30],
                 iconAnchor: [15, 30],
                 popupAnchor: [0, -30]
@@ -685,11 +686,11 @@
             const marker = L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
             marker.bindPopup(`
                 <div style="text-align: center; font-family: system-ui, -apple-system, sans-serif;">
-                    <strong style="color: #8B5CF6; font-size: 16px;">Casa da Memória</strong><br>
-                    <strong style="color: #3B82F6;">Manoel Alves Pereira</strong><br>
+                    <strong style="color: #3B5E3B; font-size: 16px;">Casa da Memória</strong><br>
+                    <strong style="color: #4A6B5E;">Manoel Alves Pereira</strong><br>
                     <span style="color: #666; font-size: 13px;">Av. Getúlio Vargas, 67</span><br>
                     <span style="color: #666; font-size: 13px;">Centro - Piraquara/PR</span><br>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=-25.44132,-49.05949" target="_blank" style="color: #10B981; text-decoration: none; font-size: 12px; margin-top: 8px; display: inline-block;">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=-25.44132,-49.05949" target="_blank" style="color: #596F52; text-decoration: none; font-size: 12px; margin-top: 8px; display: inline-block;">
                         📍 Abrir no Google Maps
                     </a>
                 </div>

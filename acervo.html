@@ -34,10 +34,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'roxo': '#8B5CF6',
-                        'verde': '#10B981',
-                        'azul': '#3B82F6',
-                        'amarelo': '#F59E0B'
+                        'verde-cultural': '#3B5E3B',
+                        'verde-musgo': '#596F52',
+                        'areia': '#E3D8C3',
+                        'cinza-verde': '#4A6B5E',
+                        'preto-suave': '#1F1F1F'
                     }
                 }
             }
@@ -52,11 +53,11 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         .section-divider {
-            background: linear-gradient(90deg, #8B5CF6, #3B82F6, #10B981, #F59E0B);
+            background: linear-gradient(90deg, #3B5E3B, #4A6B5E, #596F52, #E3D8C3);
             height: 4px;
         }
         .filter-btn.active {
-            background-color: #8B5CF6;
+            background-color: #3B5E3B;
             color: white;
         }
         /* Lazy loading - placeholder enquanto carrega */
@@ -72,20 +73,20 @@
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between py-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-roxo rounded-full flex items-center justify-center">
+                    <div class="w-12 h-12 bg-verde-cultural rounded-full flex items-center justify-center">
                         <span class="text-white font-bold text-xl">🏛️</span>
                     </div>
                     <div>
                         <h1 class="text-xl font-bold text-gray-800">Casa da Memória</h1>
-                        <p class="text-sm text-roxo">Piraquara</p>
+                        <p class="text-sm text-verde-cultural">Piraquara</p>
                     </div>
                 </div>
                 
                 <nav class="hidden lg:flex space-x-8">
-                    <a href="index.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Início</a>
-                    <a href="acervo.html" class="text-roxo font-bold">Acervo</a>
-                    <a href="programacao.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Programação</a>
-                    <a href="index.html#contato" class="text-gray-700 hover:text-roxo font-medium transition-colors">Contato</a>
+                    <a href="index.html" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Início</a>
+                    <a href="acervo.html" class="text-verde-cultural font-bold">Acervo</a>
+                    <a href="programacao.html" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Programação</a>
+                    <a href="index.html#contato" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Contato</a>
                 </nav>
 
                 <button id="menuBtn" class="lg:hidden p-2">
@@ -98,10 +99,10 @@
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden lg:hidden pb-4">
                 <div class="flex flex-col space-y-2">
-                    <a href="index.html" class="text-left py-2 text-gray-700 hover:text-roxo">Início</a>
-                    <a href="acervo.html" class="text-left py-2 text-roxo font-bold">Acervo</a>
-                    <a href="programacao.html" class="text-left py-2 text-gray-700 hover:text-roxo">Programação</a>
-                    <a href="index.html#contato" class="text-left py-2 text-gray-700 hover:text-roxo">Contato</a>
+                    <a href="index.html" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Início</a>
+                    <a href="acervo.html" class="text-left py-2 text-verde-cultural font-bold">Acervo</a>
+                    <a href="programacao.html" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Programação</a>
+                    <a href="index.html#contato" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Contato</a>
                 </div>
             </div>
         </div>
@@ -109,7 +110,7 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="bg-gradient-to-br from-roxo via-azul to-verde text-white py-16">
+        <section class="bg-gradient-to-br from-verde-cultural via-cinza-verde to-verde-musgo text-white py-16">
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto text-center">
                     <h2 class="text-5xl font-bold mb-4">Acervo Digital</h2>
@@ -124,10 +125,10 @@
         <section class="bg-white py-8 sticky top-[72px] z-40 shadow-md">
             <div class="container mx-auto px-4">
                 <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="scrollToSection('fotografias')" class="px-6 py-3 rounded-lg bg-gray-100 hover:bg-roxo hover:text-white transition-colors font-medium">
+                    <button onclick="scrollToSection('fotografias')" class="px-6 py-3 rounded-lg bg-gray-100 hover:bg-verde-cultural hover:text-white transition-colors font-medium">
                         📸 Arquivo Fotográfico
                     </button>
-                    <button onclick="scrollToSection('documentos')" class="px-6 py-3 rounded-lg bg-gray-100 hover:bg-verde hover:text-white transition-colors font-medium">
+                    <button onclick="scrollToSection('documentos')" class="px-6 py-3 rounded-lg bg-gray-100 hover:bg-verde-musgo hover:text-white transition-colors font-medium">
                         📚 Documentos Históricos
                     </button>
                 </div>
@@ -148,28 +149,28 @@
                     <div class="mb-8 space-y-4">
                         <!-- Botões de Filtro -->
                         <div class="flex flex-wrap justify-center gap-3">
-                            <button onclick="filterPhotos('todas')" class="filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            <button onclick="filterPhotos('todas')" class="filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors">
                                 Todas
                             </button>
-                            <button onclick="filterPhotos('arquitetura')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            <button onclick="filterPhotos('arquitetura')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors">
                                 Arquitetura
                             </button>
-                            <button onclick="filterPhotos('eventos')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            <button onclick="filterPhotos('eventos')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors">
                                 Eventos
                             </button>
-                            <button onclick="filterPhotos('pessoas')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            <button onclick="filterPhotos('pessoas')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors">
                                 Pessoas
                             </button>
-                            <button onclick="filterPhotos('paisagens')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            <button onclick="filterPhotos('paisagens')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors">
                                 Paisagens
                             </button>
-                            <button onclick="filterPhotos('documentos')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            <button onclick="filterPhotos('documentos')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors">
                                 Documentos
                             </button>
-                            <button onclick="filterPhotos('mapas')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            <button onclick="filterPhotos('mapas')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors">
                                 Mapas
                             </button>
-                            <button onclick="filterPhotos('jornais')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors">
+                            <button onclick="filterPhotos('jornais')" class="filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors">
                                 Jornais
                             </button>
                         </div>
@@ -179,12 +180,12 @@
                             <input type="text" 
                                    id="photo-search" 
                                    placeholder="🔍 Buscar por título..." 
-                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                    oninput="searchPhotos()">
                             <input type="text" 
                                    id="photo-year-search" 
                                    placeholder="📅 Filtrar por ano (ex: 1980)..." 
-                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                    oninput="searchPhotos()">
                             <button onclick="clearPhotoSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
                                 Limpar
@@ -204,10 +205,10 @@
 
                     <!-- Botões de Controle -->
                     <div class="flex flex-wrap justify-center gap-4 mt-12">
-                        <button id="showAllPhotosBtn" onclick="showAllPhotosGallery()" class="px-8 py-3 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                        <button id="showAllPhotosBtn" onclick="showAllPhotosGallery()" class="px-8 py-3 bg-cinza-verde text-white rounded-lg hover:bg-verde-musgo transition-colors font-medium">
                             📋 Ver Todas as Fotografias
                         </button>
-                        <button id="loadMorePhotosBtn" onclick="loadMorePhotos()" class="hidden px-8 py-3 bg-roxo text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                        <button id="loadMorePhotosBtn" onclick="loadMorePhotos()" class="hidden px-8 py-3 bg-verde-cultural text-white rounded-lg hover:bg-verde-musgo transition-colors font-medium">
                             ➕ Carregar Mais (4)
                         </button>
                         <button id="showLessPhotosBtn" onclick="showLessPhotos()" class="hidden px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
@@ -234,28 +235,28 @@
                     <div class="mb-8 space-y-4">
                         <!-- Botões de Filtro -->
                         <div class="flex flex-wrap justify-center gap-3">
-                            <button onclick="filterDocuments('todos')" class="doc-filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            <button onclick="filterDocuments('todos')" class="doc-filter-btn active px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-musgo hover:text-white transition-colors">
                                 Todos
                             </button>
-                            <button onclick="filterDocuments('arquitetura')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            <button onclick="filterDocuments('arquitetura')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-musgo hover:text-white transition-colors">
                                 Arquitetura
                             </button>
-                            <button onclick="filterDocuments('eventos')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            <button onclick="filterDocuments('eventos')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-musgo hover:text-white transition-colors">
                                 Eventos
                             </button>
-                            <button onclick="filterDocuments('pessoas')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            <button onclick="filterDocuments('pessoas')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-musgo hover:text-white transition-colors">
                                 Pessoas
                             </button>
-                            <button onclick="filterDocuments('paisagens')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            <button onclick="filterDocuments('paisagens')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-musgo hover:text-white transition-colors">
                                 Paisagens
                             </button>
-                            <button onclick="filterDocuments('documentos')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            <button onclick="filterDocuments('documentos')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-musgo hover:text-white transition-colors">
                                 Documentos
                             </button>
-                            <button onclick="filterDocuments('mapas')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            <button onclick="filterDocuments('mapas')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-musgo hover:text-white transition-colors">
                                 Mapas
                             </button>
-                            <button onclick="filterDocuments('jornais')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde hover:text-white transition-colors">
+                            <button onclick="filterDocuments('jornais')" class="doc-filter-btn px-5 py-2 rounded-full bg-gray-200 hover:bg-verde-musgo hover:text-white transition-colors">
                                 Jornais
                             </button>
                         </div>
@@ -265,12 +266,12 @@
                             <input type="text" 
                                    id="doc-search" 
                                    placeholder="🔍 Buscar por título..." 
-                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde"
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-musgo"
                                    oninput="searchDocuments()">
                             <input type="text" 
                                    id="doc-year-search" 
                                    placeholder="📅 Filtrar por ano (ex: 1980)..." 
-                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde"
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-musgo"
                                    oninput="searchDocuments()">
                             <button onclick="clearDocSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
                                 Limpar
@@ -290,10 +291,10 @@
 
                     <!-- Botões de Controle -->
                     <div class="flex flex-wrap justify-center gap-4 mt-12">
-                        <button id="showAllDocsBtn" onclick="showAllDocsGallery()" class="px-8 py-3 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                        <button id="showAllDocsBtn" onclick="showAllDocsGallery()" class="px-8 py-3 bg-cinza-verde text-white rounded-lg hover:bg-verde-musgo transition-colors font-medium">
                             📋 Ver Todos os Documentos
                         </button>
-                        <button id="loadMoreDocsBtn" onclick="loadMoreDocs()" class="hidden px-8 py-3 bg-verde text-white rounded-lg hover:bg-green-600 transition-colors font-medium">
+                        <button id="loadMoreDocsBtn" onclick="loadMoreDocs()" class="hidden px-8 py-3 bg-verde-musgo text-white rounded-lg hover:bg-verde-cultural transition-colors font-medium">
                             ➕ Carregar Mais (3)
                         </button>
                         <button id="showLessDocsBtn" onclick="showLessDocs()" class="hidden px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
@@ -305,7 +306,7 @@
         </section>
 
         <!-- Informação sobre Contribuições -->
-        <section class="py-16 bg-gradient-to-r from-roxo to-azul text-white">
+        <section class="py-16 bg-gradient-to-r from-verde-cultural to-cinza-verde text-white">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center">
                     <h3 class="text-3xl font-bold mb-4">Contribua com o Acervo</h3>
@@ -313,7 +314,7 @@
                         Você possui fotografias ou documentos históricos de Piraquara? 
                         Ajude-nos a preservar a memória da nossa cidade!
                     </p>
-                    <a href="index.html#contato" class="inline-block px-8 py-3 bg-white text-roxo rounded-lg hover:bg-gray-100 transition-colors font-medium">
+                    <a href="index.html#contato" class="inline-block px-8 py-3 bg-white text-verde-cultural rounded-lg hover:bg-areia transition-colors font-medium">
                         Entre em Contato
                     </a>
                 </div>
@@ -327,7 +328,7 @@
             <div class="grid lg:grid-cols-4 gap-8">
                 <div class="lg:col-span-2">
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-roxo rounded-full flex items-center justify-center">
+                        <div class="w-10 h-10 bg-verde-cultural rounded-full flex items-center justify-center">
                             <span class="text-white font-bold">🏛️</span>
                         </div>
                         <div>
@@ -343,9 +344,9 @@
                 <div>
                     <h5 class="text-lg font-bold mb-4">Links Rápidos</h5>
                     <div class="space-y-2">
-                        <a href="index.html" class="block text-gray-300 hover:text-roxo transition-colors">Início</a>
-                        <a href="acervo.html" class="block text-gray-300 hover:text-roxo transition-colors">Acervo</a>
-                        <a href="index.html#contato" class="block text-gray-300 hover:text-roxo transition-colors">Contato</a>
+                        <a href="index.html" class="block text-gray-300 hover:text-areia transition-colors">Início</a>
+                        <a href="acervo.html" class="block text-gray-300 hover:text-areia transition-colors">Acervo</a>
+                        <a href="index.html#contato" class="block text-gray-300 hover:text-areia transition-colors">Contato</a>
                     </div>
                 </div>
 
@@ -379,28 +380,28 @@
                 <div class="space-y-3">
                     <!-- Filtros por Categoria -->
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <button onclick="filterGallery('todas')" class="gallery-filter-btn active px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                        <button onclick="filterGallery('todas')" class="gallery-filter-btn active px-4 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors text-sm">
                             Todas
                         </button>
-                        <button onclick="filterGallery('arquitetura')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                        <button onclick="filterGallery('arquitetura')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors text-sm">
                             Arquitetura
                         </button>
-                        <button onclick="filterGallery('eventos')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                        <button onclick="filterGallery('eventos')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors text-sm">
                             Eventos
                         </button>
-                        <button onclick="filterGallery('pessoas')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                        <button onclick="filterGallery('pessoas')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors text-sm">
                             Pessoas
                         </button>
-                        <button onclick="filterGallery('paisagens')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                        <button onclick="filterGallery('paisagens')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors text-sm">
                             Paisagens
                         </button>
-                        <button onclick="filterGallery('documentos')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                        <button onclick="filterGallery('documentos')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors text-sm">
                             Documentos
                         </button>
-                        <button onclick="filterGallery('mapas')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                        <button onclick="filterGallery('mapas')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors text-sm">
                             Mapas
                         </button>
-                        <button onclick="filterGallery('jornais')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-roxo hover:text-white transition-colors text-sm">
+                        <button onclick="filterGallery('jornais')" class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-verde-cultural hover:text-white transition-colors text-sm">
                             Jornais
                         </button>
                     </div>
@@ -410,12 +411,12 @@
                         <input type="text" 
                                id="gallery-search" 
                                placeholder="🔍 Buscar por título..." 
-                               class="flex-1 min-w-[200px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                               class="flex-1 min-w-[200px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
                                oninput="searchInGallery()">
                         <input type="text" 
                                id="gallery-year-search" 
                                placeholder="📅 Filtrar por ano..." 
-                               class="flex-1 min-w-[150px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                               class="flex-1 min-w-[150px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
                                oninput="searchInGallery()">
                         <button onclick="clearGallerySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
                             Limpar
@@ -460,7 +461,7 @@
                 <p id="lightboxDate" class="text-sm text-gray-500 mb-4"></p>
                 
                 <!-- Botão Download dentro do painel -->
-                <button id="download-btn" onclick="downloadLightboxFile()" class="w-full bg-gradient-to-r from-roxo to-azul text-white py-3 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all font-medium flex items-center justify-center gap-2">
+                <button id="download-btn" onclick="downloadLightboxFile()" class="w-full bg-gradient-to-r from-verde-cultural to-cinza-verde text-white py-3 rounded-lg hover:from-verde-musgo hover:to-verde-cultural transition-all font-medium flex items-center justify-center gap-2">
                     <span>⬇️</span>
                     <span id="download-text">Baixar Documento</span>
                 </button>

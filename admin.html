@@ -11,10 +11,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'roxo': '#8B5CF6',
-                        'verde': '#10B981',
-                        'azul': '#3B82F6',
-                        'amarelo': '#F59E0B'
+                        'verde-cultural': '#3B5E3B',
+                        'verde-musgo': '#596F52',
+                        'areia': '#E3D8C3',
+                        'cinza-verde': '#4A6B5E',
+                        'preto-suave': '#1F1F1F'
                     }
                 }
             }
@@ -22,7 +23,7 @@
     </script>
     <style>
         .tab-active {
-            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+            background: linear-gradient(135deg, #3B5E3B, #4A6B5E);
             color: white;
         }
         .form-section {
@@ -38,7 +39,7 @@
     <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
             <div class="text-center mb-8">
-                <div class="w-20 h-20 bg-roxo rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="w-20 h-20 bg-verde-cultural rounded-full flex items-center justify-center mx-auto mb-4">
                     <span class="text-white text-3xl">🏛️</span>
                 </div>
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Painel Administrativo</h1>
@@ -49,17 +50,17 @@
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Email</label>
                     <input type="email" id="login-email" required 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                            placeholder="admin@casadamemoria.gov.br">
                 </div>
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Senha</label>
                     <input type="password" id="login-password" required 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                            placeholder="••••••••">
                 </div>
                 <div id="login-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm"></div>
-                <button type="submit" class="w-full bg-gradient-to-r from-roxo to-azul text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                <button type="submit" class="w-full bg-gradient-to-r from-verde-cultural to-cinza-verde text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
                     Entrar
                 </button>
             </form>
@@ -72,7 +73,7 @@
         <header class="bg-white shadow-lg">
             <div class="container mx-auto px-4 py-4 flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-roxo rounded-full flex items-center justify-center">
+                    <div class="w-12 h-12 bg-verde-cultural rounded-full flex items-center justify-center">
                         <span class="text-white text-xl">🏛️</span>
                     </div>
                     <div>
@@ -106,52 +107,80 @@
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">Adicionar Boletim da Memória</h2>
                     <form id="form-boletim" class="space-y-6">
                         <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Título *</label>
-                                <input type="text" id="boletim-titulo" required 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
-                                       placeholder="Ex: Janeiro 2024">
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Edição *</label>
-                                <input type="text" id="boletim-edicao" required 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
-                                       placeholder="Ex: Edição nº 1">
-                            </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Título *</label>
+                            <input type="text" id="boletim-titulo" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
+                                   placeholder="Ex: Janeiro 2024">
                         </div>
                         <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Data da Publicação *</label>
-                            <input type="text" id="boletim-data" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
-                                   placeholder="Ex: 01/2024 ou Janeiro/2024">
+                            <label class="block text-gray-700 font-semibold mb-2">Edição *</label>
+                            <input type="text" id="boletim-edicao" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
+                                   placeholder="Ex: Edição nº 1">
                         </div>
-                        <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Descrição</label>
-                            <textarea id="boletim-descricao" rows="3" 
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
-                                      placeholder="Breve descrição do conteúdo do boletim"></textarea>
                         </div>
-                        <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Arquivo PDF *</label>
-                            <input type="file" id="boletim-pdf" accept=".pdf" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
-                            <p class="text-sm text-gray-500 mt-1">Tamanho máximo: 10MB</p>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Data da Publicação *</label>
+                        <input type="text" id="boletim-data" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
+                               placeholder="Ex: 01/2024 ou Janeiro/2024">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Descrição</label>
+                        <textarea id="boletim-descricao" rows="3" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
+                                  placeholder="Breve descrição do conteúdo do boletim"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Arquivo PDF *</label>
+                        <input type="file" id="boletim-pdf" accept=".pdf" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural">
+                        <p class="text-sm text-gray-500 mt-1">Tamanho máximo: 10MB</p>
+                    </div>
+                    <div id="boletim-progress" class="hidden">
+                        <div class="bg-gray-200 rounded-full h-4">
+                            <div id="boletim-progress-bar" class="bg-gradient-to-r from-verde-cultural to-cinza-verde h-4 rounded-full transition-all" style="width: 0%"></div>
                         </div>
-                        <div id="boletim-progress" class="hidden">
-                            <div class="bg-gray-200 rounded-full h-4">
-                                <div id="boletim-progress-bar" class="bg-gradient-to-r from-roxo to-azul h-4 rounded-full transition-all" style="width: 0%"></div>
-                            </div>
-                            <p class="text-sm text-gray-600 mt-2 text-center">Enviando... <span id="boletim-progress-text">0%</span></p>
-                        </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-roxo to-azul text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
-                            Publicar Boletim
-                        </button>
+                        <p class="text-sm text-gray-600 mt-2 text-center">Enviando... <span id="boletim-progress-text">0%</span></p>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-verde-cultural to-cinza-verde text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                        Publicar Boletim
+                    </button>
                     </form>
                 </div>
 
                 <!-- Lista de Boletins -->
                 <div class="bg-white rounded-xl shadow-lg p-8">
                     <h3 class="text-xl font-bold text-gray-800 mb-4">Boletins Publicados</h3>
+                    
+                    <!-- Filtros de Busca - Boletins -->
+                    <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-4">🔍 Buscar Boletins</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-2">Buscar por título</label>
+                                <input type="text" id="boletim-search" placeholder="Digite o título do boletim..." 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
+                                       oninput="searchBoletins()">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-2">Filtrar por data</label>
+                                <input type="text" id="boletim-date-search" placeholder="Ex: 01/2024 ou Janeiro" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
+                                       oninput="searchBoletins()">
+                            </div>
+                        </div>
+                        <div class="flex gap-2 mt-3">
+                            <button onclick="searchBoletins()" class="px-4 py-2 bg-verde-cultural text-white rounded-lg hover:bg-cinza-verde transition-colors text-sm font-medium">
+                                🔍 Buscar
+                            </button>
+                            <button onclick="clearBoletimSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm font-medium">
+                                🗑️ Limpar
+                            </button>
+                        </div>
+                    </div>
+                    
                     <div id="boletins-list" class="space-y-4">
                         <p class="text-gray-500">Carregando...</p>
                     </div>
@@ -166,14 +195,14 @@
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Título *</label>
                             <input type="text" id="ativ-titulo" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                    placeholder="Ex: Distribuição de Folder Educativo">
                         </div>
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2">Tipo *</label>
                                 <select id="ativ-tipo" required 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural">
                                     <option value="">Selecione...</option>
                                     <option value="educativa">Ação Educativa</option>
                                     <option value="oficina">Oficina</option>
@@ -185,7 +214,7 @@
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2">Status *</label>
                                 <select id="ativ-status" required 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural">
                                     <option value="proximas">Próxima</option>
                                     <option value="realizadas">Realizada</option>
                                 </select>
@@ -195,39 +224,39 @@
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2">Data *</label>
                                 <input type="text" id="ativ-data" required 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                        placeholder="Ex: 22/09 ou 22/09 a 30/09">
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2">Horário *</label>
                                 <input type="text" id="ativ-horario" required 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                        placeholder="Ex: 09:00 às 17:00">
                             </div>
                         </div>
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Descrição Curta *</label>
                             <textarea id="ativ-descricao-curta" rows="2" required 
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                       placeholder="Descrição breve (2-3 linhas)"></textarea>
                         </div>
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Descrição Completa *</label>
                             <textarea id="ativ-descricao-completa" rows="5" required 
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                       placeholder="Descrição detalhada da atividade"></textarea>
                         </div>
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2">Local</label>
                                 <input type="text" id="ativ-local" 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                        value="No mesmo endereço da instituição | Presencial">
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2">Classificação</label>
                                 <select id="ativ-classificacao" 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural">
                                     <option value="Livre (L)">Livre (L)</option>
                                     <option value="10 anos">10 anos</option>
                                     <option value="12 anos">12 anos</option>
@@ -237,7 +266,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-verde to-amarelo text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                        <button type="submit" class="w-full bg-gradient-to-r from-verde-musgo to-areia text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
                             Publicar Atividade
                         </button>
                     </form>
@@ -246,6 +275,34 @@
                 <!-- Lista de Atividades -->
                 <div class="bg-white rounded-xl shadow-lg p-8">
                     <h3 class="text-xl font-bold text-gray-800 mb-4">Atividades Cadastradas</h3>
+                    
+                    <!-- Filtros de Busca - Atividades -->
+                    <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-4">🔍 Buscar Atividades</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-2">Buscar por título</label>
+                                <input type="text" id="atividade-search" placeholder="Digite o título da atividade..." 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
+                                       oninput="searchAtividades()">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-2">Filtrar por data</label>
+                                <input type="text" id="atividade-date-search" placeholder="Ex: 22/09 ou 15/11" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
+                                       oninput="searchAtividades()">
+                            </div>
+                        </div>
+                        <div class="flex gap-2 mt-3">
+                            <button onclick="searchAtividades()" class="px-4 py-2 bg-verde-musgo text-white rounded-lg hover:bg-verde-cultural transition-colors text-sm font-medium">
+                                🔍 Buscar
+                            </button>
+                            <button onclick="clearAtividadeSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm font-medium">
+                                🗑️ Limpar
+                            </button>
+                        </div>
+                    </div>
+                    
                     <div id="atividades-list" class="space-y-4">
                         <p class="text-gray-500">Carregando...</p>
                     </div>
@@ -260,7 +317,7 @@
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Tipo *</label>
                             <select id="acervo-tipo" required 
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural">
                                 <option value="">Selecione...</option>
                                 <option value="fotografia">Fotografia</option>
                                 <option value="documento">Documento</option>
@@ -269,20 +326,20 @@
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Título *</label>
                             <input type="text" id="acervo-titulo" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                    placeholder="Ex: Vista da Praça Central">
                         </div>
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Descrição *</label>
                             <textarea id="acervo-descricao" rows="3" required 
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                       placeholder="Descrição detalhada do item"></textarea>
                         </div>
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2">Categoria *</label>
                                 <select id="acervo-categoria" required 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural">
                                     <option value="">Selecione...</option>
                                     <option value="arquitetura">Arquitetura</option>
                                     <option value="eventos">Eventos</option>
@@ -296,23 +353,23 @@
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2">Ano</label>
                                 <input type="text" id="acervo-ano" 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                        placeholder="Ex: 1980">
                             </div>
                         </div>
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Arquivo (Imagem ou PDF) *</label>
                             <input type="file" id="acervo-arquivo" accept="image/*,.pdf" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo">
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural">
                             <p class="text-sm text-gray-500 mt-1">Tamanho máximo: 10MB</p>
                         </div>
                         <div id="acervo-progress" class="hidden">
                             <div class="bg-gray-200 rounded-full h-4">
-                                <div id="acervo-progress-bar" class="bg-gradient-to-r from-azul to-verde h-4 rounded-full transition-all" style="width: 0%"></div>
+                                <div id="acervo-progress-bar" class="bg-gradient-to-r from-cinza-verde to-verde-musgo h-4 rounded-full transition-all" style="width: 0%"></div>
                             </div>
                             <p class="text-sm text-gray-600 mt-2 text-center">Enviando... <span id="acervo-progress-text">0%</span></p>
                         </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-azul to-roxo text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                        <button type="submit" class="w-full bg-gradient-to-r from-cinza-verde to-verde-cultural text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
                             Adicionar ao Acervo
                         </button>
                     </form>
@@ -321,8 +378,37 @@
                 <!-- Lista do Acervo -->
                 <div class="bg-white rounded-xl shadow-lg p-8">
                     <h3 class="text-xl font-bold text-gray-800 mb-4">Itens do Acervo</h3>
+                    
+                    <!-- Filtros de Busca - Acervo -->
+                    <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-4">🔍 Buscar no Acervo</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-2">Buscar por título</label>
+                                <input type="text" id="acervo-search" placeholder="Digite o título do item..." 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
+                                       oninput="searchAcervo()">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-2">Filtrar por ano</label>
+                                <input type="text" id="acervo-year-search" placeholder="Ex: 1980 ou 1990" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
+                                       oninput="searchAcervo()">
+                            </div>
+                        </div>
+                        <div class="flex gap-2 mt-3">
+                            <button onclick="searchAcervo()" class="px-4 py-2 bg-cinza-verde text-white rounded-lg hover:bg-verde-musgo transition-colors text-sm font-medium">
+                                🔍 Buscar
+                            </button>
+                            <button onclick="clearAcervoSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm font-medium">
+                                🗑️ Limpar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Filtros por Tipo -->
                     <div class="flex gap-4 mb-4">
-                        <button onclick="filterAcervo('todos')" class="filter-acervo active px-4 py-2 rounded-lg text-sm font-semibold bg-roxo text-white">
+                        <button onclick="filterAcervo('todos')" class="filter-acervo active px-4 py-2 rounded-lg text-sm font-semibold bg-verde-cultural text-white">
                             Todos
                         </button>
                         <button onclick="filterAcervo('fotografia')" class="filter-acervo px-4 py-2 rounded-lg text-sm font-semibold bg-gray-200 text-gray-700">
@@ -332,6 +418,7 @@
                             Documentos
                         </button>
                     </div>
+                    
                     <div id="acervo-list" class="space-y-4">
                         <p class="text-gray-500">Carregando...</p>
                     </div>

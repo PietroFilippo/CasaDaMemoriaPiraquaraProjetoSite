@@ -37,10 +37,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'roxo': '#8B5CF6',
-                        'verde': '#10B981',
-                        'azul': '#3B82F6',
-                        'amarelo': '#F59E0B'
+                        'verde-cultural': '#3B5E3B',
+                        'verde-musgo': '#596F52',
+                        'areia': '#E3D8C3',
+                        'cinza-verde': '#4A6B5E',
+                        'preto-suave': '#1F1F1F'
                     }
                 }
             }
@@ -58,7 +59,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         .section-divider {
-            background: linear-gradient(90deg, #8B5CF6, #3B82F6, #10B981, #F59E0B);
+            background: linear-gradient(90deg, #3B5E3B, #4A6B5E, #596F52, #E3D8C3);
             height: 4px;
         }
         #pdf-canvas {
@@ -70,7 +71,7 @@
             transition: all 0.3s ease;
         }
         .filter-btn.active {
-            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+            background: linear-gradient(135deg, #3B5E3B, #4A6B5E);
             color: white;
         }
     </style>
@@ -81,21 +82,21 @@
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between py-4">
                 <a href="index.html" class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-roxo rounded-full flex items-center justify-center">
+                    <div class="w-12 h-12 bg-verde-cultural rounded-full flex items-center justify-center">
                         <span class="text-white font-bold text-xl">🏛️</span>
                     </div>
                     <div>
                         <h1 class="text-xl font-bold text-gray-800">Casa da Memória</h1>
-                        <p class="text-sm text-roxo">Manoel Alves Pereira</p>
+                        <p class="text-sm text-verde-cultural">Manoel Alves Pereira</p>
                     </div>
                 </a>
                 
                 <nav class="hidden lg:flex space-x-8">
-                    <a href="index.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Início</a>
-                    <a href="acervo.html" class="text-gray-700 hover:text-roxo font-medium transition-colors">Acervo</a>
-                    <a href="#boletins" class="text-gray-700 hover:text-roxo font-medium transition-colors">Boletins</a>
-                    <a href="#atividades" class="text-gray-700 hover:text-roxo font-medium transition-colors">Atividades</a>
-                    <a href="index.html#contato" class="text-gray-700 hover:text-roxo font-medium transition-colors">Contato</a>
+                    <a href="index.html" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Início</a>
+                    <a href="acervo.html" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Acervo</a>
+                    <a href="#boletins" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Boletins</a>
+                    <a href="#atividades" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Atividades</a>
+                    <a href="index.html#contato" class="text-gray-700 hover:text-verde-cultural font-medium transition-colors">Contato</a>
                 </nav>
 
                 <button id="menuBtn" class="lg:hidden p-2">
@@ -108,11 +109,11 @@
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden lg:hidden pb-4">
                 <div class="flex flex-col space-y-2">
-                    <a href="index.html" class="text-left py-2 text-gray-700 hover:text-roxo">Início</a>
-                    <a href="acervo.html" class="text-left py-2 text-gray-700 hover:text-roxo">Acervo</a>
-                    <a href="#boletins" class="text-left py-2 text-gray-700 hover:text-roxo">Boletins</a>
-                    <a href="#atividades" class="text-left py-2 text-gray-700 hover:text-roxo">Atividades</a>
-                    <a href="index.html#contato" class="text-left py-2 text-gray-700 hover:text-roxo">Contato</a>
+                    <a href="index.html" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Início</a>
+                    <a href="acervo.html" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Acervo</a>
+                    <a href="#boletins" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Boletins</a>
+                    <a href="#atividades" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Atividades</a>
+                    <a href="index.html#contato" class="text-left py-2 text-gray-700 hover:text-verde-cultural">Contato</a>
                 </div>
             </div>
         </div>
@@ -120,7 +121,7 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="bg-gradient-to-br from-roxo via-azul to-verde py-16">
+        <section class="bg-gradient-to-br from-verde-cultural via-cinza-verde to-verde-musgo py-16">
             <div class="container mx-auto px-4 text-center text-white">
                 <h2 class="text-4xl lg:text-5xl font-bold mb-4">Programação e Publicações</h2>
                 <p class="text-xl lg:text-2xl font-light">Boletins da Memória e Atividades</p>
@@ -143,12 +144,12 @@
                         <input type="text" 
                                id="boletim-search" 
                                placeholder="🔍 Buscar boletim por título..." 
-                               class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                               class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                oninput="searchBoletins()">
                         <input type="text" 
                                id="boletim-date-search" 
                                placeholder="📅 Filtrar por mês/ano (ex: 01/2024)..." 
-                               class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo"
+                               class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural"
                                oninput="searchBoletins()">
                         <button onclick="clearBoletimSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
                             Limpar
@@ -165,7 +166,7 @@
                             
                             <!-- Botões de Paginação -->
                             <div class="flex flex-wrap gap-3 justify-center mt-6">
-                                <button id="loadMoreBoletinsBtn" onclick="loadMoreBoletins()" class="hidden px-6 py-3 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                                <button id="loadMoreBoletinsBtn" onclick="loadMoreBoletins()" class="hidden px-6 py-3 bg-cinza-verde text-white rounded-lg hover:bg-verde-musgo transition-colors font-medium">
                                     ➕ Carregar Mais (3)
                                 </button>
                                 <button id="showLessBoletinsBtn" onclick="showLessBoletins()" class="hidden px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
@@ -176,7 +177,7 @@
                     </div>
 
                     <!-- Informações sobre o Boletim -->
-                    <div class="bg-gradient-to-br from-roxo to-azul rounded-2xl p-8 text-white">
+                    <div class="bg-gradient-to-br from-verde-cultural to-cinza-verde rounded-2xl p-8 text-white">
                         <h4 class="text-2xl font-bold mb-4">Sobre o Boletim da Memória</h4>
                         <p class="text-lg leading-relaxed">
                             O Boletim da Memória tem por objetivo informar sobre a documentação em relação ao município de Piraquara. 
@@ -225,12 +226,12 @@
                             <input type="text" 
                                    id="activity-search" 
                                    placeholder="🔍 Buscar por nome..." 
-                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-azul"
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cinza-verde"
                                    oninput="searchActivities()">
                             <input type="text" 
                                    id="activity-date-search" 
                                    placeholder="📅 Buscar por data (ex: 15/11)..." 
-                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-azul"
+                                   class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cinza-verde"
                                    oninput="searchActivities()">
                             <button onclick="clearActivitySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
                                 Limpar
@@ -242,8 +243,8 @@
                     <div id="activities-container" class="grid lg:grid-cols-2 gap-6">
                         <!-- Atividade 1 - Exemplo -->
                         <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" data-type="educativa" data-status="realizadas" onclick="openActivityModal('atividade1')">
-                            <div class="relative h-48 bg-gradient-to-br from-roxo to-azul flex items-center justify-center">
-                                <div class="absolute top-4 right-4 bg-white text-roxo px-4 py-2 rounded-full text-sm font-bold">
+                            <div class="relative h-48 bg-gradient-to-br from-verde-cultural to-cinza-verde flex items-center justify-center">
+                                <div class="absolute top-4 right-4 bg-white text-verde-cultural px-4 py-2 rounded-full text-sm font-bold">
                                     ENCERRADA
                                 </div>
                                 <div class="text-white text-center">
@@ -253,11 +254,11 @@
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center text-gray-600 mb-3">
-                                    <span class="text-verde mr-2">📅</span>
+                                    <span class="text-verde-musgo mr-2">📅</span>
                                     <span class="font-semibold">22/09 a 30/09</span>
                                 </div>
                                 <div class="flex items-center text-gray-600 mb-4">
-                                    <span class="text-azul mr-2">🕐</span>
+                                    <span class="text-cinza-verde mr-2">🕐</span>
                                     <span>09:00 às 17:00</span>
                                 </div>
                                 <h4 class="text-xl font-bold text-gray-800 mb-2">Distribuição de Folder Educativo</h4>
@@ -269,8 +270,8 @@
 
                         <!-- Atividade 2 - Exemplo -->
                         <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" data-type="oficina" data-status="realizadas" onclick="openActivityModal('atividade2')">
-                            <div class="relative h-48 bg-gradient-to-br from-verde to-amarelo flex items-center justify-center">
-                                <div class="absolute top-4 right-4 bg-white text-verde px-4 py-2 rounded-full text-sm font-bold">
+                            <div class="relative h-48 bg-gradient-to-br from-verde-musgo to-areia flex items-center justify-center">
+                                <div class="absolute top-4 right-4 bg-white text-verde-musgo px-4 py-2 rounded-full text-sm font-bold">
                                     ENCERRADA
                                 </div>
                                 <div class="text-white text-center">
@@ -280,11 +281,11 @@
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center text-gray-600 mb-3">
-                                    <span class="text-verde mr-2">📅</span>
+                                    <span class="text-verde-musgo mr-2">📅</span>
                                     <span class="font-semibold">26/09</span>
                                 </div>
                                 <div class="flex items-center text-gray-600 mb-4">
-                                    <span class="text-azul mr-2">🕐</span>
+                                    <span class="text-cinza-verde mr-2">🕐</span>
                                     <span>08:30 às 11:30</span>
                                 </div>
                                 <h4 class="text-xl font-bold text-gray-800 mb-2">Museu e Mudança Climática</h4>
@@ -305,10 +306,10 @@
                     
                     <!-- Botões de Controle de Paginação -->
                     <div class="flex flex-wrap justify-center gap-4 mt-12">
-                        <button id="showAllActivitiesBtn" onclick="showAllActivitiesGallery()" class="px-8 py-3 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                        <button id="showAllActivitiesBtn" onclick="showAllActivitiesGallery()" class="px-8 py-3 bg-cinza-verde text-white rounded-lg hover:bg-verde-musgo transition-colors font-medium">
                             📋 Ver Todas as Atividades
                         </button>
-                        <button id="loadMoreActivitiesBtn" onclick="loadMoreActivities()" class="hidden px-8 py-3 bg-roxo text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                        <button id="loadMoreActivitiesBtn" onclick="loadMoreActivities()" class="hidden px-8 py-3 bg-verde-cultural text-white rounded-lg hover:bg-verde-musgo transition-colors font-medium">
                             ➕ Carregar Mais (2)
                         </button>
                         <button id="showLessActivitiesBtn" onclick="showLessActivities()" class="hidden px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
@@ -335,12 +336,12 @@
                     <input type="text" 
                            id="boletim-gallery-search" 
                            placeholder="🔍 Buscar boletim..." 
-                           class="flex-1 min-w-[200px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           class="flex-1 min-w-[200px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
                            oninput="searchBoletinsInGallery()">
                     <input type="text" 
                            id="boletim-gallery-date-search" 
                            placeholder="📅 Filtrar por data..." 
-                           class="flex-1 min-w-[150px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           class="flex-1 min-w-[150px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
                            oninput="searchBoletinsInGallery()">
                     <button onclick="clearBoletimGallerySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
                         Limpar
@@ -370,12 +371,12 @@
                     <input type="text" 
                            id="activity-gallery-search" 
                            placeholder="🔍 Buscar atividade..." 
-                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
                            oninput="searchActivitiesInGallery()">
                     <input type="text" 
                            id="activity-gallery-date" 
                            placeholder="📅 Filtrar por data..." 
-                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
                            oninput="searchActivitiesInGallery()">
                     <button onclick="clearActivityGallerySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
                         Limpar
@@ -419,12 +420,12 @@
                     <input type="text" 
                            id="boletim-gallery-search" 
                            placeholder="🔍 Buscar boletim..." 
-                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
                            oninput="searchBoletinsInGallery()">
                     <input type="text" 
                            id="boletim-gallery-date" 
                            placeholder="📅 Filtrar por data..." 
-                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
                            oninput="searchBoletinsInGallery()">
                     <button onclick="clearBoletimGallerySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
                         Limpar
@@ -460,7 +461,7 @@
             <div class="grid lg:grid-cols-4 gap-8">
                 <div class="lg:col-span-2">
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-roxo rounded-full flex items-center justify-center">
+                        <div class="w-10 h-10 bg-verde-cultural rounded-full flex items-center justify-center">
                             <span class="text-white font-bold">🏛️</span>
                         </div>
                         <div>
@@ -479,10 +480,10 @@
                 <div>
                     <h5 class="text-lg font-bold mb-4">Links Rápidos</h5>
                     <div class="space-y-2">
-                        <a href="index.html" class="block text-gray-300 hover:text-roxo transition-colors">Início</a>
-                        <a href="acervo.html" class="block text-gray-300 hover:text-roxo transition-colors">Acervo</a>
-                        <a href="#boletins" class="block text-gray-300 hover:text-roxo transition-colors">Boletins</a>
-                        <a href="#atividades" class="block text-gray-300 hover:text-roxo transition-colors">Atividades</a>
+                        <a href="index.html" class="block text-gray-300 hover:text-areia transition-colors">Início</a>
+                        <a href="acervo.html" class="block text-gray-300 hover:text-areia transition-colors">Acervo</a>
+                        <a href="#boletins" class="block text-gray-300 hover:text-areia transition-colors">Boletins</a>
+                        <a href="#atividades" class="block text-gray-300 hover:text-areia transition-colors">Atividades</a>
                     </div>
                 </div>
 
