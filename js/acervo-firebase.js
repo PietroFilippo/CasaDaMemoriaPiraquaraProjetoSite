@@ -17,7 +17,7 @@ let currentLightboxIndex = 0;
 
 // Controle de paginação
 let photosPerPage = 8;
-let docsPerPage = 8;
+let docsPerPage = 6;
 let displayedPhotosCount = photosPerPage;
 let displayedDocsCount = docsPerPage;
 
@@ -535,13 +535,13 @@ function updateDocsButtons(totalDocs) {
 }
 
 function loadMoreDocs() {
-    displayedDocsCount += 4;
+    displayedDocsCount += 3;
     displayDocuments(filteredDocuments);
 }
 
 function showLessDocs() {
     if (displayedDocsCount > docsPerPage) {
-        displayedDocsCount -= 4;
+        displayedDocsCount -= 3;
         if (displayedDocsCount < docsPerPage) {
             displayedDocsCount = docsPerPage;
         }
@@ -597,6 +597,7 @@ function openLightbox(item, index, collection) {
     const infoPanel = document.getElementById('lightbox-info-panel');
     const infoText = document.getElementById('info-text');
     const infoIcon = document.getElementById('info-icon');
+    const downloadText = document.getElementById('download-text');
     
     if (!lightbox) {
         console.error('Lightbox não encontrado');
@@ -616,6 +617,20 @@ function openLightbox(item, index, collection) {
     }
     if (infoIcon) {
         infoIcon.textContent = 'ℹ️';
+    }
+    
+    // Atualizar texto do botão de download
+    // Se for documento histórico, sempre "Baixar Documento"
+    // Se for fotografia, sempre "Baixar Imagem"
+    if (downloadText) {
+        if (item.tipo === 'documento') {
+            downloadText.textContent = 'Baixar Documento';
+        } else if (item.tipo === 'fotografia') {
+            downloadText.textContent = 'Baixar Imagem';
+        } else {
+            // Fallback caso o tipo não esteja definido
+            downloadText.textContent = isPDF ? 'Baixar Documento' : 'Baixar Imagem';
+        }
     }
     
     if (isPDF) {
@@ -660,6 +675,16 @@ function openLightbox(item, index, collection) {
     // Mostrar lightbox
     lightbox.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+}
+
+function downloadLightboxFile() {
+    if (!currentLightboxItem || !currentLightboxItem.url) {
+        console.error('Nenhum item no lightbox para baixar');
+        return;
+    }
+    
+    // Abrir arquivo em nova aba (igual aos boletins)
+    window.open(currentLightboxItem.url, '_blank');
 }
 
 function toggleLightboxInfo() {
@@ -954,6 +979,7 @@ window.scrollToSection = scrollToSection;
 window.openLightbox = openLightbox;
 window.closeLightbox = closeLightbox;
 window.toggleLightboxInfo = toggleLightboxInfo;
+window.downloadLightboxFile = downloadLightboxFile;
 window.loadMorePhotos = loadMorePhotos;
 window.showLessPhotos = showLessPhotos;
 window.showAllPhotosGallery = showAllPhotosGallery;

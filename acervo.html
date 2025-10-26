@@ -294,10 +294,10 @@
                             📋 Ver Todos os Documentos
                         </button>
                         <button id="loadMoreDocsBtn" onclick="loadMoreDocs()" class="hidden px-8 py-3 bg-verde text-white rounded-lg hover:bg-green-600 transition-colors font-medium">
-                            ➕ Carregar Mais (4)
+                            ➕ Carregar Mais (3)
                         </button>
                         <button id="showLessDocsBtn" onclick="showLessDocs()" class="hidden px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
-                            ➖ Mostrar Menos (4)
+                            ➖ Mostrar Menos (3)
                         </button>
                     </div>
                 </div>
@@ -457,7 +457,13 @@
             <div id="lightbox-info-panel" class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-95 p-6 rounded-t-2xl transform translate-y-full transition-transform duration-300 max-h-[40vh] overflow-y-auto">
                 <h4 id="lightboxTitle" class="text-2xl font-bold text-gray-800 mb-3"></h4>
                 <p id="lightboxDescription" class="text-gray-600 mb-3"></p>
-                <p id="lightboxDate" class="text-sm text-gray-500"></p>
+                <p id="lightboxDate" class="text-sm text-gray-500 mb-4"></p>
+                
+                <!-- Botão Download dentro do painel -->
+                <button id="download-btn" onclick="downloadLightboxFile()" class="w-full bg-gradient-to-r from-roxo to-azul text-white py-3 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all font-medium flex items-center justify-center gap-2">
+                    <span>⬇️</span>
+                    <span id="download-text">Baixar Documento</span>
+                </button>
             </div>
         </div>
     </div>

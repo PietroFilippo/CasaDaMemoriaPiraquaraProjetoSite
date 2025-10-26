@@ -155,53 +155,22 @@
                         </button>
                     </div>
 
-                    <div class="grid lg:grid-cols-3 gap-8 mb-12">
-                        <!-- Lista de Boletins -->
-                        <div class="lg:col-span-1">
-                            <div class="bg-gray-50 rounded-xl p-6 sticky top-24">
-                                <h4 class="text-xl font-bold text-gray-800 mb-4">Edições Recentes</h4>
-                                <div id="boletins-list" class="space-y-3">
-                                    
-                                </div>
-                                <!-- Botão Ver Todos -->
-                                <button onclick="showAllBoletinsGallery()" 
-                                        id="ver-todos-boletins-btn" 
-                                        class="w-full mt-4 px-4 py-3 bg-gradient-to-r from-roxo to-azul text-white rounded-lg hover:opacity-90 transition-opacity font-semibold text-sm">
-                                    📋 Ver Todos os Boletins
-                                </button>
+                    <!-- Lista de Boletins -->
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-6">📰 Boletins Disponíveis</h4>
+                            <div id="boletins-list" class="space-y-4">
+                                <!-- Boletins serão carregados aqui -->
                             </div>
-                        </div>
-
-                        <!-- Visualizador de PDF -->
-                        <div class="lg:col-span-2">
-                            <div class="bg-white rounded-xl shadow-lg p-6">
-                                <div class="flex items-center justify-between mb-4">
-                                    <h4 id="pdf-title" class="text-xl font-bold text-gray-800">Selecione um boletim</h4>
-                                    <a id="download-btn" href="#" download class="hidden bg-verde text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm font-semibold">
-                                        ⬇️ Baixar PDF
-                                    </a>
-                                </div>
-
-                                <div id="pdf-viewer" class="bg-gray-100 rounded-lg p-4">
-                                    <div id="pdf-loading" class="text-center py-20 text-gray-500">
-                                        <div class="text-6xl mb-4">📄</div>
-                                        <p class="text-lg">Selecione um boletim para visualizar</p>
-                                    </div>
-                                    <canvas id="pdf-canvas" class="mx-auto hidden"></canvas>
-                                </div>
-
-                                <!-- Controles de Navegação do PDF -->
-                                <div id="pdf-controls" class="hidden mt-4 flex items-center justify-between">
-                                    <button onclick="previousPage()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition-colors font-semibold">
-                                        ← Anterior
-                                    </button>
-                                    <div class="text-gray-700">
-                                        Página <span id="page-num">1</span> de <span id="page-count">1</span>
-                                    </div>
-                                    <button onclick="nextPage()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition-colors font-semibold">
-                                        Próxima →
-                                    </button>
-                                </div>
+                            
+                            <!-- Botões de Paginação -->
+                            <div class="flex flex-wrap gap-3 justify-center mt-6">
+                                <button id="loadMoreBoletinsBtn" onclick="loadMoreBoletins()" class="hidden px-6 py-3 bg-azul text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
+                                    ➕ Carregar Mais (3)
+                                </button>
+                                <button id="showLessBoletinsBtn" onclick="showLessBoletins()" class="hidden px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                                    ➖ Mostrar Menos (3)
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -340,10 +309,10 @@
                             📋 Ver Todas as Atividades
                         </button>
                         <button id="loadMoreActivitiesBtn" onclick="loadMoreActivities()" class="hidden px-8 py-3 bg-roxo text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">
-                            ➕ Carregar Mais (4)
+                            ➕ Carregar Mais (2)
                         </button>
                         <button id="showLessActivitiesBtn" onclick="showLessActivities()" class="hidden px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
-                            ➖ Mostrar Menos (4)
+                            ➖ Mostrar Menos (2)
                         </button>
                     </div>
                 </div>
@@ -396,7 +365,24 @@
                         &times;
                     </button>
                 </div>
-                <!-- Filtros na Galeria -->
+                <!-- Busca e Filtros na Galeria -->
+                <div class="mb-4 flex flex-wrap gap-3 justify-center">
+                    <input type="text" 
+                           id="activity-gallery-search" 
+                           placeholder="🔍 Buscar atividade..." 
+                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           oninput="searchActivitiesInGallery()">
+                    <input type="text" 
+                           id="activity-gallery-date" 
+                           placeholder="📅 Filtrar por data..." 
+                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           oninput="searchActivitiesInGallery()">
+                    <button onclick="clearActivityGallerySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
+                        Limpar
+                    </button>
+                </div>
+                
+                <!-- Filtros de Status na Galeria -->
                 <div class="flex flex-wrap gap-2 justify-center">
                     <button onclick="filterActivitiesInGallery('todas')" class="gallery-filter-btn active px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm">
                         Todas
@@ -413,6 +399,42 @@
         <div class="container mx-auto px-4 py-8">
             <div id="activities-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Atividades serão carregadas aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Todos os Boletins -->
+    <div id="boletins-gallery-modal" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto">
+        <div class="sticky top-0 bg-white shadow-md z-10">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800">📰 Todos os Boletins</h3>
+                    <button onclick="closeBoletinsGalleryModal()" class="text-gray-600 hover:text-gray-800 text-3xl font-bold">
+                        &times;
+                    </button>
+                </div>
+                
+                <!-- Busca e Filtros na Galeria de Boletins -->
+                <div class="mb-4 flex flex-wrap gap-3 justify-center">
+                    <input type="text" 
+                           id="boletim-gallery-search" 
+                           placeholder="🔍 Buscar boletim..." 
+                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           oninput="searchBoletinsInGallery()">
+                    <input type="text" 
+                           id="boletim-gallery-date" 
+                           placeholder="📅 Filtrar por data..." 
+                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-roxo text-sm"
+                           oninput="searchBoletinsInGallery()">
+                    <button onclick="clearBoletimGallerySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
+                        Limpar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-8">
+            <div id="boletins-gallery-list" class="max-w-4xl mx-auto space-y-4">
+                <!-- Boletins serão carregados aqui -->
             </div>
         </div>
     </div>
