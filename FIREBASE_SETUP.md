@@ -8,14 +8,15 @@ Este guia explica passo a passo como configurar o Firebase para o sistema admini
 
 1. [Por que Firebase?](#por-que-firebase)
 2. [Criando o Projeto](#criando-o-projeto)
-3. [Configurando Authentication](#configurando-authentication)
-4. [Configurando Firestore](#configurando-firestore)
-5. [Configurando Storage](#configurando-storage)
-6. [Integrando ao Site](#integrando-ao-site)
-7. [Criando o Primeiro Usuário](#criando-o-primeiro-usuário)
-8. [Segurança e Regras](#segurança-e-regras)
+3. [Configurando Authentication](#-configurando-authentication)
+4. [Configurando Firestore](#-configurando-firestore)
+5. [Configurando Storage](#-configurando-storage)
+6. [Integrando ao Site](#-integrando-ao-site)
+7. [Criando o Primeiro Usuário](#-criando-o-primeiro-usuário)
+8. [Segurança e Regras](#-segurança-e-regras)
 9. [Custos e Limites](#custos-e-limites)
 10. [Solução de Problemas](#solução-de-problemas)
+11. [Segurança e Boas Práticas](#segurança-e-boas-práticas)
 
 ---
 
