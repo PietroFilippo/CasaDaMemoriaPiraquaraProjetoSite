@@ -5,22 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acervo - Casa da Memória de Piraquara</title>
     
+    <!-- Firebase Configuration -->
+    <script src="js/firebase-config.js"></script>
+    
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getFirestore, collection, getDocs, query, orderBy, where } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDt-vCVDYnk_ntWK9wd3K0ykWir79b5xyA",
-            authDomain: "casa-memoria-piraquara.firebaseapp.com",
-            projectId: "casa-memoria-piraquara",
-            storageBucket: "casa-memoria-piraquara.firebasestorage.app",
-            messagingSenderId: "74803101661",
-            appId: "1:74803101661:web:5ed1c8527329d47740c034",
-            measurementId: "G-BVXBY1D482"
-        };
-
-        const app = initializeApp(firebaseConfig);
+        const app = initializeApp(window.firebaseConfig);
         const db = getFirestore(app);
 
         // Tornar disponível globalmente
