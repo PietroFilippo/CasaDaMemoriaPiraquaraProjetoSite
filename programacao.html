@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programação e Boletins - Casa da Memória</title>
     
-    <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     
     <!-- Firebase Configuration -->
     <script src="js/firebase-config.js"></script>
@@ -54,11 +52,6 @@
         .section-divider {
             background: linear-gradient(90deg, #3B5E3B, #4A6B5E, #596F52, #E3D8C3);
             height: 4px;
-        }
-        #pdf-canvas {
-            border: 1px solid #ddd;
-            max-width: 100%;
-            height: auto;
         }
         .filter-btn {
             transition: all 0.3s ease;
@@ -394,41 +387,6 @@
         </div>
     </div>
 
-    <!-- Modal de Todos os Boletins -->
-    <div id="boletins-gallery-modal" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto">
-        <div class="sticky top-0 bg-white shadow-md z-10">
-            <div class="container mx-auto px-4 py-4">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-2xl font-bold text-gray-800">📰 Todos os Boletins</h3>
-                    <button onclick="closeBoletinsGalleryModal()" class="text-gray-600 hover:text-gray-800 text-3xl font-bold">
-                        &times;
-                    </button>
-                </div>
-                
-                <!-- Busca e Filtros na Galeria de Boletins -->
-                <div class="mb-4 flex flex-wrap gap-3 justify-center">
-                    <input type="text" 
-                           id="boletim-gallery-search" 
-                           placeholder="🔍 Buscar boletim..." 
-                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
-                           oninput="searchBoletinsInGallery()">
-                    <input type="text" 
-                           id="boletim-gallery-date" 
-                           placeholder="📅 Filtrar por data..." 
-                           class="flex-1 min-w-[200px] max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural text-sm"
-                           oninput="searchBoletinsInGallery()">
-                    <button onclick="clearBoletimGallerySearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm">
-                        Limpar
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="container mx-auto px-4 py-8">
-            <div id="boletins-gallery-list" class="max-w-4xl mx-auto space-y-4">
-                <!-- Boletins serão carregados aqui -->
-            </div>
-        </div>
-    </div>
 
     <!-- Modal de Detalhes da Atividade -->
     <div id="activity-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4" onclick="closeActivityModal()">
@@ -502,53 +460,11 @@
         // ==========================================
         // FUNÇÕES DE PDF REMOVIDAS
         // ==========================================
-        // As funções de PDF (renderPage, loadPDF, previousPage, nextPage, etc.) 
-        // agora estão no arquivo programacao-firebase.js que gerencia tudo dinamicamente.
+        // As funções de visualização de PDF foram removidas.
+        // Agora o site apenas oferece download direto dos boletins.
 
         // === FILTROS DE ATIVIDADES ===
-        function filterActivities(filter) {
-            const activities = document.querySelectorAll('.activity-card');
-            const noActivities = document.getElementById('no-activities');
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            let visibleCount = 0;
-
-            // Atualizar botões ativos
-            filterBtns.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.toLowerCase().includes(filter) || (filter === 'todas' && btn.textContent === 'Todas')) {
-                    btn.classList.add('active');
-                }
-            });
-
-            // Filtrar atividades
-            activities.forEach(activity => {
-                let shouldShow = false;
-
-                if (filter === 'todas') {
-                    shouldShow = true;
-                } else if (filter === 'proximas' && activity.dataset.status === 'proximas') {
-                    shouldShow = true;
-                } else if (filter === 'realizadas' && activity.dataset.status === 'realizadas') {
-                    shouldShow = true;
-                } else if (activity.dataset.type === filter) {
-                    shouldShow = true;
-                }
-
-                if (shouldShow) {
-                    activity.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    activity.style.display = 'none';
-                }
-            });
-
-            // Mostrar mensagem se não houver atividades
-            if (visibleCount === 0) {
-                noActivities.classList.remove('hidden');
-            } else {
-                noActivities.classList.add('hidden');
-            }
-        }
+        // Função movida para programacao-firebase.js para evitar duplicação
 
         // ==========================================
         // DADOS REMOVIDOS - AGORA CARREGADOS DO FIREBASE
@@ -565,7 +481,7 @@
                 const href = this.getAttribute('href');
                 if (href !== '#' && href.includes('#')) {
                     e.preventDefault();
-                    const element = document.querySelector(href.split('#')[1] ? '#' + href.split('#')[1] : href);
+                    const element = document.querySelector(href);
                     if (element) {
                         element.scrollIntoView({ behavior: 'smooth' });
                     }

@@ -5,12 +5,6 @@
 // Este arquivo carrega boletins e atividades do Firebase
 // Substitui os dados hardcoded por dados dinâmicos
 
-// Variáveis globais para PDF
-let pdfDoc = null;
-let pageNum = 1;
-let pageRendering = false;
-let pageNumPending = null;
-
 // Variáveis globais para paginação e filtros
 let allBoletins = [];
 let filteredBoletins = [];
@@ -19,8 +13,6 @@ let filteredActivities = [];
 let activitiesPerPage = 4;
 let displayedActivitiesCount = activitiesPerPage;
 let currentActivityFilter = 'todas';
-let currentActivitySearchTerm = '';
-let currentActivityDateTerm = '';
 let currentBoletimSearch = '';
 let boletinsPerPage = 6;
 let displayedBoletinsCount = boletinsPerPage;
@@ -306,170 +298,15 @@ function closeBoletinsGalleryModal() {
     }
 }
 
-// ====================================
-// CARREGAR PDF NO VIEWER
-// ====================================
-
-// Função para obter URL de download segura do Firebase Storage
-async function getSecureDownloadUrl(firebaseUrl) {
-    try {
-        console.log('🔍 Obtendo URL segura do Firebase Storage...');
-        console.log('URL original:', firebaseUrl);
-        
-        // Extrair o caminho do arquivo da URL do Firebase Storage
-        const url = new URL(firebaseUrl);
-        const pathMatch = url.pathname.match(/\/o\/(.+?)\?/);
-        
-        if (!pathMatch) {
-            console.error('❌ Não foi possível extrair o caminho do arquivo da URL');
-            return firebaseUrl; // Retornar URL original se não conseguir extrair
-        }
-        
-        const filePath = decodeURIComponent(pathMatch[1]);
-        console.log('📁 Caminho do arquivo extraído:', filePath);
-        
-        // Criar referência do Firebase Storage
-        const fileRef = window.firebaseModules.ref(window.storage, filePath);
-        
-        // Obter URL de download segura
-        const downloadUrl = await window.firebaseModules.getDownloadURL(fileRef);
-        console.log('✅ URL de download segura obtida:', downloadUrl);
-        
-        return downloadUrl;
-    } catch (error) {
-        console.error('❌ Erro ao obter URL segura:', error);
-        console.log('🔄 Usando URL original como fallback');
-        return firebaseUrl; // Retornar URL original se falhar
-    }
-}
-
-// Função para testar se a URL é acessível
-async function testUrlAccessibility(url) {
-    try {
-        console.log('🧪 Testando acessibilidade da URL:', url);
-        const response = await fetch(url, { 
-            method: 'HEAD',
-            mode: 'cors'
-        });
-        console.log('📊 Resposta HEAD:', {
-            status: response.status,
-            statusText: response.statusText,
-            headers: Object.fromEntries(response.headers.entries())
-        });
-        return response.ok;
-    } catch (error) {
-        console.log('❌ Erro ao testar URL:', error);
-        return false;
-    }
-}
-
-// Função de fallback com iframe
-function tryIframeFallback(url, title, pdfLoading, pdfCanvas, pdfControls, downloadBtn) {
-    console.log('🔄 === TENTANDO FALLBACK COM IFRAME ===');
-    
-    if (pdfLoading) {
-        pdfLoading.innerHTML = `
-            <div class="text-center py-20">
-                <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-verde-cultural mx-auto mb-4"></div>
-                <p class="text-gray-600">Carregando ${title} (modo iframe)...</p>
-            </div>
-        `;
-    }
-    
-    // Criar iframe para visualizar PDF
-    const iframe = document.createElement('iframe');
-    iframe.src = url;
-    iframe.style.width = '100%';
-    iframe.style.height = '600px';
-    iframe.style.border = 'none';
-    iframe.style.borderRadius = '8px';
-    
-    // Timeout para evitar carregamento infinito
-    const timeoutId = setTimeout(() => {
-        console.error('⏰ Timeout ao carregar iframe');
-        if (pdfLoading) {
-            pdfLoading.innerHTML = `
-                <div class="text-center py-20 text-red-500">
-                    <div class="text-6xl mb-4">⚠️</div>
-                    <p class="text-lg font-semibold">Timeout ao carregar PDF</p>
-                    <p class="text-sm mt-2">O PDF demorou muito para carregar</p>
-                    <p class="text-xs mt-2 text-gray-500">URL: ${url}</p>
-                    <div class="mt-4 space-x-2">
-                        <a href="${url}" target="_blank" class="inline-block px-4 py-2 bg-verde-cultural text-white rounded-lg hover:bg-verde-musgo transition-colors">
-                            🔗 Abrir PDF em nova aba
-                        </a>
-                        <button onclick="downloadPDF('${url}', '${title}')" class="inline-block px-4 py-2 bg-cinza-verde text-white rounded-lg hover:bg-verde-musgo transition-colors">
-                            🔄 Tentar novamente
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-    }, 10000); // 10 segundos de timeout
-    
-    iframe.onload = function() {
-        console.log('✅ Iframe carregado com sucesso!');
-        clearTimeout(timeoutId); // Cancelar timeout
-        
-            if (pdfLoading) {
-                pdfLoading.classList.add('hidden');
-            }
-            if (pdfCanvas) {
-            pdfCanvas.innerHTML = '';
-            pdfCanvas.appendChild(iframe);
-                pdfCanvas.classList.remove('hidden');
-            }
-            if (pdfControls) {
-            pdfControls.classList.add('hidden'); // Ocultar controles de página para iframe
-            }
-            if (downloadBtn) {
-                downloadBtn.href = url;
-                downloadBtn.classList.remove('hidden');
-                downloadBtn.download = `${title}.pdf`;
-            }
-    };
-    
-    iframe.onerror = function() {
-        console.error('❌ Erro ao carregar iframe');
-        clearTimeout(timeoutId); // Cancelar timeout
-        
-            if (pdfLoading) {
-                pdfLoading.innerHTML = `
-                    <div class="text-center py-20 text-red-500">
-                        <div class="text-6xl mb-4">⚠️</div>
-                        <p class="text-lg font-semibold">Erro ao carregar o PDF</p>
-                    <p class="text-sm mt-2">Não foi possível carregar o PDF nem com PDF.js nem com iframe</p>
-                    <p class="text-xs mt-2 text-gray-500">URL: ${url}</p>
-                    <div class="mt-4 space-x-2">
-                        <a href="${url}" target="_blank" class="inline-block px-4 py-2 bg-verde-cultural text-white rounded-lg hover:bg-verde-musgo transition-colors">
-                            🔗 Abrir PDF em nova aba
-                        </a>
-                        <button onclick="downloadPDF('${url}', '${title}')" class="inline-block px-4 py-2 bg-cinza-verde text-white rounded-lg hover:bg-verde-musgo transition-colors">
-                            🔄 Tentar novamente
-                        </button>
-                    </div>
-                    </div>
-                `;
-            }
-    };
-}
 
 // ====================================
 // BAIXAR PDF (DOWNLOAD DIRETO)
 // ====================================
 async function downloadPDF(url, title) {
-    console.log('📥 === INICIANDO DOWNLOAD DE PDF ===');
-    console.log('📄 URL do PDF:', url);
-    console.log('📝 Título:', title);
-    
     try {
-        // Obter URL segura do Firebase Storage
-        const secureUrl = await getSecureDownloadUrl(url);
-        console.log('🔐 URL segura obtida:', secureUrl);
-        
         // Criar link de download e clicar automaticamente
         const downloadLink = document.createElement('a');
-        downloadLink.href = secureUrl;
+        downloadLink.href = url;
         downloadLink.download = `${title}.pdf`;
         downloadLink.target = '_blank';
         
@@ -480,10 +317,8 @@ async function downloadPDF(url, title) {
         // Remover do DOM
         document.body.removeChild(downloadLink);
         
-        console.log('✅ Download iniciado com sucesso!');
-        
     } catch (error) {
-        console.error('❌ Erro ao baixar PDF:', error);
+        console.error('Erro ao baixar PDF:', error);
     }
 }
 
@@ -835,125 +670,65 @@ function clearBoletimSearch() {
     renderBoletins(filteredBoletins);
 }
 
+
 // ====================================
-// RENDERIZAR PÁGINA DO PDF
+// ORDENAÇÃO DE ATIVIDADES
 // ====================================
 
-function renderPage(num) {
-    console.log('🎨 === RENDERIZANDO PÁGINA ===');
-    console.log('📄 Número da página:', num);
-    console.log('📚 PDF Doc disponível:', !!pdfDoc);
-    
-    pageRendering = true;
-    
-    const canvas = document.getElementById('pdf-canvas');
-    if (!canvas) {
-        console.error('❌ Canvas não encontrado!');
-        return;
-    }
-    
-    console.log('🖼️ Canvas encontrado:', canvas);
-    
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-        console.error('❌ Contexto 2D não disponível!');
-        return;
-    }
-    
-    console.log('🔄 Obtendo página do PDF...');
-    
-    pdfDoc.getPage(num).then(function(page) {
-        console.log('✅ Página obtida com sucesso:', {
-            pageNumber: page.pageNumber,
-            view: page.view
-        });
+function sortActivitiesByPriority(activities) {
+    return activities.sort((a, b) => {
+        // Primeiro: separar por status (futuras primeiro)
+        if (a.status === 'proximas' && b.status === 'realizadas') {
+            return -1; // a vem antes de b
+        }
+        if (a.status === 'realizadas' && b.status === 'proximas') {
+            return 1; // b vem antes de a
+        }
         
-        const viewport = page.getViewport({ scale: 1.5 });
-        console.log('📐 Viewport calculado:', {
-            width: viewport.width,
-            height: viewport.height,
-            scale: viewport.scale
-        });
+        // Se ambos têm o mesmo status, ordenar por data
+        const dateA = parseActivityDate(a.data);
+        const dateB = parseActivityDate(b.data);
         
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-        
-        console.log('🖼️ Canvas redimensionado:', {
-            width: canvas.width,
-            height: canvas.height
-        });
-        
-        const renderContext = {
-            canvasContext: ctx,
-            viewport: viewport
-        };
-        
-        console.log('🎨 Iniciando renderização...');
-        const renderTask = page.render(renderContext);
-        
-        renderTask.promise.then(function() {
-            console.log('✅ Página renderizada com sucesso!');
-            pageRendering = false;
-            
-            if (pageNumPending !== null) {
-                console.log('🔄 Renderizando página pendente:', pageNumPending);
-                renderPage(pageNumPending);
-                pageNumPending = null;
-            }
-            
-            // Atualizar número da página
-            const pageNum = document.getElementById('page-num');
-            if (pageNum) {
-                pageNum.textContent = num;
-            }
-            
-            console.log('🎉 Renderização concluída!');
-        }).catch(function(error) {
-            console.error('❌ Erro ao renderizar página:', error);
-            pageRendering = false;
-        });
-    }).catch(function(error) {
-        console.error('❌ Erro ao obter página do PDF:', error);
-        pageRendering = false;
+        if (a.status === 'proximas') {
+            // Para atividades futuras: da mais próxima para a mais distante
+            return dateA - dateB;
+        } else {
+            // Para atividades realizadas: da mais recente para a mais antiga
+            return dateB - dateA;
+        }
     });
 }
 
-function queueRenderPage(num) {
-    if (pageRendering) {
-        pageNumPending = num;
-    } else {
-        renderPage(num);
+function parseActivityDate(dateString) {
+    if (!dateString) return 0;
+    
+    // Tentar diferentes formatos de data
+    // Formato: DD/MM/YYYY ou DD/MM/YY
+    const formats = [
+        /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/, // DD/MM/YYYY
+        /^(\d{1,2})\/(\d{1,2})\/(\d{2})$/, // DD/MM/YY
+        /^(\d{1,2})\/(\d{1,2})$/, // DD/MM (assumir ano atual)
+    ];
+    
+    for (const format of formats) {
+        const match = dateString.match(format);
+        if (match) {
+            let day = parseInt(match[1]);
+            let month = parseInt(match[2]);
+            let year = match[3] ? parseInt(match[3]) : new Date().getFullYear();
+            
+            // Converter ano de 2 dígitos para 4 dígitos
+            if (year < 100) {
+                year += year < 50 ? 2000 : 1900;
+            }
+            
+            return new Date(year, month - 1, day).getTime();
+        }
     }
+    
+    // Se não conseguir fazer parse, retornar 0
+    return 0;
 }
-
-// ====================================
-// CONTROLES DE NAVEGAÇÃO DO PDF
-// ====================================
-
-function onPrevPage() {
-    if (pageNum <= 1) return;
-    pageNum--;
-    queueRenderPage(pageNum);
-}
-
-function onNextPage() {
-    if (pageNum >= pdfDoc.numPages) return;
-    pageNum++;
-    queueRenderPage(pageNum);
-}
-
-// Aliases para as funções chamadas do HTML
-function previousPage() {
-    onPrevPage();
-}
-
-function nextPage() {
-    onNextPage();
-}
-
-// ====================================
-// CARREGAR ATIVIDADES DO FIREBASE
-// ====================================
 
 async function loadAtividadesFromFirebase() {
     try {
@@ -971,6 +746,9 @@ async function loadAtividadesFromFirebase() {
             const data = doc.data();
             allActivities.push({ id: doc.id, ...data });
         });
+        
+        // Ordenar atividades: futuras primeiro (por data), depois concluídas (da mais recente para a mais antiga)
+        allActivities = sortActivitiesByPriority(allActivities);
         
         filteredActivities = [...allActivities];
         
@@ -1243,7 +1021,8 @@ function filterActivities(filter) {
         );
     }
     
-    filteredActivities = filtered;
+    // Aplicar ordenação personalizada
+    filteredActivities = sortActivitiesByPriority(filtered);
     
     // Atualizar botões ativos
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -1343,8 +1122,11 @@ function showAllActivitiesGallery() {
         }
     });
     
-    modalTitle.textContent = `Todas as Atividades (${filteredActivities.length})`;
-    renderActivitiesGallery(filteredActivities);
+    modalTitle.textContent = `Todas as Atividades (${allActivities.length})`;
+    
+    // Aplicar ordenação personalizada
+    const sortedActivities = sortActivitiesByPriority([...allActivities]);
+    renderActivitiesGallery(sortedActivities);
     
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
@@ -1389,6 +1171,9 @@ function searchActivitiesInGallery() {
         }
     }
     
+    // Aplicar ordenação personalizada
+    filtered = sortActivitiesByPriority(filtered);
+    
     renderActivitiesGallery(filtered);
 }
 
@@ -1411,6 +1196,9 @@ function clearActivityGallerySearch() {
             filtered = filtered.filter(a => a.status === 'realizadas');
         }
     }
+    
+    // Aplicar ordenação personalizada
+    filtered = sortActivitiesByPriority(filtered);
     
     renderActivitiesGallery(filtered);
 }
@@ -1455,6 +1243,9 @@ function filterActivitiesInGallery(filter) {
                           filter.charAt(0).toUpperCase() + filter.slice(1);
         modalTitle.textContent = `Atividades - ${filterName} (${filtered.length})`;
     }
+    
+    // Aplicar ordenação personalizada
+    filtered = sortActivitiesByPriority(filtered);
     
     renderActivitiesGallery(filtered);
 }
@@ -1532,62 +1323,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Função de teste para diagnosticar problemas com PDFs
-window.testPDFLoading = function(testUrl) {
-    console.log('🧪 === TESTE DE CARREGAMENTO DE PDF ===');
-    console.log('🔗 URL de teste:', testUrl);
-    
-    // Teste 1: Verificar se a URL responde
-    fetch(testUrl, { method: 'HEAD' })
-        .then(response => {
-            console.log('✅ URL responde:', response.status, response.statusText);
-            console.log('📋 Headers:', Object.fromEntries(response.headers.entries()));
-        })
-        .catch(error => {
-            console.log('❌ URL não responde:', error);
-        });
-    
-    // Teste 2: Tentar carregar com PDF.js
-    if (typeof pdfjsLib !== 'undefined') {
-        console.log('📚 Testando com PDF.js...');
-        const loadingTask = pdfjsLib.getDocument(testUrl);
-        loadingTask.promise
-            .then(pdf => {
-                console.log('✅ PDF.js conseguiu carregar:', pdf.numPages, 'páginas');
-            })
-            .catch(error => {
-                console.log('❌ PDF.js falhou:', error);
-            });
-    } else {
-        console.log('❌ PDF.js não está disponível');
-    }
-    
-    // Teste 3: Tentar com iframe
-    const testIframe = document.createElement('iframe');
-    testIframe.src = testUrl;
-    testIframe.style.display = 'none';
-    document.body.appendChild(testIframe);
-    
-    testIframe.onload = () => {
-        console.log('✅ Iframe conseguiu carregar');
-        document.body.removeChild(testIframe);
-    };
-    
-    testIframe.onerror = () => {
-        console.log('❌ Iframe falhou');
-        document.body.removeChild(testIframe);
-    };
-    
-    setTimeout(() => {
-        if (document.body.contains(testIframe)) {
-            document.body.removeChild(testIframe);
-        }
-    }, 5000);
-};
 
 // Tornar funções disponíveis globalmente (chamadas do HTML)
-window.previousPage = previousPage;
-window.nextPage = nextPage;
 window.downloadPDF = downloadPDF;
 window.filterActivities = filterActivities;
 window.filterByStatus = filterByStatus;

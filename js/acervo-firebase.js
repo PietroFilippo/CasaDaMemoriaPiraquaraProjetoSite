@@ -910,17 +910,6 @@ function scrollToSection(sectionId) {
 }
 
 // ====================================
-// MENU MOBILE
-// ====================================
-
-function toggleMobileMenu() {
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (mobileMenu) {
-        mobileMenu.classList.toggle('hidden');
-    }
-}
-
-// ====================================
 // INICIALIZAÇÃO
 // ====================================
 
@@ -928,7 +917,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar menu mobile
     const menuBtn = document.getElementById('menuBtn');
     if (menuBtn) {
-        menuBtn.addEventListener('click', toggleMobileMenu);
+        menuBtn.addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        });
     }
     
     // Configurar lightbox
