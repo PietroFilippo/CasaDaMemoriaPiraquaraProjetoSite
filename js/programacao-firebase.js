@@ -1087,10 +1087,18 @@ function createActivityCard(id, data) {
                 <span class="text-verde-musgo-musgo mr-2">📅</span>
                 <span class="font-semibold">${data.data || 'Data a confirmar'}</span>
             </div>
-            <div class="flex items-center text-gray-600 mb-4">
+            <div class="flex items-center text-gray-600 mb-3">
                 <span class="text-cinza-verde mr-2">🕐</span>
                 <span>${data.horario || 'Horário a confirmar'}</span>
             </div>
+            ${data.custoEntrada ? `
+            <div class="flex items-center text-gray-600 mb-4">
+                <span class="text-verde-cultural mr-2">💰</span>
+                <span class="font-semibold ${data.custoEntrada === 'gratuita' ? 'text-green-600' : 'text-orange-600'}">
+                    ${data.custoEntrada === 'gratuita' ? 'Entrada Gratuita' : `R$ ${data.valorEntrada || 'Valor a confirmar'}`}
+                </span>
+            </div>
+            ` : ''}
             <h4 class="text-xl font-bold text-gray-800 mb-2">${data.titulo}</h4>
             <p class="text-gray-600 text-sm">${data.descricaoCurta || data.descricaoCompleta?.substring(0, 100) + '...' || 'Sem descrição'}</p>
         </div>
@@ -1144,6 +1152,17 @@ function openActivityModal(id, data) {
                     <div class="text-gray-700">${data.horario || 'Horário a confirmar'}</div>
                 </div>
             </div>
+            
+            ${data.custoEntrada ? `
+            <div class="mb-6">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-gray-600 text-sm font-semibold mb-2">💰 Custo de Entrada</div>
+                    <div class="text-gray-700 font-semibold ${data.custoEntrada === 'gratuita' ? 'text-green-600' : 'text-orange-600'}">
+                        ${data.custoEntrada === 'gratuita' ? 'Entrada Gratuita' : `R$ ${data.valorEntrada || 'Valor a confirmar'}`}
+                    </div>
+                </div>
+            </div>
+            ` : ''}
             
             
             ${data.local ? `
@@ -1473,7 +1492,12 @@ function renderActivitiesGallery(activities) {
             </div>
             <div class="p-3">
                 <p class="text-xs font-bold text-gray-800 truncate mb-1">${activity.titulo}</p>
-                <p class="text-xs text-gray-600 truncate">📅 ${activity.data || 'A confirmar'}</p>
+                <p class="text-xs text-gray-600 truncate mb-1">📅 ${activity.data || 'A confirmar'}</p>
+                ${activity.custoEntrada ? `
+                <p class="text-xs font-semibold truncate ${activity.custoEntrada === 'gratuita' ? 'text-green-600' : 'text-orange-600'}">
+                    💰 ${activity.custoEntrada === 'gratuita' ? 'Gratuita' : `R$ ${activity.valorEntrada || 'Paga'}`}
+                </p>
+                ` : ''}
             </div>
         `;
         

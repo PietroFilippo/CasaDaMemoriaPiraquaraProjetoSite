@@ -200,6 +200,9 @@ document.getElementById('form-atividade').addEventListener('submit', async (e) =
         'roda-conversa': '📖'
     };
     
+    const custoEntrada = document.getElementById('ativ-custo').value;
+    const valorEntrada = document.getElementById('ativ-valor-entrada').value;
+    
     const atividade = {
         titulo: document.getElementById('ativ-titulo').value,
         tipo: tipo,
@@ -211,6 +214,8 @@ document.getElementById('form-atividade').addEventListener('submit', async (e) =
         descricaoCompleta: document.getElementById('ativ-descricao-completa').value,
         local: document.getElementById('ativ-local').value,
         classificacao: document.getElementById('ativ-classificacao').value,
+        custoEntrada: custoEntrada,
+        valorEntrada: custoEntrada === 'paga' ? valorEntrada : null,
         gradiente: gradientes[tipo] || 'from-roxo to-azul',
         emoji: emojis[tipo] || '📅',
         createdAt: new Date().toISOString()
@@ -224,6 +229,8 @@ document.getElementById('form-atividade').addEventListener('submit', async (e) =
         
         alert('Atividade publicada com sucesso!');
         document.getElementById('form-atividade').reset();
+        document.getElementById('valor-entrada-container').classList.add('hidden');
+        document.getElementById('ativ-valor-entrada').required = false;
         loadAtividades();
     } catch (error) {
         alert('Erro ao publicar atividade: ' + error.message);
@@ -582,4 +589,45 @@ window.searchAtividades = searchAtividades;
 window.clearAtividadeSearch = clearAtividadeSearch;
 window.searchAcervo = searchAcervo;
 window.clearAcervoSearch = clearAcervoSearch;
+
+// Função para mostrar/ocultar campo de valor de entrada
+function toggleValorEntrada() {
+    const custoSelect = document.getElementById('ativ-custo');
+    const valorContainer = document.getElementById('valor-entrada-container');
+    const valorInput = document.getElementById('ativ-valor-entrada');
+    
+    if (custoSelect.value === 'paga') {
+        valorContainer.classList.remove('hidden');
+        valorInput.required = true;
+    } else {
+        valorContainer.classList.add('hidden');
+        valorInput.required = false;
+        valorInput.value = '';
+    }
+}
+
+// Função para formatar valor monetário
+function formatarValor(input) {
+    let valor = input.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+    
+    if (valor.length === 0) {
+        input.value = '';
+        return;
+    }
+    
+    // Converte para centavos
+    valor = parseInt(valor);
+    
+    // Formata como moeda brasileira
+    const valorFormatado = (valor / 100).toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+    
+    input.value = valorFormatado;
+}
+
+// Tornar funções disponíveis globalmente
+window.toggleValorEntrada = toggleValorEntrada;
+window.formatarValor = formatarValor;
 
