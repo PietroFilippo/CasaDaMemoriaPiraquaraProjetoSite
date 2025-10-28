@@ -85,6 +85,9 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 - **Paginação dinâmica** (carregar mais)
 - **Sistema de filtros** interativos
 - **Mapa interativo** com Leaflet
+- **Campos condicionais** no painel administrativo
+- **Edição inline** com substituição de arquivos
+- **Seleção múltipla** para operações em lote
 - **PWA-ready** (pode ser instalado como app)
 
 ## Páginas e Funcionalidades
@@ -102,7 +105,8 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 - **Boletins da Memória**: Download de PDFs
 - **Atividades e Eventos**: Sistema de filtros e cards visuais
 - Modal com detalhes completos
-- Informações: data, horário, local, classificação
+- Informações: data, horário, local, classificação, custo de entrada
+- Exibição de valores: atividades gratuitas ou com preço definido
 
 ### 📚 Página de Acervo (`acervo.html`)
 - Arquivo fotográfico com filtros por categoria
@@ -115,6 +119,10 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 - Interface com 3 abas (Boletins, Atividades, Acervo)
 - Upload de PDFs com barra de progresso
 - Formulários intuitivos para cada tipo de conteúdo
+- Campo de custo de entrada para atividades (gratuita/paga)
+- Edição completa de itens existentes
+- Substituição de arquivos sem deletar itens
+- Seleção múltipla e exclusão em lote
 - Visualização e exclusão de itens cadastrados
 
 ## Tecnologias
