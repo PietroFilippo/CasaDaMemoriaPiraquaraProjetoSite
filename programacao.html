@@ -6,6 +6,11 @@
     <title>Programação e Boletins - Casa da Memória</title>
     
     
+    <!-- Google Fonts - Clarendon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Clarendon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <!-- Firebase Configuration -->
     <script src="js/firebase-config.js"></script>
     
@@ -27,6 +32,10 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        'clarendon': ['Clarendon Text', 'serif'],
+                        'sans': ['Clarendon Text', 'serif']
+                    },
                     colors: {
                         'verde-cultural': '#1A2E1A',
                         'verde-musgo': '#2D3A2A',
@@ -81,7 +90,7 @@
         }
     </style>
 </head>
-<body class="font-sans bg-gray-50">
+<body class="font-clarendon bg-gray-50">
     <!-- Header -->
     <header class="bg-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4">

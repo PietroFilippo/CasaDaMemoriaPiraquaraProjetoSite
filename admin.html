@@ -5,11 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Admin - Casa da Memória</title>
     
+    <!-- Google Fonts - Clarendon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Clarendon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        'clarendon': ['Clarendon Text', 'serif'],
+                        'sans': ['Clarendon Text', 'serif']
+                    },
                     colors: {
                         'verde-cultural': '#1A2E1A',
                         'verde-musgo': '#2D3A2A',
@@ -45,7 +54,7 @@
         }
     </style>
 </head>
-<body class="font-sans bg-gray-50">
+<body class="font-clarendon bg-gray-50">
     <!-- Login Screen -->
     <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
