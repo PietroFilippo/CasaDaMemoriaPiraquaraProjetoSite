@@ -131,6 +131,14 @@
                         <input type="file" id="boletim-pdf" accept=".pdf" required 
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural">
                         <p class="text-sm text-gray-500 mt-1">Tamanho máximo: 10MB</p>
+                        <p id="boletim-file-hint" class="text-sm text-gray-500 mt-1 hidden">Deixe o campo de arquivo vazio para manter o arquivo atual</p>
+                    </div>
+                    
+                    <!-- Botões de controle de edição -->
+                    <div id="boletim-edit-controls" class="hidden flex gap-3">
+                        <button type="button" onclick="cancelEdit('boletim')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium">
+                            Cancelar Edição
+                        </button>
                     </div>
                     <div id="boletim-progress" class="hidden">
                         <div class="bg-gray-200 rounded-full h-4">
@@ -171,6 +179,23 @@
                             </button>
                             <button onclick="clearBoletimSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm font-medium">
                                 🗑️ Limpar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Ações em Lote - Boletins -->
+                    <div id="boletins-bulk-actions" class="hidden mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <button onclick="selectAllBoletins()" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium">
+                                    ✅ Selecionar Todos
+                                </button>
+                                <button onclick="clearBoletimSelection()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm font-medium">
+                                    ❌ Limpar Seleção
+                                </button>
+                            </div>
+                            <button id="delete-selected-boletins" onclick="deleteSelectedBoletins()" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium">
+                                🗑️ Excluir Selecionados (0)
                             </button>
                         </div>
                     </div>
@@ -280,6 +305,14 @@
                                        oninput="formatarValor(this)">
                             </div>
                         </div>
+                        
+                        <!-- Botões de controle de edição -->
+                        <div id="atividade-edit-controls" class="hidden flex gap-3">
+                            <button type="button" onclick="cancelEdit('atividade')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium">
+                                Cancelar Edição
+                            </button>
+                        </div>
+                        
                         <button type="submit" class="w-full bg-gradient-to-r from-verde-cultural to-cinza-verde text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
                             Publicar Atividade
                         </button>
@@ -313,6 +346,23 @@
                             </button>
                             <button onclick="clearAtividadeSearch()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm font-medium">
                                 🗑️ Limpar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Ações em Lote - Atividades -->
+                    <div id="atividades-bulk-actions" class="hidden mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <button onclick="selectAllAtividades()" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium">
+                                    ✅ Selecionar Todos
+                                </button>
+                                <button onclick="clearAtividadeSelection()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm font-medium">
+                                    ❌ Limpar Seleção
+                                </button>
+                            </div>
+                            <button id="delete-selected-atividades" onclick="deleteSelectedAtividades()" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium">
+                                🗑️ Excluir Selecionados (0)
                             </button>
                         </div>
                     </div>
@@ -377,6 +427,16 @@
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde-cultural">
                             <p class="text-sm text-gray-500 mt-1">Tamanho máximo: 10MB</p>
                         </div>
+                        
+                        <!-- Preview do arquivo atual (para edição) -->
+                        <div id="acervo-file-preview"></div>
+                        
+                        <!-- Botões de controle de edição -->
+                        <div id="acervo-edit-controls" class="hidden flex gap-3">
+                            <button type="button" onclick="cancelEdit('acervo')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium">
+                                Cancelar Edição
+                            </button>
+                        </div>
                         <div id="acervo-progress" class="hidden">
                             <div class="bg-gray-200 rounded-full h-4">
                                 <div id="acervo-progress-bar" class="bg-gradient-to-r from-cinza-verde to-verde-musgo h-4 rounded-full transition-all" style="width: 0%"></div>
@@ -433,6 +493,23 @@
                         </button>
                     </div>
                     
+                    <!-- Ações em Lote - Acervo -->
+                    <div id="acervo-bulk-actions" class="hidden mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <button onclick="selectAllAcervo()" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium">
+                                    ✅ Selecionar Todos
+                                </button>
+                                <button onclick="clearAcervoSelection()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm font-medium">
+                                    ❌ Limpar Seleção
+                                </button>
+                            </div>
+                            <button id="delete-selected-acervo" onclick="deleteSelectedAcervo()" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium">
+                                🗑️ Excluir Selecionados (0)
+                            </button>
+                        </div>
+                    </div>
+                    
                     <div id="acervo-list" class="space-y-4">
                         <p class="text-gray-500">Carregando...</p>
                     </div>
@@ -448,7 +525,7 @@
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
         import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
 
         // ⚠️ IMPORTANTE: Configure firebase-config.js com suas credenciais
@@ -473,6 +550,8 @@
             doc,
             query,
             orderBy,
+            getDoc,
+            updateDoc,
             ref, 
             uploadBytesResumable, 
             getDownloadURL,
