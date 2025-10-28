@@ -63,9 +63,9 @@ piraquara/
 
 ### Design e UX
 - **Design moderno e responsivo** (mobile-first)
-- **Paleta de cores Cultural & Local** (verdes e tons neutros)
+- **Paleta de cores Cultural e Local** (tons escuros e elegantes)
+- **Tipografia Clarendon Text** (elegante e histórica)
 - **Animações suaves** com hover effects
-- **Tipografia profissional** e legível
 
 ### Paleta de Cores - Cultural & Local
 
@@ -73,11 +73,17 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 
 | Cor | Hex | Uso |
 |----|-----|-----|
-| **Verde Cultural** | `#3B5E3B` | Cores principais, botões, destaques |
-| **Areia Neutra** | `#E3D8C3` | Fundos suaves, elementos neutros |
-| **Verde Musgo** | `#596F52` | Elementos secundários, ícones |
-| **Cinza Verde** | `#4A6B5E` | Textos secundários, bordas |
-| **Preto Suave** | `#1F1F1F` | Textos principais, títulos |
+| **Verde Profundo** | `#1A2E1A` | Cores principais, botões, destaques |
+| **Areia Suave** | `#D4C4A8` | Fundos suaves, elementos neutros |
+| **Verde Musgo Escuro** | `#2D3A2A` | Elementos secundários, ícones |
+| **Cinza Verde Escuro** | `#2A3A2E` | Textos secundários, bordas |
+| **Preto Suave** | `#1A1A1A` | Textos principais, títulos |
+
+### Tipografia
+- **Fonte Principal**: Clarendon Text (Google Fonts)
+- **Estilo**: Serifada elegante e histórica
+- **Pesos**: Regular (400) e Bold (700)
+- **Características**: Legível, sofisticada, adequada para instituições culturais
 
 ### Funcionalidades Técnicas
 - **Lazy loading** de imagens
