@@ -28,11 +28,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'verde-cultural': '#3B5E3B',
-                        'verde-musgo': '#596F52',
-                        'areia': '#E3D8C3',
-                        'cinza-verde': '#4A6B5E',
-                        'preto-suave': '#1F1F1F'
+                        'verde-cultural': '#1A2E1A',
+                        'verde-musgo': '#2D3A2A',
+                        'areia': '#D4C4A8',
+                        'cinza-verde': '#2A3A2E',
+                        'preto-suave': '#1A1A1A'
                     }
                 }
             }
@@ -50,15 +50,34 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         .section-divider {
-            background: linear-gradient(90deg, #3B5E3B, #4A6B5E, #596F52, #E3D8C3);
+            background: linear-gradient(90deg, #1A2E1A, #2A3A2E, #2D3A2A, #D4C4A8);
             height: 4px;
         }
         .filter-btn {
             transition: all 0.3s ease;
         }
         .filter-btn.active {
-            background: linear-gradient(135deg, #3B5E3B, #4A6B5E);
+            background: linear-gradient(135deg, #1A2E1A, #2A3A2E);
             color: white;
+        }
+        /* Responsividade do logo */
+        .logo-header {
+            height: 6rem; /* h-24 */
+            width: auto;
+            object-fit: contain;
+        }
+        .logo-footer {
+            height: 5rem; /* h-20*/
+            width: auto;
+            object-fit: contain;
+        }
+        @media (max-width: 640px) {
+            .logo-header {
+                height: 5rem; /* h-20 em mobile */
+            }
+            .logo-footer {
+                height: 4rem; /* h-16 em mobile */
+            }
         }
     </style>
 </head>
@@ -67,11 +86,8 @@
     <header class="bg-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between py-4">
-                <a href="index.html" class="flex items-center space-x-3">
-                    <div>
-                        <h1 class="text-xl font-bold text-gray-800">Casa da Memória</h1>
-                        <p class="text-sm text-verde-cultural">Manoel Alves Pereira</p>
-                    </div>
+                <a href="index.html" class="flex items-center">
+                    <img src="logo/logo.png" alt="Casa da Memória Manoel Alves Pereira" class="logo-header">
                 </a>
                 
                 <nav class="hidden lg:flex space-x-8">
@@ -404,15 +420,12 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
+    <footer class="text-white py-12" style="background-color: #373435;">
         <div class="container mx-auto px-4">
             <div class="grid lg:grid-cols-4 gap-8">
                 <div class="lg:col-span-2">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div>
-                            <h4 class="text-xl font-bold">Casa da Memória</h4>
-                            <p class="text-gray-400 text-sm">Manoel Alves Pereira</p>
-                        </div>
+                    <div class="flex items-center mb-4">
+                        <img src="logo/logo_rodape.png" alt="Casa da Memória Manoel Alves Pereira" class="logo-footer">
                     </div>
                     <p class="text-gray-300 mb-4 max-w-md">
                         Preservando a história e cultura de Piraquara para as futuras gerações desde 2015.
