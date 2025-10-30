@@ -406,13 +406,6 @@ function showAllBoletins() {
     showAllBoletinsGallery();
 }
 
-function showAllBoletinsGallery() {
-    const modal = document.getElementById('boletins-gallery-modal');
-    if (modal) {
-        modal.classList.remove('hidden');
-        renderBoletinsGallery(filteredBoletins);
-    }
-}
 
 function closeBoletinsGalleryModal() {
     const modal = document.getElementById('boletins-gallery-modal');
@@ -463,46 +456,6 @@ function renderBoletinsGallery(boletins) {
     });
 }
 
-function searchBoletinsInGallery() {
-    const searchInput = document.getElementById('boletim-gallery-search');
-    const dateInput = document.getElementById('boletim-gallery-date');
-    
-    if (!searchInput) return;
-    
-    const searchTerm = searchInput.value.toLowerCase().trim();
-    const dateTerm = dateInput ? dateInput.value.toLowerCase().trim() : '';
-    
-    let filtered = allBoletins;
-    
-    // Filtro por texto
-    if (searchTerm) {
-        filtered = filtered.filter(b => 
-            b.titulo.toLowerCase().includes(searchTerm) ||
-            (b.edicao && b.edicao.toLowerCase().includes(searchTerm)) ||
-            (b.descricao && b.descricao.toLowerCase().includes(searchTerm))
-        );
-    }
-    
-    // Filtro por data
-    if (dateTerm) {
-        filtered = filtered.filter(b => 
-            (b.data && b.data.toLowerCase().includes(dateTerm)) ||
-            (b.edicao && b.edicao.toLowerCase().includes(dateTerm))
-        );
-    }
-    
-    renderBoletinsGallery(filtered);
-}
-
-function clearBoletimGallerySearch() {
-    const searchInput = document.getElementById('boletim-gallery-search');
-    const dateInput = document.getElementById('boletim-gallery-date');
-    
-    if (searchInput) searchInput.value = '';
-    if (dateInput) dateInput.value = '';
-    
-    renderBoletinsGallery(allBoletins);
-}
 
 function loadMoreBoletins() {
     displayedBoletinsCount += 3; // Aumentar de 3 em 3
@@ -619,56 +572,6 @@ function updateDownloadArea(boletim) {
 }
 
 
-function searchBoletins() {
-    const searchInput = document.getElementById('boletim-search');
-    const dateInput = document.getElementById('boletim-date-search');
-    
-    if (!searchInput) return;
-    
-    currentBoletimSearch = searchInput.value.toLowerCase().trim();
-    const dateSearch = dateInput ? dateInput.value.toLowerCase().trim() : '';
-    
-    let filtered = allBoletins;
-    
-    // Filtro por texto (título, edição, descrição)
-    if (currentBoletimSearch) {
-        filtered = filtered.filter(b => 
-            b.titulo.toLowerCase().includes(currentBoletimSearch) ||
-            (b.edicao && b.edicao.toLowerCase().includes(currentBoletimSearch)) ||
-            (b.descricao && b.descricao.toLowerCase().includes(currentBoletimSearch))
-        );
-    }
-    
-    // Filtro por data
-    if (dateSearch) {
-        filtered = filtered.filter(b => 
-            (b.data && b.data.toLowerCase().includes(dateSearch)) ||
-            (b.edicao && b.edicao.toLowerCase().includes(dateSearch))
-        );
-    }
-    
-    // Resetar paginação ao buscar
-    displayedBoletinsCount = boletinsPerPage;
-    filteredBoletins = filtered;
-    renderBoletins(filteredBoletins);
-}
-
-function clearBoletimSearch() {
-    const searchInput = document.getElementById('boletim-search');
-    const dateInput = document.getElementById('boletim-date-search');
-    
-    if (searchInput) {
-        searchInput.value = '';
-    }
-    if (dateInput) {
-        dateInput.value = '';
-    }
-    
-    currentBoletimSearch = '';
-    displayedBoletinsCount = boletinsPerPage;
-    filteredBoletins = allBoletins;
-    renderBoletins(filteredBoletins);
-}
 
 
 // ====================================
@@ -1348,10 +1251,4 @@ window.showAllActivitiesGallery = showAllActivitiesGallery;
 window.filterActivitiesInGallery = filterActivitiesInGallery;
 window.closeActivitiesGalleryModal = closeActivitiesGalleryModal;
 window.closeActivityModal = closeActivityModal;
-window.searchBoletins = searchBoletins;
-window.clearBoletimSearch = clearBoletimSearch;
-window.showAllBoletinsGallery = showAllBoletinsGallery;
-window.searchBoletinsInGallery = searchBoletinsInGallery;
-window.clearBoletimGallerySearch = clearBoletimGallerySearch;
-window.closeBoletinsGalleryModal = closeBoletinsGalleryModal;
 

@@ -249,61 +249,7 @@
 
                     <!-- Lista de Atividades -->
                     <div id="activities-container" class="grid lg:grid-cols-2 gap-6">
-                        <!-- Atividade 1 - Exemplo -->
-                        <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" data-type="educativa" data-status="realizadas" onclick="openActivityModal('atividade1')">
-                            <div class="relative h-48 bg-gradient-to-br from-verde-cultural to-cinza-verde flex items-center justify-center">
-                                <div class="absolute top-4 right-4 bg-white text-verde-cultural px-4 py-2 rounded-full text-sm font-bold">
-                                    ENCERRADA
-                                </div>
-                                <div class="text-white text-center">
-                                    <div class="text-5xl mb-2">📚</div>
-                                    <div class="text-xl font-bold">AÇÃO EDUCATIVA</div>
-                                </div>
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center text-gray-600 mb-3">
-                                    <span class="text-verde-musgo mr-2">📅</span>
-                                    <span class="font-semibold">22/09 a 30/09</span>
-                                </div>
-                                <div class="flex items-center text-gray-600 mb-4">
-                                    <span class="text-cinza-verde mr-2">🕐</span>
-                                    <span>09:00 às 17:00</span>
-                                </div>
-                                <h4 class="text-xl font-bold text-gray-800 mb-2">Distribuição de Folder Educativo</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Distribuição de folder com conteúdo informativo sobre justiça climática e racismo ambiental.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Atividade 2 - Exemplo -->
-                        <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" data-type="oficina" data-status="realizadas" onclick="openActivityModal('atividade2')">
-                            <div class="relative h-48 bg-gradient-to-br from-verde-musgo to-areia flex items-center justify-center">
-                                <div class="absolute top-4 right-4 bg-white text-verde-musgo px-4 py-2 rounded-full text-sm font-bold">
-                                    ENCERRADA
-                                </div>
-                                <div class="text-white text-center">
-                                    <div class="text-5xl mb-2">🎨</div>
-                                    <div class="text-xl font-bold">OFICINA</div>
-                                </div>
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center text-gray-600 mb-3">
-                                    <span class="text-verde-musgo mr-2">📅</span>
-                                    <span class="font-semibold">26/09</span>
-                                </div>
-                                <div class="flex items-center text-gray-600 mb-4">
-                                    <span class="text-cinza-verde mr-2">🕐</span>
-                                    <span>08:30 às 11:30</span>
-                                </div>
-                                <h4 class="text-xl font-bold text-gray-800 mb-2">Museu e Mudança Climática</h4>
-                                <p class="text-gray-600 text-sm">
-                                    Oficina sobre a importância dos museus na conscientização sobre mudanças climáticas.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Adicione mais atividades aqui -->
+                        <!-- As atividades serão carregadas dinamicamente do Firebase -->
                     </div>
 
                     <!-- Mensagem quando não há atividades -->
@@ -480,18 +426,9 @@
         });
 
         // ==========================================
-        // FUNÇÕES DE PDF REMOVIDAS
+        // DADOS CARREGADOS DINAMICAMENTE DO FIREBASE
         // ==========================================
-        // As funções de visualização de PDF foram removidas.
-        // Agora o site apenas oferece download direto dos boletins.
-
-        // === FILTROS DE ATIVIDADES ===
-        // Função movida para programacao-firebase.js para evitar duplicação
-
-        // ==========================================
-        // DADOS REMOVIDOS - AGORA CARREGADOS DO FIREBASE
-        // ==========================================
-        // Os dados de atividades e boletins agora são carregados
+        // Os dados de atividades e boletins são carregados
         // dinamicamente do Firebase através do script programacao-firebase.js
         
         // ⚠️ IMPORTANTE: Não adicione dados hardcoded aqui!
