@@ -204,6 +204,11 @@ const firebaseConfig = {
 2. Se tudo estiver correto, você verá a tela de login
 3. Se houver erro, verifique o console do navegador (F12)
 
+### Opcional: Visualizar via hospedagem temporária ao invés de hospedagem local
+- Use Netlify Drop ou Vercel para subir a pasta do projeto rapidamente (upload direto, sem terminal).
+- Após publicar, adicione o domínio gerado (ex.: `seusite.netlify.app`) em Firebase → Authentication → Settings → Authorized domains.
+- Ideal para testes rápidos; detalhes de hospedagem estão no README.
+
 ---
 
 ## 👤 Criando o Primeiro Usuário

@@ -5,7 +5,7 @@ Site institucional da **Casa da Memória Manoel Alves Pereira**, dedicado à pre
 ## Estrutura do Projeto
 
 ```
-piraquara/
+CasaDaMemóriaPiraquara/
 ├── index.html                  # Página principal
 ├── acervo.html                 # Página do acervo (fotografias e documentos)
 ├── programacao.html            # Página de boletins e atividades
@@ -30,7 +30,7 @@ piraquara/
 
 2. **Abra no navegador:**
    - Abra `index.html` em qualquer navegador moderno
-   - Ou use um servidor local:
+   - Ou use um servidor local pelo terminal:
      ```bash
      # Python 3
      python -m http.server 8000
@@ -38,6 +38,7 @@ piraquara/
      # Node.js (npx)
      npx serve
      ```
+   - Ou hospede temporariamente (sem terminal): use Netlify Drop ou Vercel (upload da pasta) e acesse a URL gerada. No Firebase, adicione o domínio em Authentication > Authorized domains.
 
 3. **Navegue pelo site:**
    - **Página Principal** → Informações institucionais
@@ -147,7 +148,7 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 
 ## Deploy e Hospedagem
 
-### Opção 1: Hospedagem Estática + Firebase (Recomendado)
+### Opção 1: Hospedagem Estática + Firebase (Opção Temporária para Testes)
 
 **Frontend (Site Público):**
 - **Vercel**: Arraste a pasta para [vercel.com](https://vercel.com)
@@ -159,7 +160,7 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 - Já configurado se seguiu FIREBASE_SETUP.md
 - Escalabilidade automática
 
-### Opção 2: Hospedagem Governamental
+### Opção 2: Hospedagem Governamental (Opção Recomendada)
 - **Frontend**: Upload para servidor do governo
 - **Domínio**: `.gov.br` (geralmente gratuito)
 - **Firebase**: Continua funcionando via APIs
@@ -167,7 +168,7 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 
 ## Custos e Infraestrutura
 
-### Plano Atual (Gratuito)
+### Plano Temporário (Gratuito)
 - **Frontend**: R$ 0/mês (Vercel/Netlify/GitHub Pages)
 - **Backend (Firebase)**: R$ 0/mês
   - Authentication: Gratuito (usuários ilimitados)
@@ -183,6 +184,7 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 - **Custos**: R$ 450-1200/mês
 - **Desenvolvimento**: Semanas de trabalho
 - **Manutenção**: Equipe técnica dedicada
+- Não recomendada para agora — custo, complexidade e manutenção não se justificam frente ao Firebase (serverless, gratuito e suficiente). Torna-se viável com exigências de compliance específicas, integrações complexas, regras de negócio críticas ou escala que ultrapasse limites do Firebase.
 
 ## Segurança
 - **Autenticação segura** com Firebase
