@@ -166,6 +166,32 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 - **Firebase**: Continua funcionando via APIs
 - **Vantagens**: Controle total, conformidade LGPD, custo zero
 
+### Opção 3: Domínio Próprio
+- **Registro**: Registro.br (~R$ 40/ano para .com.br ou .org.br)
+- **Hospedagem**: Netlify/Vercel (grátis) ou servidor próprio
+- **DNS**: Configure CNAME/A record apontando para o serviço de hospedagem
+- **Vantagens**: Identidade própria, profissionalismo, independência
+
+## Integração com Tainacan
+
+### Quando Considerar
+- Acervo grande/complexo com necessidade de catalogação profissional
+- Requisitos de padrões (Dublin Core, OAI-PMH, IIIF)
+- Busca avançada, taxonomias e filtros facetados
+- Importação/exportação em lote e interoperabilidade com repositórios
+
+### Modelo Híbrido
+- **Tainacan**: Gerenciamento do acervo (fotografias/documentos) via WordPress
+- **Firebase**: Boletins, atividades e autenticação do painel admin
+- **Integração**: API REST do Tainacan consumida pelo front estático
+- **Admin**: Backoffices separados (Firebase para programação, Tainacan para acervo)
+
+### Vantagens
+- Metadados ricos e padronizados
+- Preservação digital e versionamento
+- Workflows editoriais e permissões
+- Comunidade ativa e adequado para instituições públicas
+
 ## Custos e Infraestrutura
 
 ### Plano Temporário (Gratuito)
