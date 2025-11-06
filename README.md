@@ -166,7 +166,7 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 
 ### Opção 2: Hospedagem Governamental (Opção Recomendada)
 - **Frontend**: Upload para servidor do governo
-- **Domínio**: `.gov.br` deve ser requisitado oficialmente via [https://www.gov.br/pt-br/servicos/registrar-endereco-de-sitio-eletronico-gov.br](https://www.gov.br/pt-br/servicos/registrar-endereco-de-sitio-eletronico-gov.br) pela Prefeitura de Piraquara. Enquanto isso, o site pode operar com um domínio temporário (.org, .vercel.app, etc.) e migrar posteriormente
+- **Domínio**: `pr.gov.br` deve ser requisitado oficialmente via pela Prefeitura de Piraquara. Enquanto isso, o site pode operar com um domínio temporário (.org, .vercel.app, etc.) e migrar posteriormente
 - **Firebase**: Continua funcionando via APIs
 - **Vantagens**: Controle total, conformidade LGPD, custo zero
 
