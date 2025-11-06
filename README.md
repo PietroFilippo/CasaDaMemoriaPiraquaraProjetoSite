@@ -172,7 +172,7 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 
 **Situação Específica de Piraquara:**
 
-O município de Piraquara já possui o domínio institucional `piraquara.pr.gov.br`, utilizado pela Prefeitura Municipal. A Casa da Memória Manoel Alves Pereira poderá solicitar um subdomínio oficial (ex.: `casadamemoria.piraquara.pr.gov.br` ou `acervo.piraquara.pr.gov.br`) garantindo conformidade com o padrão adotado pelo Estado do Paraná e pelo TCE-PR.
+O município de Piraquara já possui o domínio institucional `piraquara.pr.gov.br`, utilizado pela Prefeitura Municipal. A Casa da Memória Manoel Alves Pereira poderá solicitar um subdomínio oficial (ex.: `casadamemoria.piraquara.pr.gov.br` ou `acervo.casamanoelalvespereira.pr.gov.br`) garantindo conformidade com o padrão adotado pelo Estado do Paraná e pelo TCE-PR.
 
 ### Opção 3: Domínio Próprio
 - **Registro**: Registro.br (~R$ 40/ano para .com.br ou .org.br)
@@ -188,9 +188,7 @@ O município de Piraquara já possui o domínio institucional `piraquara.pr.gov.
 
 **Subdomínios recomendados para a Casa da Memória:**
 - `casadamemoria.piraquara.pr.gov.br` → site principal
-- `acervo.piraquara.pr.gov.br` → instalação do Tainacan (se adotado no modelo separado)
-
-**Como solicitar:** Contate a equipe de TI ou Comunicação da Prefeitura de Piraquara para requisitar o subdomínio oficial.
+- `acervo.casamanoelalvespereira.pr.gov.br` → instalação do Tainacan (se adotado no modelo separado)
 
 ## Integração com Tainacan
 
@@ -212,7 +210,7 @@ O [Tainacan](https://tainacan.org) é um plugin de código aberto para WordPress
 - **Desvantagem**: Requer desenvolvimento de integração API
 
 ### Modelo Híbrido - Tainacan Separado
-- **Tainacan**: WordPress instalado em subdomínio/subpasta (ex.: `acervo.casadamemoria.gov.br`)
+- **Tainacan**: WordPress instalado em subdomínio/subpasta (ex.: `acervo.casamanoelalvespereira.pr.gov.br`)
 - **Firebase**: Site principal (index.html, programação) permanece estático
 - **Integração**: Link direto no menu "Acervo" aponta para o Tainacan (substitui acervo.html)
 - **Resultado**: Página pública do Tainacan com interface própria (grid/filtros/busca facetada)
@@ -239,7 +237,7 @@ O [Tainacan](https://tainacan.org) é um plugin de código aberto para WordPress
 ### Hospedagem e Compatibilidade
 
 **Hospedagem do Tainacan (Modelo Separado):**  
-Recomenda-se hospedar o Tainacan sob o subdomínio governamental oficial `acervo.piraquara.pr.gov.br` (e não em domínios privados), assegurando autenticidade e preservação institucional do acervo.
+Recomenda-se hospedar o Tainacan sob o subdomínio governamental oficial como `acervo.casamanoelalvespereira.pr.gov.br` (e não em domínios privados), assegurando autenticidade e preservação institucional do acervo.
 
 **Compatibilidade Futura:**  
 Ambos os modelos são compatíveis com o domínio oficial .pr.gov.br e podem ser migrados sem perda de dados quando o subdomínio governamental for obtido.
@@ -262,7 +260,7 @@ Ambos os modelos são compatíveis com o domínio oficial .pr.gov.br e podem ser
 - **Custos**: R$ 450-1200/mês
 - **Desenvolvimento**: Semanas de trabalho
 - **Manutenção**: Equipe técnica dedicada
-- Não recomendada para agora — custo, complexidade e manutenção não se justificam frente ao Firebase (serverless, gratuito e suficiente). Torna-se viável com exigências de compliance específicas, integrações complexas, regras de negócio críticas ou escala que ultrapasse limites do Firebase.
+- Não recomendada para agora — custo, complexidade e manutenção não se justificam frente ao Firebase ou do Tainacan (serverless, gratuito e suficiente). Torna-se viável com exigências de compliance específicas, integrações complexas, regras de negócio críticas ou escala que ultrapasse limites do Firebase.
 
 ## Segurança e Privacidade
 
