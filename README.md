@@ -14,8 +14,12 @@ CasaDaMemóriaPiraquara/
 │   ├── admin.js                # Lógica do painel admin
 │   ├── programacao-firebase.js # Integração programacao.html
 │   ├── acervo-firebase.js      # Integração acervo.html
+│   ├── firebase-config.js      # Credenciais Firebase (não commitar)
+│   └── firebase-config.example.js # Template de configuração
+├── logo/                       # Logotipos da instituição
+├── imagens_index/              # Imagens da página principal
 ├── README.md                   # Este arquivo
-├── FIREBASE_SETUP.md           # Configuração do Firebase
+└── FIREBASE_SETUP.md           # Guia de configuração do Firebase
 ```
 
 ## Início Rápido
@@ -25,7 +29,7 @@ CasaDaMemóriaPiraquara/
 1. **Clone o repositório em um editor de texto:**
    ```bash
    git clone [url-do-repositorio]
-   cd piraquara
+   cd CasaDaMemoriaPiraquara
    ```
 
 2. **Abra no navegador:**
@@ -162,9 +166,13 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 
 ### Opção 2: Hospedagem Governamental (Opção Recomendada)
 - **Frontend**: Upload para servidor do governo
-- **Domínio**: `.gov.br` (geralmente gratuito)
+- **Domínio**: `.gov.br` deve ser requisitado oficialmente via [https://www.gov.br/pt-br/servicos/registrar-endereco-de-sitio-eletronico-gov.br](https://www.gov.br/pt-br/servicos/registrar-endereco-de-sitio-eletronico-gov.br) pela Prefeitura de Piraquara. Enquanto isso, o site pode operar com um domínio temporário (.org, .vercel.app, etc.) e migrar posteriormente
 - **Firebase**: Continua funcionando via APIs
 - **Vantagens**: Controle total, conformidade LGPD, custo zero
+
+**Situação Específica de Piraquara:**
+
+O município de Piraquara já possui o domínio institucional `piraquara.pr.gov.br`, utilizado pela Prefeitura Municipal. A Casa da Memória Manoel Alves Pereira poderá solicitar um subdomínio oficial (ex.: `casadamemoria.piraquara.pr.gov.br` ou `acervo.piraquara.pr.gov.br`) garantindo conformidade com o padrão adotado pelo Estado do Paraná e pelo TCE-PR.
 
 ### Opção 3: Domínio Próprio
 - **Registro**: Registro.br (~R$ 40/ano para .com.br ou .org.br)
@@ -172,7 +180,21 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 - **DNS**: Configure CNAME/A record apontando para o serviço de hospedagem
 - **Vantagens**: Identidade própria, profissionalismo, independência
 
+⚠️ **Para instituições públicas municipais**, o uso de domínios `.pr.gov.br` é o mais adequado e recomendado pelo Tribunal de Contas do Estado do Paraná (TCE-PR). Domínios privados devem ser considerados apenas em caráter temporário.
+
+### Recomendação de Domínio Institucional para Piraquara
+
+**Domínio principal do município:** https://piraquara.pr.gov.br
+
+**Subdomínios recomendados para a Casa da Memória:**
+- `casadamemoria.piraquara.pr.gov.br` → site principal
+- `acervo.piraquara.pr.gov.br` → instalação do Tainacan (se adotado no modelo separado)
+
+**Como solicitar:** Contate a equipe de TI ou Comunicação da Prefeitura de Piraquara para requisitar o subdomínio oficial.
+
 ## Integração com Tainacan
+
+O [Tainacan](https://tainacan.org) é um plugin de código aberto para WordPress utilizado por instituições culturais para gestão e difusão de acervos digitais. Pode complementar o Firebase como backend especializado em acervos.
 
 ### Quando Considerar
 - Acervo grande/complexo com necessidade de catalogação profissional
@@ -180,17 +202,47 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 - Busca avançada, taxonomias e filtros facetados
 - Importação/exportação em lote e interoperabilidade com repositórios
 
-### Modelo Híbrido
-- **Tainacan**: Gerenciamento do acervo (fotografias/documentos) via WordPress
+### Modelo Híbrido - Integração API
+- **Tainacan**: Gerenciamento do acervo via WordPress (backend/admin, sem página pública do Tainacan)
 - **Firebase**: Boletins, atividades e autenticação do painel admin
-- **Integração**: API REST do Tainacan consumida pelo front estático
-- **Admin**: Backoffices separados (Firebase para programação, Tainacan para acervo)
+- **Integração**: API REST do Tainacan consumida pelo front estático (acervo.html permanece, troca acervo-firebase.js por acervo-tainacan.js)
+- **Resultado**: acervo.html continua funcionando igual visualmente, mas dados vêm do Tainacan
+- **Admin**: Backoffices separados (Firebase para programação/boletins, Tainacan WordPress para acervo)
+- **Vantagens**: Mantém layout/navegação atuais de acervo.html
+- **Desvantagem**: Requer desenvolvimento de integração API
+
+### Modelo Híbrido - Tainacan Separado
+- **Tainacan**: WordPress instalado em subdomínio/subpasta (ex.: `acervo.casadamemoria.gov.br`)
+- **Firebase**: Site principal (index.html, programação) permanece estático
+- **Integração**: Link direto no menu "Acervo" aponta para o Tainacan (substitui acervo.html)
+- **Resultado**: Página pública do Tainacan com interface própria (grid/filtros/busca facetada)
+- **Admin**: Mesmo local do Tainacan (painel WordPress, apenas para o acervo)
+- **Vantagens**: Zero código adicional, interface pronta, separação total de responsabilidades
+- **Desvantagem**: Layout diferente de acervo.html (requer customizar tema do Tainacan para manter identidade visual)
+
+### Comparação dos Modelos
+
+| Aspecto | Integração API | Tainacan Separado |
+|---------|---------------|-------------------|
+| **Página pública** | acervo.html (layout atual) | Interface do Tainacan |
+| **Esforço técnico** | Médio (desenvolvimento API) | Baixo (configuração) |
+| **Manutenção** | Front + API | Tema Tainacan |
+| **Identidade visual** | Mantida automaticamente | Requer customização tema |
+| **Admin acervo** | Tainacan WordPress | Tainacan WordPress |
 
 ### Vantagens
 - Metadados ricos e padronizados
 - Preservação digital e versionamento
 - Workflows editoriais e permissões
 - Comunidade ativa e adequado para instituições públicas
+
+### Hospedagem e Compatibilidade
+
+**Hospedagem do Tainacan (Modelo Separado):**  
+Recomenda-se hospedar o Tainacan sob o subdomínio governamental oficial `acervo.piraquara.pr.gov.br` (e não em domínios privados), assegurando autenticidade e preservação institucional do acervo.
+
+**Compatibilidade Futura:**  
+Ambos os modelos são compatíveis com o domínio oficial .pr.gov.br e podem ser migrados sem perda de dados quando o subdomínio governamental for obtido.
 
 ## Custos e Infraestrutura
 
@@ -212,17 +264,101 @@ O site utiliza uma paleta de cores que conecta com a natureza e cultura regional
 - **Manutenção**: Equipe técnica dedicada
 - Não recomendada para agora — custo, complexidade e manutenção não se justificam frente ao Firebase (serverless, gratuito e suficiente). Torna-se viável com exigências de compliance específicas, integrações complexas, regras de negócio críticas ou escala que ultrapasse limites do Firebase.
 
-## Segurança
+## Segurança e Privacidade
+
+### Segurança Técnica
 - **Autenticação segura** com Firebase
 - **Validação de arquivos** (tipo e tamanho)
 - **Regras de segurança** no Firebase
 - **Proteção contra XSS** e injection
 - **HTTPS obrigatório** em produção
 
+### LGPD e Privacidade
+
+**Dados Coletados:**
+- **Autenticação admin**: E-mail e senha dos administradores (Firebase Authentication)
+- **Logs**: Firebase registra IPs de acesso e timestamps de operações (retenção: 180 dias)
+- **Site público**: Não coleta dados pessoais de visitantes (sem cookies de rastreamento ou analytics)
+
+**Tratamento de Dados:**
+- Dados de admin ficam armazenados no Firebase (servidores Google, conformidade GDPR/LGPD)
+- Acesso ao painel admin restrito por autenticação
+- Arquivos do acervo (PDFs, imagens) são públicos por natureza institucional
+
+**Retenção e Exclusão:**
+- Logs automáticos: 180 dias (Firebase)
+- Contas de admin: podem ser removidas a qualquer momento via Firebase Console
+- Acervo: backup e exportação recomendados (ver seção Backup)
+
+**Conformidade:**
+- Não há necessidade de banner de cookies (site não usa cookies de rastreamento)
+- Para conformidade total LGPD, recomenda-se política de privacidade acessível no rodapé
+
+## Backup e Exportação de Dados
+
+### Firebase (Boletins, Atividades, Acervo)
+
+**Exportação via Firebase Console:**
+1. Acesse Firebase Console → Firestore Database
+2. Vá em "Import/Export" → "Export data"
+3. Escolha coleções (`boletins`, `atividades`, `acervo`)
+4. Exporte para Google Cloud Storage (formato JSON)
+5. Baixe os arquivos JSON localmente
+
+**Exportação via Script:**
+```javascript
+// Exemplo de script para exportar coleção
+const admin = require('firebase-admin');
+const fs = require('fs');
+
+const db = admin.firestore();
+const snapshot = await db.collection('boletins').get();
+const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+fs.writeFileSync('boletins-backup.json', JSON.stringify(data, null, 2));
+```
+
+**Arquivos (Storage):**
+1. Firebase Console → Storage
+2. Baixe pastas `boletins/` e `acervo/` manualmente
+3. Ou use Firebase CLI: `firebase storage:get /path/to/folder`
+
+### Tainacan (se adotado)
+
+**Exportação nativa:**
+1. Painel Tainacan → Coleção → Exportar
+2. Formatos: CSV, JSON, XML (metadados + arquivos)
+3. Download automático do pacote ZIP
+
+**Backup WordPress:**
+- Use plugin como UpdraftPlus ou All-in-One WP Migration
+- Backup inclui: banco de dados MySQL + arquivos (tema, uploads)
+
+### Restauração
+
+**Firebase:**
+- Importe JSON via Firestore Console ou script
+- Faça upload de arquivos para Storage manualmente ou via CLI
+
+**Tainacan:**
+- Restaure WordPress (banco + arquivos)
+- Ou reimporte coleções via CSV/JSON no Tainacan
+
+### Frequência Recomendada
+- **Mensal**: backup completo (Firestore + Storage)
+- **Após eventos importantes**: backup incremental
+- **Antes de atualizações**: backup preventivo
+
+## Governança e Sustentabilidade
+
+O projeto segue princípios de software livre, interoperabilidade e sustentabilidade digital, garantindo que a Casa da Memória possa manter seu acervo e conteúdo de forma independente e de longo prazo.
+
 ## Responsividade
+
 O site é totalmente responsivo e testado em:
-- Mobile (320px - 768px)
-- Tablet (768px - 1024px)
-- Desktop (1024px+)
+- **Mobile**: 320px - 768px
+- **Tablet**: 768px - 1024px
+- **Desktop**: 1024px+
 
 ---
+
+**Desenvolvido para a Casa da Memória Manoel Alves Pereira - Piraquara/PR**
